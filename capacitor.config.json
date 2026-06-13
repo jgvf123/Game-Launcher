@@ -1,0 +1,11 @@
+{
+  "appId": "com.neon.snake3d",
+  "appName": "Neon Snake 3D",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

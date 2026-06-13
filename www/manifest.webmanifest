@@ -1,0 +1,16 @@
+{
+  "name": "Neon Snake 3D",
+  "short_name": "Neon Snake",
+  "description": "A polished 3D snake game with 12 levels, hurdles, moving obstacles and power-ups.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#05050f",
+  "theme_color": "#0a0a1f",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

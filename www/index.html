@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a1f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Neon Snake 3D</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+  { "imports": { "three": "./vendor/three.module.js" } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="scene"></canvas>
+
+    <!-- HUD -->
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="hud-pill"><span class="lbl">SCORE</span><span id="hud-score">0</span></div>
+        <div class="hud-pill"><span class="lbl">LEVEL</span><span id="hud-level">1</span></div>
+        <div class="hud-pill"><span class="lbl">BEST</span><span id="hud-best">0</span></div>
+        <button id="btn-pause" class="icon-btn" aria-label="Pause">❚❚</button>
+      </div>
+      <div class="hud-progress">
+        <div class="hud-progress-row">
+          <span id="hud-goal">Collect 5 orbs</span>
+          <span id="hud-lives">♥♥♥</span>
+        </div>
+        <div class="bar"><div id="hud-bar" class="bar-fill"></div></div>
+      </div>
+      <div id="powerups" class="powerups"></div>
+      <div id="toast" class="toast"></div>
+    </div>
+
+    <!-- Touch controls -->
+    <div id="touch" class="touch hidden">
+      <div class="dpad">
+        <button class="dbtn up" data-dir="up">▲</button>
+        <button class="dbtn left" data-dir="left">◀</button>
+        <button class="dbtn right" data-dir="right">▶</button>
+        <button class="dbtn down" data-dir="down">▼</button>
+      </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="menu" class="screen">
+      <div class="title-wrap">
+        <h1 class="game-title">NEON<span>SNAKE</span><em>3D</em></h1>
+        <p class="tagline">Slither. Dodge. Survive. Conquer 12 levels.</p>
+      </div>
+      <div class="menu-buttons">
+        <button id="btn-play" class="btn btn-primary">▶ PLAY</button>
+        <button id="btn-levels" class="btn">LEVEL SELECT</button>
+        <button id="btn-how" class="btn">HOW TO PLAY</button>
+        <button id="btn-settings" class="btn">SETTINGS</button>
+      </div>
+      <div class="footer">Best Score: <b id="menu-best">0</b></div>
+    </div>
+
+    <!-- Level Select -->
+    <div id="levels" class="screen hidden">
+      <h2 class="screen-title">SELECT LEVEL</h2>
+      <div id="level-grid" class="level-grid"></div>
+      <button class="btn back-btn" data-back>‹ BACK</button>
+    </div>
+
+    <!-- How to play -->
+    <div id="how" class="screen hidden">
+      <h2 class="screen-title">HOW TO PLAY</h2>
+      <div class="how-body">
+        <p><b>Goal:</b> Eat glowing orbs to grow and hit the level's target. Beat all 12 levels.</p>
+        <p><b>Controls:</b> Swipe anywhere, use the on-screen pad, or Arrow keys / WASD on desktop.</p>
+        <p><b>Avoid:</b> Walls, hurdles, moving blockers and your own tail.</p>
+        <p class="legend"><span class="chip food">●</span> Orb &nbsp; <span class="chip speed">●</span> Speed &nbsp; <span class="chip slow">●</span> Slow-mo &nbsp; <span class="chip shield">●</span> Shield &nbsp; <span class="chip ghost">●</span> Ghost &nbsp; <span class="chip gem">◆</span> Bonus</p>
+        <p class="tip">Tip: Shield lets you survive one crash. Ghost lets you phase through walls briefly!</p>
+      </div>
+      <button class="btn back-btn" data-back>‹ BACK</button>
+    </div>
+
+    <!-- Settings -->
+    <div id="settings" class="screen hidden">
+      <h2 class="screen-title">SETTINGS</h2>
+      <div class="settings-body">
+        <label class="toggle"><span>Sound Effects</span><input type="checkbox" id="opt-sound" checked></label>
+        <label class="toggle"><span>Music</span><input type="checkbox" id="opt-music" checked></label>
+        <label class="toggle"><span>Screen Shake</span><input type="checkbox" id="opt-shake" checked></label>
+        <label class="toggle"><span>High Graphics</span><input type="checkbox" id="opt-quality" checked></label>
+        <button id="btn-reset" class="btn danger">RESET PROGRESS</button>
+      </div>
+      <button class="btn back-btn" data-back>‹ BACK</button>
+    </div>
+
+    <!-- Pause -->
+    <div id="pause" class="screen overlay hidden">
+      <h2 class="screen-title">PAUSED</h2>
+      <div class="menu-buttons">
+        <button id="btn-resume" class="btn btn-primary">RESUME</button>
+        <button id="btn-restart" class="btn">RESTART LEVEL</button>
+        <button id="btn-quit" class="btn">QUIT TO MENU</button>
+      </div>
+    </div>
+
+    <!-- Level complete -->
+    <div id="win" class="screen overlay hidden">
+      <h2 class="screen-title win">LEVEL CLEARED!</h2>
+      <div class="result-stats">
+        <div><span class="lbl">SCORE</span><b id="win-score">0</b></div>
+        <div><span class="lbl">STARS</span><b id="win-stars">★★★</b></div>
+      </div>
+      <div class="menu-buttons">
+        <button id="btn-next" class="btn btn-primary">NEXT LEVEL ▶</button>
+        <button id="btn-win-menu" class="btn">MENU</button>
+      </div>
+    </div>
+
+    <!-- Game over -->
+    <div id="over" class="screen overlay hidden">
+      <h2 class="screen-title over">GAME OVER</h2>
+      <div class="result-stats">
+        <div><span class="lbl">SCORE</span><b id="over-score">0</b></div>
+        <div><span class="lbl">BEST</span><b id="over-best">0</b></div>
+      </div>
+      <div class="menu-buttons">
+        <button id="btn-retry" class="btn btn-primary">RETRY</button>
+        <button id="btn-over-menu" class="btn">MENU</button>
+      </div>
+    </div>
+
+    <!-- Final victory -->
+    <div id="victory" class="screen overlay hidden">
+      <h2 class="screen-title win">🏆 YOU WIN! 🏆</h2>
+      <p class="tagline">You conquered all 12 levels of Neon Snake 3D!</p>
+      <div class="result-stats"><div><span class="lbl">TOTAL SCORE</span><b id="victory-score">0</b></div></div>
+      <button id="btn-victory-menu" class="btn btn-primary">BACK TO MENU</button>
+    </div>
+
+    <div id="loading" class="screen"><div class="spinner"></div><p>Loading…</p></div>
+  </div>
+
+  <script type="module" src="js/game.js"></script>
+</body>
+</html>

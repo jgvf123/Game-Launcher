@@ -1,0 +1,18 @@
+{
+  "name": "neon-snake-3d",
+  "version": "1.0.0",
+  "description": "Neon Snake 3D - a polished 3D snake game with levels, hurdles and challenges",
+  "private": true,
+  "scripts": {
+    "serve": "python3 -m http.server 8080 --directory www",
+    "vendor": "node scripts/vendor.js"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "three": "^0.160.0"
+  }
+}
