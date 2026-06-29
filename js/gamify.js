@@ -222,6 +222,26 @@ export function setProfile(patch) {
   return getState().profile;
 }
 
+// ---------- Intro ----------
+export function isIntroSeen() { return !!getState().introSeen; }
+export function setIntroSeen() { update((s) => { s.introSeen = true; }); }
+
+// ---------- Per-subject reset ----------
+export function resetSubject(subjectId) {
+  const subject = getSubject(subjectId);
+  if (!subject) return;
+  update((s) => {
+    for (const t of subject.topics) {
+      delete s.completedTopics[topicKey(subjectId, t.id)];
+      delete s.studiedTopics[t.id];
+      delete s.flashcardsDone[t.id];
+      delete s.quizBest[t.id];
+      delete s.notes[t.id];
+      Object.keys(s.bookmarks).forEach((k) => { if (k.startsWith(t.id + '#')) delete s.bookmarks[k]; });
+    }
+  });
+}
+
 // ---------- Progress ----------
 export function subjectProgress(subjectId) {
   const subject = getSubject(subjectId);

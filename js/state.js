@@ -4,7 +4,8 @@ const STORAGE_KEY = 'cglquest.v1';
 
 const DEFAULTS = {
   version: 1,
-  profile: { name: '', avatar: '🎓', target: '', onboarded: false },
+  introSeen: false,
+  profile: { name: '', target: '', onboarded: false },
   xp: 0,
   completedTopics: {}, // "subjectId:topicId" -> true
   studiedTopics: {}, // topicId -> true (lesson padh liya)

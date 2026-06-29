@@ -167,27 +167,32 @@ export function renderPractice(scope) {
     ]));
     root.append(h('button', { class: 'card practice-pick', onClick: () => { location.hash = '#/mock'; } }, [
       h('span', { class: 'action-icon', text: '⏱️' }),
-      h('div', {}, [h('p', { class: 'action-title', text: 'Mock Test (timed)' }), h('p', { class: 'muted small', text: '20 sawaal, timer ke saath — real exam feel' })]),
-      h('span', { class: 'action-arrow', text: '→' }),
-    ]));
-    root.append(h('button', { class: 'card practice-pick', onClick: () => { location.hash = '#/saved'; } }, [
-      h('span', { class: 'action-icon', text: '🔖' }),
-      h('div', {}, [h('p', { class: 'action-title', text: 'Saved questions' }), h('p', { class: 'muted small', text: 'Jo questions aapne bookmark kiye' })]),
+      h('div', {}, [h('p', { class: 'action-title', text: 'Mock Test' }), h('p', { class: 'muted small', text: '20 sawaal · timer' })]),
       h('span', { class: 'action-arrow', text: '→' }),
     ]));
     root.append(h('button', { class: 'card practice-pick', onClick: () => { location.hash = '#/practice/all'; } }, [
       h('span', { class: 'action-icon', text: '🎲' }),
-      h('div', {}, [h('p', { class: 'action-title', text: 'Mixed Quiz' }), h('p', { class: 'muted small', text: 'Saare subjects se 10 random sawaal' })]),
+      h('div', {}, [h('p', { class: 'action-title', text: 'Quick Quiz' }), h('p', { class: 'muted small', text: '10 mixed sawaal' })]),
       h('span', { class: 'action-arrow', text: '→' }),
     ]));
+
+    // Subject-wise practice — collapsible to keep it clean.
+    const det = document.createElement('details');
+    det.className = 'practice-details';
+    const sum = document.createElement('summary');
+    sum.className = 'notes-summary';
+    sum.textContent = 'Subject-wise practice';
+    det.append(sum);
     for (const s of SUBJECTS) {
-      const p = subjectProgress(s.id);
-      root.append(h('button', { class: 'card practice-pick', onClick: () => { location.hash = `#/practice/${s.id}`; } }, [
-        h('span', { class: 'action-icon', text: s.icon }),
-        h('div', {}, [h('p', { class: 'action-title', text: s.name }), h('p', { class: 'muted small', text: '10 random questions · ' + p.pct + '% learned' })]),
+      det.append(h('button', { class: 'row-card', onClick: () => { location.hash = `#/practice/${s.id}`; } }, [
+        h('span', { class: 'row-icon', text: s.icon }),
+        h('span', { class: 'row-name', text: s.name }),
         h('span', { class: 'action-arrow', text: '→' }),
       ]));
     }
+    root.append(h('section', { class: 'section' }, [det]));
+
+    root.append(h('button', { class: 'btn btn-ghost full', text: '🔖 Saved questions', onClick: () => { location.hash = '#/saved'; } }));
     return root;
   }
 

@@ -4,7 +4,7 @@ import { h } from '../ui.js';
 import { getState } from '../state.js';
 import { SUBJECTS } from '../data/syllabus.js';
 import {
-  overallProgress, subjectProgress, ensureDaily, isTopicComplete, getProfile,
+  subjectProgress, ensureDaily, isTopicComplete, getProfile,
 } from '../gamify.js';
 
 function greeting() {
@@ -28,15 +28,12 @@ export function renderHome() {
   const profile = getProfile();
   const st = getState();
   const firstName = (profile.name || '').split(' ')[0] || 'Aspirant';
-  const overall = overallProgress();
   const root = h('div', { class: 'view view-home' });
 
-  // Greeting + avatar
+  // Greeting (minimal, no avatar)
   root.append(h('header', { class: 'home-head' }, [
-    h('div', { class: 'home-greet' }, [
-      h('p', { class: 'eyebrow', text: greeting() + ', ' + firstName }),
-      h('button', { class: 'home-avatar', title: 'Profile', text: profile.avatar || '🎓', onClick: () => { location.hash = '#/stats'; } }),
-    ]),
+    h('p', { class: 'eyebrow', text: greeting() + ', ' + firstName }),
+    st.streak.count ? h('p', { class: 'muted small', text: '🔥 ' + st.streak.count + ' day streak' }) : null,
   ]));
 
   // Continue (hero)
@@ -54,15 +51,6 @@ export function renderHome() {
       h('button', { class: 'btn btn-primary full', text: 'Revision karo', onClick: () => { location.hash = '#/practice'; } }),
     ]));
   }
-
-  // Slim progress
-  root.append(h('section', { class: 'card slim-progress' }, [
-    h('div', { class: 'sp-row' }, [
-      h('span', { class: 'muted small', text: overall.done + ' / ' + overall.total + ' topics' }),
-      h('span', { class: 'streak-mini', html: `🔥 ${st.streak.count}` }),
-    ]),
-    h('div', { class: 'bar' }, [h('div', { class: 'bar-fill', style: { width: overall.pct + '%' } })]),
-  ]));
 
   // Subjects
   const list = h('section', { class: 'subject-list' });

@@ -380,6 +380,31 @@ button.card:active { transform: scale(.99); }
 .row-name { flex: 1; font-weight: 700; }
 .row-pct { color: var(--primary); font-weight: 800; }
 
+/* ===== Intro slides ===== */
+.view-intro { min-height: 82vh; display: flex; flex-direction: column; }
+.intro-skip { align-self: flex-end; background: none; border: none; color: var(--muted); font: inherit; font-weight: 700; padding: 8px 4px; cursor: pointer; }
+.intro-stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; padding: 20px; }
+.intro-icon { font-size: 4rem; }
+.intro-title { font-size: 1.7rem; font-weight: 800; letter-spacing: -.01em; }
+.intro-text { color: var(--muted); max-width: 290px; }
+.intro-foot { display: flex; flex-direction: column; gap: 20px; align-items: center; padding: 10px 0 6px; }
+.intro-dots { display: flex; gap: 8px; }
+.intro-dots .dot { width: 8px; height: 8px; border-radius: 99px; background: var(--border); transition: all .25s ease; }
+.intro-dots .dot.on { background: var(--primary); width: 22px; }
+.intro-foot .btn { width: 100%; }
+
+/* Letter avatar */
+.profile-avatar.letter { background: var(--primary); color: var(--primary-ink); font-weight: 800; font-size: 1.5rem; }
+
+/* Reset rows */
+.reset-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); }
+.reset-row:last-child { border-bottom: none; }
+.btn-mini { font: inherit; font-weight: 700; font-size: .82rem; padding: 6px 14px; border-radius: 99px; border: 1.5px solid var(--border); background: var(--surface); color: var(--bad); cursor: pointer; }
+
+/* Practice subject-wise (collapsible) */
+.practice-details { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.practice-details .row-card { border: none; border-radius: 0; box-shadow: none; border-top: 1px solid var(--border); }
+
 /* Collapsible notes */
 .notes-details { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
 .notes-summary { list-style: none; cursor: pointer; padding: 14px 16px; font-weight: 700; }

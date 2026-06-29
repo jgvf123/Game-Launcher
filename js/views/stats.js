@@ -5,7 +5,7 @@ import { getState, resetState } from '../state.js';
 import { SUBJECTS, getTopic } from '../data/syllabus.js';
 import {
   levelInfo, overallProgress, subjectProgress, earnedBadges,
-  weakTopics, strongTopics, getProfile, setProfile,
+  weakTopics, strongTopics, getProfile, setProfile, resetSubject,
 } from '../gamify.js';
 import { setTheme, rerender } from '../app.js';
 
@@ -30,8 +30,9 @@ export function renderStats() {
 
   // Profile card
   const profile = getProfile();
+  const initial = (profile.name || 'A').trim().charAt(0).toUpperCase();
   root.append(h('section', { class: 'card profile-card' }, [
-    h('div', { class: 'profile-avatar', text: profile.avatar || '🎓' }),
+    h('div', { class: 'profile-avatar letter', text: initial }),
     h('div', { class: 'profile-meta' }, [
       h('p', { class: 'profile-name', text: profile.name || 'Aspirant' }),
       h('p', { class: 'muted small', text: profile.target ? '🎯 ' + profile.target : 'SSC CGL aspirant' }),
@@ -150,21 +151,41 @@ export function renderStats() {
       h('p', { class: 'card-label', text: 'Theme' }),
       themeRow,
     ]),
-    h('button', {
-      class: 'btn btn-ghost full danger',
-      text: 'Reset all progress',
-      onClick: () => {
-        modal({
-          title: 'Pakka reset karein?',
-          body: 'Saari progress, XP aur streak delete ho jayegi. Ye wapas nahi aayega.',
+  ]));
+
+  // Reset — per subject, plus a full reset.
+  const resetCard = h('div', { class: 'card' });
+  resetCard.append(h('p', { class: 'card-label', text: 'Reset progress' }));
+  for (const s of SUBJECTS) {
+    resetCard.append(h('div', { class: 'reset-row' }, [
+      h('span', { text: s.icon + ' ' + s.name }),
+      h('button', {
+        class: 'btn-mini', text: 'Reset',
+        onClick: () => modal({
+          title: s.name + ' reset karein?',
+          body: 'Sirf is subject ki progress hategi.',
           actions: [
             { label: 'Cancel' },
-            { label: 'Reset', primary: true, onClick: () => { resetState(); toast('Progress reset ho gayi.'); location.hash = '#/home'; } },
+            { label: 'Reset', primary: true, onClick: () => { resetSubject(s.id); toast(s.name + ' reset ho gaya.'); rerender(); } },
           ],
-        });
-      },
+        }),
+      }),
+    ]));
+  }
+  root.append(h('section', { class: 'section' }, [resetCard]));
+
+  root.append(h('button', {
+    class: 'btn btn-ghost full danger',
+    text: 'Sab kuch reset karo',
+    onClick: () => modal({
+      title: 'Pakka sab reset karein?',
+      body: 'Saari progress, XP, streak aur naam delete ho jayega.',
+      actions: [
+        { label: 'Cancel' },
+        { label: 'Reset', primary: true, onClick: () => { resetState(); location.hash = '#/home'; rerender(); } },
+      ],
     }),
-  ]));
+  }));
 
   root.append(h('p', { class: 'muted xsmall center footer-note', text: 'CGL Quest · SSC CGL Tier 1 · Offline ready' }));
 

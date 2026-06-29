@@ -2,6 +2,7 @@
 
 import { loadState, getState, update } from './state.js';
 import { ensureDaily } from './gamify.js';
+import { renderIntro } from './views/intro.js';
 import { renderOnboarding } from './views/onboarding.js';
 import { renderHome } from './views/home.js';
 import { renderLearn, renderSubject } from './views/learn.js';
@@ -68,7 +69,16 @@ function route() {
 
   const container = appEl();
 
-  // Onboarding gate — jab tak naam set nahi, sirf welcome screen.
+  // Intro gate — pehli baar 3 calm slides.
+  if (!getState().introSeen) {
+    try { if (container) container.replaceChildren(renderIntro()); }
+    catch (e) { console.error('Intro render error:', e); }
+    setNavHidden(true);
+    if (container) { container.scrollTop = 0; window.scrollTo(0, 0); }
+    return;
+  }
+
+  // Onboarding gate — jab tak naam set nahi, sirf naam screen.
   if (!getState().profile.onboarded) {
     try {
       if (container) container.replaceChildren(renderOnboarding());
