@@ -2,11 +2,13 @@
 
 import { loadState, getState, update } from './state.js';
 import { ensureDaily } from './gamify.js';
+import { renderOnboarding } from './views/onboarding.js';
 import { renderHome } from './views/home.js';
 import { renderLearn, renderSubject } from './views/learn.js';
 import { renderTopic } from './views/topic.js';
+import { renderLesson } from './views/lesson.js';
 import { renderFlashcards } from './views/flashcards.js';
-import { renderQuiz, renderPractice } from './views/quiz.js';
+import { renderQuiz, renderPractice, renderMock, renderSaved } from './views/quiz.js';
 import { renderStats } from './views/stats.js';
 
 const appEl = () => document.getElementById('app');
@@ -57,6 +59,19 @@ function route() {
   // Decorative leftovers (confetti) agli screen pe na le jao — clean feel.
   document.querySelectorAll('.confetti-layer').forEach((n) => n.remove());
 
+  const container = appEl();
+
+  // Onboarding gate — jab tak naam set nahi, sirf welcome screen.
+  if (!getState().profile.onboarded) {
+    try {
+      if (container) container.replaceChildren(renderOnboarding());
+    } catch (e) { console.error('Onboarding render error:', e); }
+    setNavHidden(true);
+    if (container) { container.scrollTop = 0; window.scrollTo(0, 0); }
+    return;
+  }
+  setNavHidden(false);
+
   const parts = parseHash();
   const [section, a, b] = parts;
   let view;
@@ -67,9 +82,12 @@ function route() {
       case 'learn': view = renderLearn(); activeNav = 'learn'; break;
       case 'subject': view = renderSubject(a); activeNav = 'learn'; break;
       case 'topic': view = renderTopic(a, b); activeNav = 'learn'; break;
+      case 'lesson': view = renderLesson(a, b); activeNav = 'learn'; break;
       case 'flashcards': view = renderFlashcards(a, b); activeNav = 'learn'; break;
       case 'quiz': view = renderQuiz(a, b); activeNav = 'learn'; break;
       case 'practice': view = renderPractice(a); activeNav = 'practice'; break;
+      case 'mock': view = renderMock(); activeNav = 'practice'; break;
+      case 'saved': view = renderSaved(); activeNav = 'practice'; break;
       case 'stats': view = renderStats(); activeNav = 'stats'; break;
       case 'home':
       default: view = renderHome(); activeNav = 'home'; break;
@@ -81,7 +99,6 @@ function route() {
     view.innerHTML = '<p class="empty">Kuch gadbad ho gayi. Wapas Home jao.</p>';
   }
 
-  const container = appEl();
   if (container) {
     container.replaceChildren(view);
     container.scrollTop = 0;
@@ -90,15 +107,29 @@ function route() {
   renderNav(activeNav);
 }
 
+// Allow views (e.g. onboarding) to force a re-route.
+export function rerender() { route(); }
+
+function setNavHidden(hidden) {
+  const nav = document.getElementById('nav');
+  if (nav) nav.style.display = hidden ? 'none' : '';
+}
+
 // ---------- Service worker ----------
 function registerSW() {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./service-worker.js').catch((e) => {
-        console.warn('SW registration failed (app still works online):', e);
-      });
+  if (!('serviceWorker' in navigator)) return;
+  // Naya version aane par ek baar auto-reload (purane cache se update mil jaye).
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (reloaded) return;
+    reloaded = true;
+    window.location.reload();
+  });
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch((e) => {
+      console.warn('SW registration failed (app still works online):', e);
     });
-  }
+  });
 }
 
 // ---------- Init ----------

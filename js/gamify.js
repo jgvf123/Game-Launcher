@@ -134,6 +134,94 @@ export function isTopicComplete(subjectId, topicId) {
   return !!getState().completedTopics[topicKey(subjectId, topicId)];
 }
 
+// ---------- Lesson (study) ----------
+export function recordLesson(topicId) {
+  const s = getState();
+  if (s.studiedTopics[topicId]) return { leveledUp: false, xp: 0, already: true };
+  update((st) => { st.studiedTopics[topicId] = true; });
+  const res = addXp(8);
+  return { ...res, xp: 8 };
+}
+
+export function isStudied(topicId) {
+  return !!getState().studiedTopics[topicId];
+}
+
+// ---------- Bookmarks ----------
+function bmKey(topicId, index) {
+  return `${topicId}#${index}`;
+}
+export function isBookmarked(topicId, index) {
+  return !!getState().bookmarks[bmKey(topicId, index)];
+}
+export function toggleBookmark(topicId, index) {
+  const key = bmKey(topicId, index);
+  let now = false;
+  update((s) => {
+    if (s.bookmarks[key]) delete s.bookmarks[key];
+    else { s.bookmarks[key] = true; now = true; }
+  });
+  return now;
+}
+export function bookmarkList() {
+  // returns [{ topicId, index }]
+  return Object.keys(getState().bookmarks)
+    .filter((k) => getState().bookmarks[k])
+    .map((k) => {
+      const [topicId, index] = k.split('#');
+      return { topicId, index: Number(index) };
+    });
+}
+
+// ---------- Notes ----------
+export function getNote(topicId) {
+  return getState().notes[topicId] || '';
+}
+export function setNote(topicId, text) {
+  update((s) => {
+    if (text && text.trim()) s.notes[topicId] = text;
+    else delete s.notes[topicId];
+  });
+}
+
+// ---------- Mock test ----------
+export function addMockResult(correct, total) {
+  const percent = total ? Math.round((correct / total) * 100) : 0;
+  update((s) => {
+    s.mockResults.unshift({ date: todayStr(), correct, total, percent });
+    if (s.mockResults.length > 20) s.mockResults.length = 20;
+  });
+  return addXp(correct * 2);
+}
+
+// ---------- Weak / strong areas ----------
+// Sirf un topics par jinka quiz diya gaya. Returns sorted weakest-first.
+export function attemptedTopics() {
+  const s = getState();
+  return Object.keys(s.quizBest).map((id) => ({ id, best: s.quizBest[id] }));
+}
+export function weakTopics(limit = 5) {
+  return attemptedTopics()
+    .filter((t) => t.best < 70)
+    .sort((a, b) => a.best - b.best)
+    .slice(0, limit);
+}
+export function strongTopics(limit = 5) {
+  return attemptedTopics()
+    .filter((t) => t.best >= 70)
+    .sort((a, b) => b.best - a.best)
+    .slice(0, limit);
+}
+
+// ---------- Profile ----------
+export function getProfile() {
+  return getState().profile;
+}
+export function setProfile(patch) {
+  update((s) => { Object.assign(s.profile, patch); });
+  return getState().profile;
+}
+
 // ---------- Progress ----------
 export function subjectProgress(subjectId) {
   const subject = getSubject(subjectId);

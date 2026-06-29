@@ -1,11 +1,26 @@
-// Topic detail: short intro + "kya seekhna hai" + flashcards/quiz entry + mark done.
+// Topic detail: clear 3-step flow (Padho → Yaad karo → Test do) + notes + mark done.
 
 import { h, toast, celebrate } from '../ui.js';
 import { getSubject, getTopic } from '../data/syllabus.js';
+import { getLesson } from '../data/lessons.js';
 import { getFlashcards } from '../data/flashcards.js';
 import { getQuiz } from '../data/quizzes.js';
 import { getState } from '../state.js';
-import { completeTopic, isTopicComplete, checkBadges } from '../gamify.js';
+import {
+  completeTopic, isTopicComplete, isStudied, checkBadges, getNote, setNote,
+} from '../gamify.js';
+
+function stepCard({ num, icon, title, sub, done, onClick }) {
+  return h('button', { class: 'card step-card' + (done ? ' step-done' : ''), onClick }, [
+    h('span', { class: 'step-num', text: done ? '✓' : String(num) }),
+    h('span', { class: 'step-icon', text: icon }),
+    h('div', { class: 'step-body' }, [
+      h('p', { class: 'step-title', text: title }),
+      h('p', { class: 'muted small', text: sub }),
+    ]),
+    h('span', { class: 'action-arrow', text: '→' }),
+  ]);
+}
 
 export function renderTopic(subjectId, topicId) {
   const subject = getSubject(subjectId);
@@ -16,55 +31,63 @@ export function renderTopic(subjectId, topicId) {
     return root;
   }
 
+  const st = getState();
   const fc = getFlashcards(topicId);
   const qz = getQuiz(topicId);
+  const hasLesson = getLesson(topicId).length > 0 || (topic.learn && topic.learn.length);
   const done = isTopicComplete(subjectId, topicId);
-  const best = getState().quizBest[topicId];
+  const best = st.quizBest[topicId];
 
   root.append(h('header', { class: 'page-head' }, [
     h('button', { class: 'back-link', text: '← ' + subject.name, onClick: () => { location.hash = `#/subject/${subjectId}`; } }),
     h('h1', { class: 'page-title', text: topic.name }),
     h('p', { class: 'muted', text: topic.blurb }),
-    done ? h('span', { class: 'tag tag-done', text: '✓ Completed' }) : null,
+    done ? h('span', { class: 'tag tag-done', text: '✓ Topic complete' }) : null,
   ]));
 
-  // Kya seekhna hai
-  if (topic.learn && topic.learn.length) {
-    root.append(h('section', { class: 'card' }, [
-      h('p', { class: 'card-label', text: '📌 Kya cover karna hai' }),
-      h('ul', { class: 'learn-list' }, topic.learn.map((pt) => h('li', { text: pt }))),
-    ]));
+  // 3 steps
+  const steps = h('section', { class: 'section' }, [h('p', { class: 'section-title', text: 'Steps follow karo' })]);
+  let n = 1;
+  if (hasLesson) {
+    steps.append(stepCard({
+      num: n++, icon: '📖', title: 'Padho (samjho)', sub: 'Concept simple bhasha me',
+      done: isStudied(topicId),
+      onClick: () => { location.hash = `#/lesson/${subjectId}/${topicId}`; },
+    }));
   }
-
-  // Activities
-  const acts = h('section', { class: 'section' }, [h('p', { class: 'section-title', text: 'Practice & Revise' })]);
-
   if (fc.length) {
-    acts.append(h('button', { class: 'card action-card', onClick: () => { location.hash = `#/flashcards/${subjectId}/${topicId}`; } }, [
-      h('span', { class: 'action-icon', text: '🃏' }),
-      h('div', {}, [
-        h('p', { class: 'action-title', text: 'Flashcards' }),
-        h('p', { class: 'muted small', text: fc.length + ' quick revision cards' }),
-      ]),
-      h('span', { class: 'action-arrow', text: '→' }),
-    ]));
+    steps.append(stepCard({
+      num: n++, icon: '🃏', title: 'Yaad karo', sub: fc.length + ' flashcards',
+      done: !!st.flashcardsDone[topicId],
+      onClick: () => { location.hash = `#/flashcards/${subjectId}/${topicId}`; },
+    }));
   }
-
   if (qz.length) {
-    acts.append(h('button', { class: 'card action-card', onClick: () => { location.hash = `#/quiz/${subjectId}/${topicId}`; } }, [
-      h('span', { class: 'action-icon', text: '❓' }),
-      h('div', {}, [
-        h('p', { class: 'action-title', text: 'Practice Quiz' }),
-        h('p', { class: 'muted small', text: qz.length + ' questions' + (best != null ? '  ·  Best: ' + best + '%' : '') }),
-      ]),
-      h('span', { class: 'action-arrow', text: '→' }),
-    ]));
+    steps.append(stepCard({
+      num: n++, icon: '❓', title: 'Test do', sub: qz.length + ' questions' + (best != null ? '  ·  Best ' + best + '%' : ''),
+      done: best != null && best >= 60,
+      onClick: () => { location.hash = `#/quiz/${subjectId}/${topicId}`; },
+    }));
   }
+  if (!hasLesson && !fc.length && !qz.length) {
+    steps.append(h('p', { class: 'muted small', text: 'Is topic ka content jald aa raha hai.' }));
+  }
+  root.append(steps);
 
-  if (!fc.length && !qz.length) {
-    acts.append(h('p', { class: 'muted small', text: 'Is topic ke liye practice content jald aa raha hai.' }));
-  }
-  root.append(acts);
+  // Notes
+  const noteArea = h('textarea', {
+    class: 'note-area', placeholder: 'Yahan apne chhote notes likho… (auto-save)', rows: '3',
+  });
+  noteArea.value = getNote(topicId);
+  let noteTimer = null;
+  noteArea.addEventListener('input', () => {
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(() => { setNote(topicId, noteArea.value); }, 500);
+  });
+  root.append(h('section', { class: 'section' }, [
+    h('p', { class: 'section-title', text: '📝 Mere notes' }),
+    h('div', { class: 'card' }, [noteArea]),
+  ]));
 
   // Mark done
   if (!done) {
@@ -74,17 +97,14 @@ export function renderTopic(subjectId, topicId) {
       onClick: () => {
         const res = completeTopic(subjectId, topicId);
         const newBadges = checkBadges();
-        if (res.leveledUp) {
-          celebrate({ icon: '⬆️', title: 'Level ' + res.level + '!', message: 'Tumne level up kiya — keep going!' });
-        } else {
-          toast('+' + res.xp + ' XP · Topic done 🎉', 'good');
-        }
+        if (res.leveledUp) celebrate({ icon: '⬆️', title: 'Level ' + res.level + '!', message: 'Tumne level up kiya — keep going!' });
+        else toast('+' + res.xp + ' XP · Topic done 🎉', 'good');
         newBadges.forEach((b) => setTimeout(() => celebrate({ icon: b.icon, title: 'Badge unlocked!', message: b.name }), 400));
         location.hash = `#/subject/${subjectId}`;
       },
     }));
   } else {
-    root.append(h('p', { class: 'muted small center', text: 'Ye topic complete hai — phir se revise kar sakte ho. 👍' }));
+    root.append(h('p', { class: 'muted small center', text: 'Ye topic complete hai — jab chaho revise kar sakte ho. 👍' }));
   }
 
   return root;

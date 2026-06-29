@@ -2,9 +2,21 @@
 
 import { h, toast, modal } from '../ui.js';
 import { getState, resetState } from '../state.js';
-import { SUBJECTS } from '../data/syllabus.js';
-import { levelInfo, overallProgress, subjectProgress, earnedBadges } from '../gamify.js';
-import { setTheme } from '../app.js';
+import { SUBJECTS, getTopic } from '../data/syllabus.js';
+import {
+  levelInfo, overallProgress, subjectProgress, earnedBadges,
+  weakTopics, strongTopics, getProfile, setProfile,
+} from '../gamify.js';
+import { setTheme, rerender } from '../app.js';
+
+// topic id -> readable name (kisi bhi subject me ho).
+function topicName(topicId) {
+  for (const s of SUBJECTS) {
+    const t = s.topics.find((x) => x.id === topicId);
+    if (t) return s.icon + ' ' + t.name;
+  }
+  return topicId;
+}
 
 export function renderStats() {
   const st = getState();
@@ -13,8 +25,31 @@ export function renderStats() {
   const root = h('div', { class: 'view' });
 
   root.append(h('header', { class: 'page-head' }, [
-    h('h1', { class: 'page-title', text: 'Stats' }),
-    h('p', { class: 'muted', text: 'Apni progress aur achievements yahan dekho.' }),
+    h('h1', { class: 'page-title', text: 'Profile & Stats' }),
+  ]));
+
+  // Profile card
+  const profile = getProfile();
+  root.append(h('section', { class: 'card profile-card' }, [
+    h('div', { class: 'profile-avatar', text: profile.avatar || '🎓' }),
+    h('div', { class: 'profile-meta' }, [
+      h('p', { class: 'profile-name', text: profile.name || 'Aspirant' }),
+      h('p', { class: 'muted small', text: profile.target ? '🎯 ' + profile.target : 'SSC CGL aspirant' }),
+    ]),
+    h('button', {
+      class: 'btn btn-ghost edit-btn', text: '✎ Edit',
+      onClick: () => {
+        const input = h('input', { class: 'text-input', type: 'text', value: profile.name || '', maxlength: '20' });
+        modal({
+          title: 'Naam badlo',
+          body: input,
+          actions: [
+            { label: 'Cancel' },
+            { label: 'Save', primary: true, onClick: () => { setProfile({ name: input.value.trim() || profile.name }); toast('Naam update ho gaya 👍', 'good'); rerender(); } },
+          ],
+        });
+      },
+    }),
   ]));
 
   // Top numbers
@@ -38,6 +73,46 @@ export function renderStats() {
     ]));
   }
   root.append(subSec);
+
+  // Weak / strong areas (quiz diye gaye topics par)
+  const weak = weakTopics(5);
+  const strong = strongTopics(3);
+  if (weak.length || strong.length) {
+    const waSec = h('section', { class: 'section' }, [h('p', { class: 'section-title', text: '🎯 Kahan dhyan dein' })]);
+    if (weak.length) {
+      waSec.append(h('div', { class: 'card' }, [
+        h('p', { class: 'card-label', text: '💪 Practice chahiye (weak)' }),
+        ...weak.map((t) => h('div', { class: 'wa-row' }, [
+          h('span', { text: topicName(t.id) }),
+          h('span', { class: 'wa-score low', text: t.best + '%' }),
+        ])),
+      ]));
+    }
+    if (strong.length) {
+      waSec.append(h('div', { class: 'card' }, [
+        h('p', { class: 'card-label', text: '🌟 Strong areas' }),
+        ...strong.map((t) => h('div', { class: 'wa-row' }, [
+          h('span', { text: topicName(t.id) }),
+          h('span', { class: 'wa-score high', text: t.best + '%' }),
+        ])),
+      ]));
+    }
+    root.append(waSec);
+  }
+
+  // Recent mock tests
+  if (st.mockResults && st.mockResults.length) {
+    const mSec = h('section', { class: 'section' }, [h('p', { class: 'section-title', text: '⏱️ Recent mock tests' })]);
+    const card = h('div', { class: 'card' });
+    st.mockResults.slice(0, 5).forEach((m) => {
+      card.append(h('div', { class: 'wa-row' }, [
+        h('span', { class: 'muted small', text: m.date }),
+        h('span', { class: 'wa-score ' + (m.percent >= 50 ? 'high' : 'low'), text: m.correct + '/' + m.total + ' · ' + m.percent + '%' }),
+      ]));
+    });
+    mSec.append(card);
+    root.append(mSec);
+  }
 
   // Badges
   const badges = earnedBadges();

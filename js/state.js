@@ -4,10 +4,15 @@ const STORAGE_KEY = 'cglquest.v1';
 
 const DEFAULTS = {
   version: 1,
+  profile: { name: '', avatar: '🎓', target: '', onboarded: false },
   xp: 0,
   completedTopics: {}, // "subjectId:topicId" -> true
+  studiedTopics: {}, // topicId -> true (lesson padh liya)
   flashcardsDone: {}, // topicId -> true
   quizBest: {}, // topicId -> best score percent (0-100)
+  bookmarks: {}, // "topicId#index" -> true (saved questions)
+  notes: {}, // topicId -> string
+  mockResults: [], // [{ date, correct, total, percent }]
   streak: { count: 0, lastActive: null }, // lastActive = 'YYYY-MM-DD'
   daily: { date: null, xpEarned: 0, goal: 30 },
   badges: {}, // badgeId -> true

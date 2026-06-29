@@ -7,14 +7,17 @@ aur **no-crash** focus ke saath banaya gaya.
 
 ## ✨ Features
 
-- **Syllabus journey map** — 4 subjects (Reasoning, General Awareness,
-  Quantitative Aptitude, English), har topic ka roadmap aur progress.
-- **Flashcards** — har topic ke quick-revision cards (formulas, rules, GK facts).
-- **Practice quizzes** — instant feedback + explanation wale MCQs (topic-wise ya
-  mixed practice).
+- **Personal profile** — pehli baar naam + avatar lo; app naam se greet karta hai
+  (sab kuch local, koi account/server nahi).
+- **Padho → Yaad karo → Test do** — har topic me pehle **lesson (study material)**
+  simple Hinglish me, fir flashcards, fir quiz. Clear 3-step flow.
+- **Samjhao 💡** — har quiz question pe ek button: question + mushkil words ka
+  matlab simple Hindi me (bina answer bataye).
+- **Practice & Mock Test** — topic/mixed practice aur **timed mock test** (exam feel).
+- **Bookmarks & Notes** — tough questions save karo, har topic pe apne notes likho.
+- **Weak-area report** — Stats me dikhta hai kis topic me practice chahiye.
 - **Gamification** — XP, levels, badges, daily goal ring aur 🔥 streak.
-- **Soothing UI** — soft palette, light/dark mode, large tap targets, ek screen
-  pe ek primary action.
+- **Soothing UI** — soft palette, light/dark mode, large tap targets, uncluttered.
 - **PWA** — phone me "Add to Home Screen", offline bhi chalti hai.
 
 ## 📱 Kaise chalayein (locally)

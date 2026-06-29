@@ -4,7 +4,7 @@ import { h, progressRing } from '../ui.js';
 import { getState } from '../state.js';
 import { SUBJECTS } from '../data/syllabus.js';
 import {
-  levelInfo, overallProgress, subjectProgress, ensureDaily, isTopicComplete,
+  levelInfo, overallProgress, subjectProgress, ensureDaily, isTopicComplete, getProfile,
 } from '../gamify.js';
 
 function greeting() {
@@ -33,13 +33,18 @@ export function renderHome() {
 
   const root = h('div', { class: 'view view-home' });
 
-  // Header
+  // Header — personalized
+  const profile = getProfile();
+  const firstName = (profile.name || '').split(' ')[0] || 'Aspirant';
   root.append(
     h('header', { class: 'home-head' }, [
-      h('div', {}, [
-        h('p', { class: 'eyebrow', text: greeting() + ' 👋' }),
-        h('h1', { class: 'home-title', text: 'CGL Quest' }),
-        h('p', { class: 'muted', text: 'Roz thoda — fun way me poora syllabus.' }),
+      h('div', { class: 'home-greet' }, [
+        h('div', {}, [
+          h('p', { class: 'eyebrow', text: greeting() + ', ' + firstName + ' 👋' }),
+          h('h1', { class: 'home-title', text: 'CGL Quest' }),
+          h('p', { class: 'muted', text: profile.target ? '🎯 ' + profile.target : 'Roz thoda — fun way me poora syllabus.' }),
+        ]),
+        h('button', { class: 'home-avatar', title: 'Profile', text: profile.avatar || '🎓', onClick: () => { location.hash = '#/stats'; } }),
       ]),
     ]),
   );
