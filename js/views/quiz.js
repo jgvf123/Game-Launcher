@@ -164,7 +164,6 @@ export function renderPractice(scope) {
   if (!scope) {
     root.append(h('header', { class: 'page-head' }, [
       h('h1', { class: 'page-title', text: 'Practice' }),
-      h('p', { class: 'muted', text: 'Random questions se apni speed test karo.' }),
     ]));
     root.append(h('button', { class: 'card practice-pick', onClick: () => { location.hash = '#/mock'; } }, [
       h('span', { class: 'action-icon', text: '⏱️' }),

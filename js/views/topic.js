@@ -41,12 +41,11 @@ export function renderTopic(subjectId, topicId) {
   root.append(h('header', { class: 'page-head' }, [
     h('button', { class: 'back-link', text: '← ' + subject.name, onClick: () => { location.hash = `#/subject/${subjectId}`; } }),
     h('h1', { class: 'page-title', text: topic.name }),
-    h('p', { class: 'muted', text: topic.blurb }),
-    done ? h('span', { class: 'tag tag-done', text: '✓ Topic complete' }) : null,
+    done ? h('span', { class: 'tag tag-done', text: '✓ Complete' }) : null,
   ]));
 
   // 3 steps
-  const steps = h('section', { class: 'section' }, [h('p', { class: 'section-title', text: 'Steps follow karo' })]);
+  const steps = h('section', { class: 'section' });
   let n = 1;
   if (hasLesson) {
     steps.append(stepCard({
@@ -84,10 +83,14 @@ export function renderTopic(subjectId, topicId) {
     clearTimeout(noteTimer);
     noteTimer = setTimeout(() => { setNote(topicId, noteArea.value); }, 500);
   });
-  root.append(h('section', { class: 'section' }, [
-    h('p', { class: 'section-title', text: '📝 Mere notes' }),
-    h('div', { class: 'card' }, [noteArea]),
-  ]));
+  const notes = document.createElement('details');
+  notes.className = 'notes-details';
+  if (getNote(topicId)) notes.open = true;
+  const summary = document.createElement('summary');
+  summary.className = 'notes-summary';
+  summary.textContent = '📝 Notes';
+  notes.append(summary, noteArea);
+  root.append(h('section', { class: 'section' }, [notes]));
 
   // Mark done
   if (!done) {

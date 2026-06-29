@@ -1,5 +1,5 @@
 // CGL Quest service worker — offline-first (cache-first). Version bump on every release.
-const CACHE = 'cglquest-v2';
+const CACHE = 'cglquest-v3';
 const ASSETS = [
   './',
   './index.html',

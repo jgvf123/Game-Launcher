@@ -15,8 +15,8 @@ export function renderOnboarding() {
   root.append(
     h('div', { class: 'onboard-hero' }, [
       h('div', { class: 'onboard-logo', text: '🎯' }),
-      h('h1', { class: 'onboard-title', text: 'CGL Quest me aapka swagat hai!' }),
-      h('p', { class: 'muted onboard-sub', text: 'Chaliye shuru karte hain — pehle thoda apne baare me batao.' }),
+      h('h1', { class: 'onboard-title', text: 'Welcome to CGL Quest' }),
+      h('p', { class: 'muted onboard-sub', text: 'Apni taiyari shuru karein.' }),
     ]),
   );
 

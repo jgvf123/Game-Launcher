@@ -35,11 +35,18 @@ function parseHash() {
   return raw.split('/').filter(Boolean); // e.g. ['topic','quant','algebra']
 }
 
+const SVG = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+const ICONS = {
+  home: `<svg ${SVG}><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>`,
+  learn: `<svg ${SVG}><path d="M12 6c-2-1.4-5-1.4-7 0v12c2-1.4 5-1.4 7 0 2-1.4 5-1.4 7 0V6c-2-1.4-5-1.4-7 0z"/><path d="M12 6v12"/></svg>`,
+  practice: `<svg ${SVG}><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></svg>`,
+  stats: `<svg ${SVG}><path d="M5 20v-7"/><path d="M12 20V5"/><path d="M19 20v-10"/></svg>`,
+};
 const NAV = [
-  { id: 'home', label: 'Home', icon: '🏠', hash: '#/home' },
-  { id: 'learn', label: 'Learn', icon: '📚', hash: '#/learn' },
-  { id: 'practice', label: 'Practice', icon: '🎯', hash: '#/practice' },
-  { id: 'stats', label: 'Stats', icon: '📊', hash: '#/stats' },
+  { id: 'home', label: 'Home', hash: '#/home' },
+  { id: 'learn', label: 'Learn', hash: '#/learn' },
+  { id: 'practice', label: 'Practice', hash: '#/practice' },
+  { id: 'stats', label: 'Stats', hash: '#/stats' },
 ];
 
 function renderNav(activeId) {
@@ -49,7 +56,7 @@ function renderNav(activeId) {
   for (const item of NAV) {
     const btn = document.createElement('button');
     btn.className = 'nav-btn' + (item.id === activeId ? ' active' : '');
-    btn.innerHTML = `<span class="nav-icon">${item.icon}</span><span class="nav-label">${item.label}</span>`;
+    btn.innerHTML = `<span class="nav-icon">${ICONS[item.id]}</span><span class="nav-label">${item.label}</span>`;
     btn.addEventListener('click', () => { location.hash = item.hash; });
     nav.append(btn);
   }

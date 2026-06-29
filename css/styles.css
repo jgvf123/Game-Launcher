@@ -281,10 +281,10 @@ button.card:active { transform: scale(.99); }
   display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px; font: inherit;
   border-radius: 12px;
 }
-.nav-icon { font-size: 1.3rem; line-height: 1; }
+.nav-icon { line-height: 0; }
+.nav-icon svg { width: 23px; height: 23px; display: block; }
 .nav-label { font-size: .72rem; font-weight: 700; }
 .nav-btn.active { color: var(--primary); }
-.nav-btn.active .nav-icon { transform: translateY(-1px) scale(1.08); }
 
 /* ===== Toast ===== */
 .toast {
@@ -348,12 +348,44 @@ button.card:active { transform: scale(.99); }
 .onboard-go { margin-top: 6px; }
 
 /* ===== Home personalization ===== */
-.home-greet { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.home-head { margin-bottom: 16px; }
+.home-greet { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.home-greet .eyebrow { font-size: 1.25rem; font-weight: 800; color: var(--text); margin: 0; }
 .home-avatar {
-  flex: none; width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid var(--border);
-  background: var(--surface); font-size: 1.6rem; cursor: pointer; display: grid; place-items: center;
+  flex: none; width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--border);
+  background: var(--surface); font-size: 1.5rem; cursor: pointer; display: grid; place-items: center;
   box-shadow: var(--shadow);
 }
+
+/* Hero "continue" card */
+.hero-card { padding: 22px 20px; }
+.hero-label { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.hero-topic { font-size: 1.5rem; font-weight: 800; margin: 6px 0 2px; letter-spacing: -.01em; }
+.hero-sub { color: var(--muted); margin-bottom: 16px; }
+
+/* Slim progress strip */
+.slim-progress { padding: 14px 16px; }
+.sp-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.streak-mini { font-weight: 800; font-size: .9rem; }
+
+/* Subject rows */
+.subject-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.row-card {
+  display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 14px 16px; cursor: pointer; font: inherit; color: inherit; box-shadow: var(--shadow);
+}
+.row-card:active { transform: scale(.99); }
+.row-icon { font-size: 1.4rem; flex: none; }
+.row-name { flex: 1; font-weight: 700; }
+.row-pct { color: var(--primary); font-weight: 800; }
+
+/* Collapsible notes */
+.notes-details { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.notes-summary { list-style: none; cursor: pointer; padding: 14px 16px; font-weight: 700; }
+.notes-summary::-webkit-details-marker { display: none; }
+.notes-details[open] .notes-summary { border-bottom: 1px solid var(--border); }
+.notes-details .note-area { border: none; border-radius: 0; background: var(--surface); }
 
 /* ===== Topic steps ===== */
 .step-card { align-items: center; gap: 12px; }

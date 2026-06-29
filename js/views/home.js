@@ -1,10 +1,10 @@
-// Home dashboard: greeting, daily-goal ring, streak, level, overall progress, "aaj kya karein".
+// Home — minimal & learning-focused: greeting, one "continue" card, slim progress, subjects.
 
-import { h, progressRing } from '../ui.js';
+import { h } from '../ui.js';
 import { getState } from '../state.js';
 import { SUBJECTS } from '../data/syllabus.js';
 import {
-  levelInfo, overallProgress, subjectProgress, ensureDaily, isTopicComplete, getProfile,
+  overallProgress, subjectProgress, ensureDaily, isTopicComplete, getProfile,
 } from '../gamify.js';
 
 function greeting() {
@@ -25,110 +25,56 @@ function nextTopic() {
 
 export function renderHome() {
   ensureDaily();
+  const profile = getProfile();
   const st = getState();
-  const lvl = levelInfo(st.xp);
+  const firstName = (profile.name || '').split(' ')[0] || 'Aspirant';
   const overall = overallProgress();
-  const dailyPct = st.daily.goal ? Math.round((st.daily.xpEarned / st.daily.goal) * 100) : 0;
-  const goalDone = st.daily.xpEarned >= st.daily.goal;
-
   const root = h('div', { class: 'view view-home' });
 
-  // Header — personalized
-  const profile = getProfile();
-  const firstName = (profile.name || '').split(' ')[0] || 'Aspirant';
-  root.append(
-    h('header', { class: 'home-head' }, [
-      h('div', { class: 'home-greet' }, [
-        h('div', {}, [
-          h('p', { class: 'eyebrow', text: greeting() + ', ' + firstName + ' 👋' }),
-          h('h1', { class: 'home-title', text: 'CGL Quest' }),
-          h('p', { class: 'muted', text: profile.target ? '🎯 ' + profile.target : 'Roz thoda — fun way me poora syllabus.' }),
-        ]),
-        h('button', { class: 'home-avatar', title: 'Profile', text: profile.avatar || '🎓', onClick: () => { location.hash = '#/stats'; } }),
-      ]),
+  // Greeting + avatar
+  root.append(h('header', { class: 'home-head' }, [
+    h('div', { class: 'home-greet' }, [
+      h('p', { class: 'eyebrow', text: greeting() + ', ' + firstName }),
+      h('button', { class: 'home-avatar', title: 'Profile', text: profile.avatar || '🎓', onClick: () => { location.hash = '#/stats'; } }),
     ]),
-  );
+  ]));
 
-  // Daily goal + streak card
-  const dailyCard = h('section', { class: 'card daily-card' }, [
-    progressRing(dailyPct, 104, 10, h('div', { class: 'ring-center' }, [
-      h('strong', { text: st.daily.xpEarned }),
-      h('span', { class: 'ring-sub', text: '/ ' + st.daily.goal + ' XP' }),
-    ])),
-    h('div', { class: 'daily-meta' }, [
-      h('p', { class: 'card-label', text: 'Aaj ka goal' }),
-      h('p', {
-        class: 'daily-status',
-        text: goalDone ? '🎉 Goal poora! Shabaash.' : 'Bas ' + Math.max(0, st.daily.goal - st.daily.xpEarned) + ' XP aur.',
-      }),
-      h('div', { class: 'streak-pill', html: `🔥 <strong>${st.streak.count}</strong> day streak` }),
-    ]),
-  ]);
-  root.append(dailyCard);
-
-  // Level + overall progress
-  root.append(
-    h('section', { class: 'card level-card' }, [
-      h('div', { class: 'level-row' }, [
-        h('div', { class: 'level-badge', text: 'Lv ' + lvl.level }),
-        h('div', { class: 'level-info' }, [
-          h('p', { class: 'level-title', text: lvl.title }),
-          h('p', { class: 'muted small', text: lvl.intoLevel + ' / ' + lvl.need + ' XP to next level' }),
-        ]),
-      ]),
-      h('div', { class: 'bar' }, [h('div', { class: 'bar-fill', style: { width: lvl.pct + '%' } })]),
-      h('div', { class: 'overall-row' }, [
-        h('span', { class: 'muted small', text: 'Syllabus progress' }),
-        h('span', { class: 'muted small', text: overall.done + ' / ' + overall.total + ' topics' }),
-      ]),
-      h('div', { class: 'bar' }, [h('div', { class: 'bar-fill alt', style: { width: overall.pct + '%' } })]),
-    ]),
-  );
-
-  // Aaj kya karein
+  // Continue (hero)
   const nx = nextTopic();
   if (nx) {
-    root.append(
-      h('section', { class: 'card cta-card' }, [
-        h('p', { class: 'card-label', text: 'Aaj kya karein?' }),
-        h('p', { class: 'cta-topic', text: nx.subject.icon + '  ' + nx.topic.name }),
-        h('p', { class: 'muted small', text: nx.topic.blurb }),
-        h('button', {
-          class: 'btn btn-primary full',
-          text: 'Shuru karo →',
-          onClick: () => { location.hash = `#/topic/${nx.subject.id}/${nx.topic.id}`; },
-        }),
-      ]),
-    );
+    root.append(h('section', { class: 'card hero-card' }, [
+      h('p', { class: 'hero-label', text: 'Aage badho' }),
+      h('p', { class: 'hero-topic', text: nx.topic.name }),
+      h('p', { class: 'hero-sub', text: nx.subject.name }),
+      h('button', { class: 'btn btn-primary full', text: 'Padhna shuru karo', onClick: () => { location.hash = `#/topic/${nx.subject.id}/${nx.topic.id}`; } }),
+    ]));
   } else {
-    root.append(
-      h('section', { class: 'card cta-card' }, [
-        h('p', { class: 'cta-topic', text: '🎓 Poora syllabus complete!' }),
-        h('p', { class: 'muted small', text: 'Kamaal! Ab practice se revision karte raho.' }),
-        h('button', { class: 'btn btn-primary full', text: 'Practice karo', onClick: () => { location.hash = '#/practice'; } }),
-      ]),
-    );
+    root.append(h('section', { class: 'card hero-card' }, [
+      h('p', { class: 'hero-topic', text: 'Poora syllabus complete 🎓' }),
+      h('button', { class: 'btn btn-primary full', text: 'Revision karo', onClick: () => { location.hash = '#/practice'; } }),
+    ]));
   }
 
-  // Subject quick chips
-  const chips = h('div', { class: 'subject-chips' });
+  // Slim progress
+  root.append(h('section', { class: 'card slim-progress' }, [
+    h('div', { class: 'sp-row' }, [
+      h('span', { class: 'muted small', text: overall.done + ' / ' + overall.total + ' topics' }),
+      h('span', { class: 'streak-mini', html: `🔥 ${st.streak.count}` }),
+    ]),
+    h('div', { class: 'bar' }, [h('div', { class: 'bar-fill', style: { width: overall.pct + '%' } })]),
+  ]));
+
+  // Subjects
+  const list = h('section', { class: 'subject-list' });
   for (const s of SUBJECTS) {
     const p = subjectProgress(s.id);
-    chips.append(
-      h('button', {
-        class: 'chip',
-        onClick: () => { location.hash = `#/subject/${s.id}`; },
-      }, [
-        h('span', { class: 'chip-icon', text: s.icon }),
-        h('span', { class: 'chip-name', text: s.name }),
-        h('span', { class: 'chip-pct', text: p.pct + '%' }),
-      ]),
-    );
+    list.append(h('button', { class: 'row-card', onClick: () => { location.hash = `#/subject/${s.id}`; } }, [
+      h('span', { class: 'row-icon', text: s.icon }),
+      h('span', { class: 'row-name', text: s.name }),
+      h('span', { class: 'row-pct', text: p.pct + '%' }),
+    ]));
   }
-  root.append(h('section', { class: 'section' }, [
-    h('p', { class: 'section-title', text: 'Subjects' }),
-    chips,
-  ]));
+  root.append(list);
 
   return root;
 }

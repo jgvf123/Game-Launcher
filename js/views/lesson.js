@@ -30,12 +30,11 @@ export function renderLesson(subjectId, topicId) {
 
   // Studying => XP (ek baar).
   const res = recordLesson(topicId);
-  if (res && res.xp) toast('+' + res.xp + ' XP · Padhne ke liye 👏', 'good');
+  if (res && res.xp) toast('+' + res.xp + ' XP', 'good');
 
   root.append(h('header', { class: 'page-head' }, [
     h('button', { class: 'back-link', text: '← ' + topic.name, onClick: () => { location.hash = `#/topic/${subjectId}/${topicId}`; } }),
-    h('h1', { class: 'page-title', text: '📖 ' + topic.name }),
-    h('p', { class: 'muted', text: 'Pehle samjho, fir practice karo.' }),
+    h('h1', { class: 'page-title', text: topic.name }),
   ]));
 
   if (lesson.length) {
@@ -50,12 +49,12 @@ export function renderLesson(subjectId, topicId) {
   }
 
   // Next steps
-  const next = h('section', { class: 'section' }, [h('p', { class: 'section-title', text: 'Ab aage badho' })]);
+  const next = h('section', { class: 'section' });
   if (getFlashcards(topicId).length) {
-    next.append(h('button', { class: 'btn btn-secondary full', text: '🃏 Flashcards se yaad karo', onClick: () => { location.hash = `#/flashcards/${subjectId}/${topicId}`; } }));
+    next.append(h('button', { class: 'btn btn-secondary full', text: 'Flashcards se yaad karo', onClick: () => { location.hash = `#/flashcards/${subjectId}/${topicId}`; } }));
   }
   if (getQuiz(topicId).length) {
-    next.append(h('button', { class: 'btn btn-primary full', text: '❓ Ab quiz do', onClick: () => { location.hash = `#/quiz/${subjectId}/${topicId}`; } }));
+    next.append(h('button', { class: 'btn btn-primary full', text: 'Ab quiz do', onClick: () => { location.hash = `#/quiz/${subjectId}/${topicId}`; } }));
   }
   root.append(next);
 
