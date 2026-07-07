@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-accent: oklch(0.72 0.15 65);
+  --color-accent-strong: oklch(0.62 0.16 60);
+  --color-accent-soft: oklch(0.95 0.04 75);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  /* Illustration palette — light */
+  --ill-bg: oklch(0.97 0.005 90);
+  --ill-frame: oklch(0.35 0.01 90);
+  --ill-stroke: oklch(0.45 0.01 90);
+  --ill-fill: oklch(0.55 0.01 90);
+  --ill-muted: oklch(0.78 0.005 90);
+  --ill-accent: oklch(0.68 0.15 65);
+  /* Chart mark color — validated against the card surface per mode */
+  --chart-bar: #c2410c;
+  color-scheme: light;
+}
+
+.dark {
+  --ill-bg: oklch(0.24 0.008 260);
+  --ill-frame: oklch(0.82 0.01 90);
+  --ill-stroke: oklch(0.72 0.01 90);
+  --ill-fill: oklch(0.62 0.01 90);
+  --ill-muted: oklch(0.42 0.008 260);
+  --ill-accent: oklch(0.75 0.14 70);
+  --chart-bar: #cf7d07;
+  color-scheme: dark;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  @apply bg-zinc-50 text-zinc-800 antialiased dark:bg-zinc-950 dark:text-zinc-200;
+}
+
+/* ---- Flashcard flip ---- */
+.flip-scene {
+  perspective: 1400px;
+}
+.flip-inner {
+  transform-style: preserve-3d;
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+/* ---- Subtle entrance ---- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 220ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner {
+    transition: none;
+  }
+  .animate-fade-up {
+    animation: none;
+  }
+}
+
+/* Progress bar fill transition */
+.bar-fill {
+  transition: width 260ms ease-out;
+}
