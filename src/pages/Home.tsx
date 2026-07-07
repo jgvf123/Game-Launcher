@@ -95,13 +95,16 @@ export function Home() {
       <section className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-lg font-semibold">Storyboard practice</h2>
+            <h2 className="text-lg font-semibold">Direct scenes yourself</h2>
             <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
-              Direct real scenes — pick the shot, angle, lens and light for every beat and build
-              the storyboard frame by frame.
+              Build storyboards beat by beat, or take quick Director’s Eye drills — pick the
+              angle or movement a scene needs and collect the principle behind it.
             </p>
           </div>
-          <ButtonLink to="/storyboard">Open Storyboard</ButtonLink>
+          <div className="flex gap-2">
+            <ButtonLink to="/drills">Scene drills</ButtonLink>
+            <ButtonLink to="/storyboard">Storyboard</ButtonLink>
+          </div>
         </div>
       </section>
 
