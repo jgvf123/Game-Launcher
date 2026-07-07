@@ -7,6 +7,7 @@ export const KEYS = {
   quizzes: `${PREFIX}quizzes`,
   streak: `${PREFIX}streak`,
   theme: `${PREFIX}theme`,
+  stories: `${PREFIX}stories`,
 } as const
 
 export function load<T>(key: string, fallback: T): T {

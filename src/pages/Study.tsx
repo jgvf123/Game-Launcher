@@ -61,11 +61,13 @@ export function Study() {
       if (!current) return
       if (e.target instanceof HTMLElement && ['INPUT', 'TEXTAREA'].includes(e.target.tagName))
         return
-      if (e.key === ' ' || e.key === 'Enter') {
-        if (!flipped) {
-          e.preventDefault()
-          setFlipped(true)
-        }
+      if (e.key === ' ') {
+        // Space toggles the card so you can peek at the diagram again.
+        e.preventDefault()
+        setFlipped((f) => !f)
+      } else if (e.key === 'Enter' && !flipped) {
+        e.preventDefault()
+        setFlipped(true)
       } else if (flipped && ['1', '2', '3'].includes(e.key)) {
         e.preventDefault()
         rate((Number(e.key) - 1) as Rating)
@@ -193,17 +195,36 @@ export function Study() {
               </p>
             </div>
           </button>
-          {/* back: answer */}
-          <div className="flip-face flip-back overflow-y-auto rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-            <p className="text-sm font-semibold uppercase tracking-wide text-accent-strong dark:text-accent">
-              Answer
-            </p>
-            <h2 className="mt-1 text-xl font-bold">{current.name}</h2>
+          {/* back: answer (with the diagram kept small; tap to flip back to the full image) */}
+          <div
+            className="flip-face flip-back cursor-pointer overflow-y-auto rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900"
+            onClick={() => setFlipped(false)}
+            role="button"
+            tabIndex={flipped ? 0 : -1}
+            aria-label="Flip back to the diagram"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') setFlipped(false)
+            }}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-wide text-accent-strong dark:text-accent">
+                  Answer
+                </p>
+                <h2 className="mt-1 text-xl font-bold">{current.name}</h2>
+              </div>
+              <div className="w-32 shrink-0 sm:w-40">
+                <Illustration cardId={current.id} />
+              </div>
+            </div>
             <p className="mt-1 font-medium text-zinc-600 dark:text-zinc-300">
               {current.shortDefinition}
             </p>
             <p className="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
               {current.explanation}
+            </p>
+            <p className="mt-3 text-xs text-zinc-400 dark:text-zinc-500">
+              Tap the card to see the full diagram again
             </p>
           </div>
         </div>

@@ -6,6 +6,8 @@ import { Library } from './pages/Library'
 import { CardDetail } from './pages/CardDetail'
 import { Study } from './pages/Study'
 import { Test } from './pages/Test'
+import { Storyboard } from './pages/Storyboard'
+import { StoryPlayer } from './pages/StoryPlayer'
 import { Progress } from './pages/Progress'
 import { Settings } from './pages/Settings'
 
@@ -21,6 +23,8 @@ export default function App() {
             <Route path="/library/:cardId" element={<CardDetail />} />
             <Route path="/study" element={<Study />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/storyboard" element={<Storyboard />} />
+            <Route path="/storyboard/:storyId" element={<StoryPlayer />} />
             <Route path="/progress" element={<Progress />} />
             <Route path="/settings" element={<Settings />} />
           </Route>

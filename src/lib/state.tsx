@@ -32,15 +32,24 @@ export interface StreakState {
   lastStudyDate: string | null // YYYY-MM-DD
 }
 
+export interface StoryProgress {
+  beatsDone: number
+  mistakes: number
+  completed: boolean
+}
+
 type Theme = 'light' | 'dark'
 
 interface AppState {
   reviews: Record<string, ReviewState>
   quizzes: QuizRecord[]
   streak: StreakState
+  stories: Record<string, StoryProgress>
   theme: Theme
   rateCard: (cardId: string, rating: Rating) => void
   recordQuiz: (record: Omit<QuizRecord, 'id' | 'date'>) => void
+  setStoryProgress: (storyId: string, progress: StoryProgress) => void
+  resetStory: (storyId: string) => void
   setTheme: (theme: Theme) => void
   resetModule: (moduleId: ModuleId) => void
   resetAll: () => void
@@ -81,11 +90,15 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   )
   const [quizzes, setQuizzes] = useState<QuizRecord[]>(() => load(KEYS.quizzes, []))
   const [streak, setStreak] = useState<StreakState>(() => load(KEYS.streak, EMPTY_STREAK))
+  const [stories, setStories] = useState<Record<string, StoryProgress>>(() =>
+    load(KEYS.stories, {}),
+  )
   const [theme, setThemeState] = useState<Theme>(initialTheme)
 
   useEffect(() => save(KEYS.reviews, reviews), [reviews])
   useEffect(() => save(KEYS.quizzes, quizzes), [quizzes])
   useEffect(() => save(KEYS.streak, streak), [streak])
+  useEffect(() => save(KEYS.stories, stories), [stories])
   useEffect(() => {
     save(KEYS.theme, theme)
     document.documentElement.classList.toggle('dark', theme === 'dark')
@@ -104,6 +117,15 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setStreak(advanceStreak)
   }, [])
 
+  const setStoryProgress = useCallback((storyId: string, progress: StoryProgress) => {
+    setStories((prev) => ({ ...prev, [storyId]: progress }))
+    setStreak(advanceStreak)
+  }, [])
+
+  const resetStory = useCallback((storyId: string) => {
+    setStories((prev) => Object.fromEntries(Object.entries(prev).filter(([id]) => id !== storyId)))
+  }, [])
+
   const setTheme = useCallback((t: Theme) => setThemeState(t), [])
 
   const resetModule = useCallback((moduleId: ModuleId) => {
@@ -120,9 +142,11 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setReviews({})
     setQuizzes([])
     setStreak(EMPTY_STREAK)
+    setStories({})
     remove(KEYS.reviews)
     remove(KEYS.quizzes)
     remove(KEYS.streak)
+    remove(KEYS.stories)
   }, [])
 
   const value = useMemo(
@@ -130,14 +154,30 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       reviews,
       quizzes,
       streak,
+      stories,
       theme,
       rateCard,
       recordQuiz,
+      setStoryProgress,
+      resetStory,
       setTheme,
       resetModule,
       resetAll,
     }),
-    [reviews, quizzes, streak, theme, rateCard, recordQuiz, setTheme, resetModule, resetAll],
+    [
+      reviews,
+      quizzes,
+      streak,
+      stories,
+      theme,
+      rateCard,
+      recordQuiz,
+      setStoryProgress,
+      resetStory,
+      setTheme,
+      resetModule,
+      resetAll,
+    ],
   )
 
   return <AppStateContext.Provider value={value}>{children}</AppStateContext.Provider>
