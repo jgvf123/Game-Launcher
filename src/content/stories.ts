@@ -33,9 +33,21 @@ export interface StoryQuestion {
   options: StoryOption[]
 }
 
+/** Where the beat sits in the dramatic arc — shown while playing so framing choices connect to story structure. */
+export type BeatPhase = 'setup' | 'build' | 'turn' | 'climax' | 'resolution'
+
+export const PHASE_LABEL: Record<BeatPhase, string> = {
+  setup: 'Setup',
+  build: 'Build',
+  turn: 'Turn',
+  climax: 'Climax',
+  resolution: 'Resolution',
+}
+
 export interface StoryBeat {
   id: string
   title: string
+  phase: BeatPhase
   script: string
   questions: StoryQuestion[]
 }
@@ -82,6 +94,7 @@ export const STORIES: Story[] = [
       {
         id: 'lt-1',
         title: 'Where we are',
+        phase: 'setup',
         script:
           'Night. An almost-empty railway station under sodium lamps. The last train hisses at platform two. Maya is nowhere yet — the place itself is the first character.',
         questions: [
@@ -106,6 +119,7 @@ export const STORIES: Story[] = [
       {
         id: 'lt-2',
         title: 'Enter, running',
+        phase: 'setup',
         script:
           'Maya bursts through the ticket gate, bag flying, coat half on. We need her whole body — the sprint IS the emotion.',
         questions: [
@@ -130,6 +144,7 @@ export const STORIES: Story[] = [
       {
         id: 'lt-3',
         title: 'The clock',
+        phase: 'build',
         script:
           'Above the platform, the station clock: 11:58. Two minutes. The audience must read it in half a second.',
         questions: [
@@ -152,8 +167,34 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'lt-3b',
+        title: 'Blocked',
+        phase: 'build',
+        script:
+          'The barrier light flashes red. The guard steps in front of her, shaking his head — the platform is closing. She argues; he doesn’t move.',
+        questions: [
+          q('shot', [
+            'over-the-shoulder',
+            'Shot past the guard’s shoulder onto her face: his bulk physically blocks the frame the way he blocks her path — obstacle as composition.',
+          ]),
+          q('angle', [
+            'eye-level',
+            'Level framing keeps the confrontation procedural and infuriating — he isn’t a villain, just a wall with a rulebook.',
+          ]),
+          q('lens', [
+            'normal-lens',
+            'Plain glass for a plain bureaucratic obstacle. The drama is in the seconds ticking away, not in optics.',
+          ]),
+          q('light', [
+            'hard-light',
+            'The same unforgiving station fluorescents — the world is not softening for her.',
+          ]),
+        ],
+      },
+      {
         id: 'lt-4',
         title: 'Across the platform',
+        phase: 'build',
         script:
           'Through crowd and steam she spots Arjun by the last carriage. We see him the way she sees him: far away, and about to be gone.',
         questions: [
@@ -176,9 +217,61 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'lt-4b',
+        title: 'The sprint',
+        phase: 'turn',
+        script:
+          'The whistle blows. She ducks the barrier and runs flat out down the platform, past pillars and trolleys, the train doors beginning to beep.',
+        questions: [
+          q('shot', [
+            'wide',
+            'The whole platform in frame turns her sprint into geometry: her small figure versus the visible distance still left to close.',
+          ]),
+          q('angle', [
+            'low-angle',
+            'From low, her run gains urgency and force — for this one stretch, the film is fully on her side.',
+          ]),
+          q('lens', [
+            'wide-angle-lens',
+            'Wide glass exaggerates speed: pillars whip past enormous in the foreground while the train stays desperately far.',
+          ]),
+          q('light', [
+            'practical',
+            'Pools of platform lamplight strobe over her as she runs through them — motion you can feel in the lighting itself.',
+          ]),
+        ],
+      },
+      {
+        id: 'lt-4c',
+        title: 'The doors',
+        phase: 'climax',
+        script:
+          'The doors start to slide shut. Arjun’s hand shoots through the gap and catches hers. For one held breath, the whole film is two hands.',
+        questions: [
+          q('shot', [
+            'extreme-close-up',
+            'Two hands gripping through a closing gap — the climax compressed into the smallest possible frame. Nothing else deserves pixels right now.',
+          ]),
+          q('angle', [
+            'high-angle',
+            'We look down at the hands exactly as they both do — the angle IS their eyeline at the moment of contact.',
+          ]),
+          q('lens', [
+            'shallow-dof',
+            'The platform, the guard, the beeping doors — all melt to blur. The grip is the only sharp thing in the world.',
+          ]),
+          q('light', [
+            'hard-light',
+            'The door edge cuts a crisp shadow across their wrists — even the light says this window is closing.',
+          ]),
+        ],
+      },
+      {
         id: 'lt-5',
         title: 'Goodbye',
-        script: 'She reaches him. The whistle blows. Two faces, one minute, everything unsaid.',
+        phase: 'climax',
+        script:
+          'The doors ease back open for one final moment. Two faces inches apart, one stolen minute, everything unsaid.',
         questions: [
           q('shot', [
             'close-up',
@@ -198,6 +291,31 @@ export const STORIES: Story[] = [
           ]),
         ],
       },
+      {
+        id: 'lt-6',
+        title: 'The platform after',
+        phase: 'resolution',
+        script:
+          'The train pulls away into the dark. Maya stands alone on the emptying platform, small under the great arched roof, watching the tail lights shrink.',
+        questions: [
+          q('shot', [
+            'extreme-wide',
+            'A bookend: the film opened on this empty station, and now she is the small figure inside it. Same frame, new meaning — that is what resolutions do.',
+          ]),
+          q('angle', [
+            'high-angle',
+            'Looking gently down leaves her small in the architecture — the loss allowed to weigh on the frame.',
+          ]),
+          q('lens', [
+            'wide-angle-lens',
+            'The wide lens stretches the platform long and empty around her — all that distance, now on the wrong side of the glass.',
+          ]),
+          q('light', [
+            'silhouette',
+            'Against the receding train lights she becomes an outline — the story exhaling into a single dark shape.',
+          ]),
+        ],
+      },
     ],
   },
 
@@ -212,6 +330,7 @@ export const STORIES: Story[] = [
       {
         id: 'nk-1',
         title: 'An empty yard',
+        phase: 'setup',
         script:
           'Recess is ending. The new kid stands alone in a schoolyard that suddenly feels enormous.',
         questions: [
@@ -244,6 +363,7 @@ export const STORIES: Story[] = [
       {
         id: 'nk-2',
         title: 'The shadow arrives',
+        phase: 'build',
         script:
           'The bully plants himself in front of the new kid, close enough to block out the sun.',
         questions: [
@@ -276,6 +396,7 @@ export const STORIES: Story[] = [
       {
         id: 'nk-3',
         title: 'Frozen',
+        phase: 'build',
         script:
           'A beat on the new kid: wide eyes, dry mouth, the whole yard gone silent around him.',
         questions: [
@@ -306,8 +427,42 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'nk-3b',
+        title: 'The crowd gathers',
+        phase: 'build',
+        script:
+          'Word travels fast. A ring of kids closes around the two of them, phones already out. Nobody steps in. The circle itself becomes a cage.',
+        questions: [
+          q(
+            'shot',
+            ['wide', 'Wide enough to hold the whole ring: the crowd’s circle IS the drama — a cage made of classmates.'],
+            ['extreme-wide', 'From across the yard the ring reads, but the two faces inside it vanish.'],
+            ['close-up', 'One face can’t show the thing that changed: the audience surrounding him.'],
+          ),
+          q(
+            'angle',
+            ['birds-eye', 'Straight down turns the crowd into a closing circle with him trapped at its center — the geometry of no escape.'],
+            ['high-angle', 'A raised angle shows the ring too, just with less of that perfect, pitiless pattern.'],
+            ['low-angle', 'From below you see legs and sky — the circle disappears.'],
+          ),
+          q(
+            'lens',
+            ['deep-focus', 'Every face in the ring stays sharp — each onlooker who does nothing is part of the story.'],
+            ['wide-angle-lens', 'Wide glass fits the circle in, but bends the nearest faces toward caricature.'],
+            ['shallow-dof', 'Blurring the crowd forgives them. The scene is about their watching.'],
+          ),
+          q(
+            'light',
+            ['hard-light', 'The same flat noon cruelty over everyone — no shade to hide in, for anybody.'],
+            ['soft-light', 'A gentle wrap softens a scene that should feel exposed.'],
+            ['silhouette', 'Turning the crowd to outlines hides the faces whose watching is the point.'],
+          ),
+        ],
+      },
+      {
         id: 'nk-4',
         title: 'Standing up',
+        phase: 'turn',
         script:
           'The new kid swallows, plants his feet, and looks the bully dead in the eye. The yard holds its breath.',
         questions: [
@@ -337,6 +492,105 @@ export const STORIES: Story[] = [
           ),
         ],
       },
+      {
+        id: 'nk-5',
+        title: 'Nose to nose',
+        phase: 'climax',
+        script:
+          'The bully leans in until their faces are inches apart. The yard goes completely silent. The new kid does not step back.',
+        questions: [
+          q(
+            'shot',
+            ['over-the-shoulder', 'Past the bully’s looming shoulder onto the kid’s held gaze: the threat stays in frame while we live with the one refusing to blink.'],
+            ['two-shot', 'Both in profile is a classic standoff — workable, but it watches the duel instead of taking a side.'],
+            ['extreme-wide', 'From across the yard the whole confrontation shrinks to gossip.'],
+          ),
+          q(
+            'angle',
+            ['eye-level', 'Dead level — because that is the story now: for the first time, they are equals.'],
+            ['low-angle', 'Keeping the kid empowered works, but it overstates a fight he hasn’t won yet.'],
+            ['high-angle', 'Pressing down on him now contradicts everything he just did.'],
+          ),
+          q(
+            'lens',
+            ['telephoto-lens', 'The long lens crushes their faces into one charged space — no air left between them.'],
+            ['shallow-dof', 'Melting the crowd also isolates the duel — decent, but it loses the compression that makes it claustrophobic.'],
+            ['wide-angle-lens', 'This close, wide glass warps both faces into cartoons.'],
+          ),
+          q(
+            'light',
+            ['hard-light', 'Noon light carves both faces sharp — sweat, stakes, and nowhere to hide for either of them.'],
+            ['three-point', 'Clean and readable, but polish is the wrong texture for a raw playground standoff.'],
+            ['butterfly', 'Glamour light in a staring contest is unintentional comedy.'],
+          ),
+        ],
+      },
+      {
+        id: 'nk-6',
+        title: 'The bell',
+        phase: 'resolution',
+        script:
+          'The bell shrieks. A long second — then the bully scoffs, shoulders past him, and the crowd exhales. The new kid is still standing where he planted his feet.',
+        questions: [
+          q(
+            'shot',
+            ['medium', 'Waist-up holds his unclenching fists and his face at once — relief arriving in the body first.'],
+            ['full', 'Head to toe works for the planted stance, but the trembling exhale on his face carries the beat.'],
+            ['insert', 'A detail of what? The moment is him, whole.'],
+          ),
+          q(
+            'angle',
+            ['shoulder-level', 'A whisper below the eyeline: quiet, earned stature — without announcing a victory parade.'],
+            ['low-angle', 'The hero angle oversells a win that was really just not-losing.'],
+            ['high-angle', 'Pressing him down again throws away the whole arc.'],
+          ),
+          q(
+            'lens',
+            ['normal-lens', 'Honest glass for an honest outcome — the drama is over, let the frame relax with him.'],
+            ['shallow-dof', 'Softening the emptying yard behind him plays too — a gentler, dreamier read.'],
+            ['dolly-zoom', 'A reality-warp on a school bell is absurd.'],
+          ),
+          q(
+            'light',
+            ['soft-light', 'The hard noon edge finally softens — when the light relaxes, the audience’s shoulders drop with it.'],
+            ['high-key', 'Bright relief works, but full sitcom brightness flattens a beat that earned nuance.'],
+            ['low-key', 'Plunging him into shadow reads like the threat is still here. It isn’t.'],
+          ),
+        ],
+      },
+      {
+        id: 'nk-7',
+        title: 'Two chairs at lunch',
+        phase: 'resolution',
+        script:
+          'Cafeteria. He eats alone — until the girl who watched it all slides her tray onto his table and sits down like it’s nothing.',
+        questions: [
+          q(
+            'shot',
+            ['two-shot', 'Two people, one frame, a shrinking gap: after a story about isolation, sharing the frame IS the happy ending.'],
+            ['over-the-shoulder', 'Past his shoulder onto her arriving works — but it keeps them in confrontation grammar, and this is the opposite.'],
+            ['extreme-wide', 'From across the cafeteria, the one table that matters gets lost among fifty.'],
+          ),
+          q(
+            'angle',
+            ['eye-level', 'Level and warm: no power, no pity — just two kids at the same table at last.'],
+            ['shoulder-level', 'Nearly identical here, and just as friendly.'],
+            ['birds-eye', 'An overhead map of a lunch table freezes the warmth out of it.'],
+          ),
+          q(
+            'lens',
+            ['normal-lens', 'Natural perspective for the most natural thing that’s happened all day.'],
+            ['shallow-dof', 'Melting the cafeteria around their table also plays — a touch more romantic than the scene needs.'],
+            ['wide-angle-lens', 'Distorting a gentle moment makes it a joke at their expense.'],
+          ),
+          q(
+            'light',
+            ['high-key', 'Bright, open, shadowless — the world is finally safe. Compare it to the flat gray of the opening yard: the arc, told in light.'],
+            ['soft-light', 'Gentle window light also lands the warmth — high-key just completes the story’s journey out of shadow more fully.'],
+            ['silhouette', 'Anonymous outlines end a story about finally being seen.'],
+          ),
+        ],
+      },
     ],
   },
 
@@ -351,6 +605,7 @@ export const STORIES: Story[] = [
       {
         id: 'nl-1',
         title: 'The house from above',
+        phase: 'setup',
         script:
           'Midnight. The townhouse sits on its rich, quiet street as a van rolls slowly to the curb.',
         questions: [
@@ -381,8 +636,42 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'nl-1b',
+        title: 'In through the window',
+        phase: 'build',
+        script:
+          'Third floor. The window eases open without a sound and she slips over the sill into the dark study — a shape borrowed from the night outside.',
+        questions: [
+          q(
+            'shot',
+            ['full', 'Her whole body folding through the frame — cat-burglar physicality is the show, so keep every limb visible.'],
+            ['wide', 'Wider still works and adds the room, but her precise, silent movement starts getting lost in furniture.'],
+            ['extreme-close-up', 'A single detail can’t show a climb.'],
+          ),
+          q(
+            'angle',
+            ['eye-level', 'We wait inside the dark room as she enters our space — the quiet menace of trespass, felt from the room’s side.'],
+            ['low-angle', 'From the floor she gains a cool grandeur — playable, but it glamorizes before she’s earned it.'],
+            ['dutch-angle', 'Nothing has gone wrong yet. Spend the tilt now and you’ll have nothing left for when it does.'],
+          ),
+          q(
+            'lens',
+            ['wide-angle-lens', 'Wide glass lets the whole dark study loom around her small entering figure — the house is bigger than she is.'],
+            ['deep-focus', 'Everything sharp keeps the geography honest too — slightly less oppressive than the wide’s stretch.'],
+            ['shallow-dof', 'Blurring the room hides the very space she’ll have to escape from later.'],
+          ),
+          q(
+            'light',
+            ['silhouette', 'She enters as a pure black shape against the moonlit window — iconic, anonymous, professional.'],
+            ['low-key', 'Deep shadow with slivers of light also fits — it just gives away more of her than the silhouette does.'],
+            ['high-key', 'A brightly lit break-in is a contradiction.'],
+          ),
+        ],
+      },
+      {
         id: 'nl-2',
         title: 'The safe',
+        phase: 'build',
         script:
           'Gloved fingers on the dial. Tumblers. Sweat. The room stays pitch black around a single beam of light.',
         questions: [
@@ -413,8 +702,42 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'nl-2b',
+        title: 'The prize',
+        phase: 'build',
+        script:
+          'The safe door swings open. Her torch beam climbs a small canvas in a plain frame — the painting the whole city thinks is a myth. Her breath catches.',
+        questions: [
+          q(
+            'shot',
+            ['medium', 'Her profile and the revealed canvas share the frame: desire and object in one composition — the want is the shot.'],
+            ['insert', 'The painting alone announces the prize, but loses her face falling in love with it.'],
+            ['extreme-wide', 'From across the room, the myth is a postage stamp.'],
+          ),
+          q(
+            'angle',
+            ['eye-level', 'Level with her reverence — the audience stands beside her at the altar.'],
+            ['low-angle', 'Looking up monumentalizes the painting — a defensible flourish, slightly grander than this quiet beat.'],
+            ['birds-eye', 'From the ceiling, the discovery becomes a diagram.'],
+          ),
+          q(
+            'lens',
+            ['shallow-dof', 'The canvas glows razor sharp while the dark room falls away — for her, nothing else exists now.'],
+            ['deep-focus', 'Keeping the room sharp maintains tension, but steals attention from the one thing she’s here for.'],
+            ['dolly-zoom', 'The warp is for dread. This is desire.'],
+          ),
+          q(
+            'light',
+            ['practical', 'The torch beam is the only honest light in the room — let it paint the prize and nothing else.'],
+            ['chiaroscuro', 'Painterly slashes of light and black suit a stolen masterpiece — just slightly more opera than this whisper needs.'],
+            ['three-point', 'Studio-neat lighting inside a midnight safe-crack rings false.'],
+          ),
+        ],
+      },
+      {
         id: 'nl-3',
         title: 'Footsteps',
+        phase: 'turn',
         script:
           'A guard’s flashlight sweeps the hallway. The thief flattens into a doorway, half-lit, holding her breath.',
         questions: [
@@ -445,8 +768,42 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'nl-3b',
+        title: 'Seen!',
+        phase: 'climax',
+        script:
+          'The beam swings back — and lands square on her face. A heartbeat of frozen eye contact, then the alarm begins to shriek through the house.',
+        questions: [
+          q(
+            'shot',
+            ['close-up', 'Caught: the entire heist collapses into her lit-up face — shock, calculation, and go.'],
+            ['medium-close-up', 'Chest-up keeps a hint of her coiled posture — close, just a notch less electric.'],
+            ['extreme-wide', 'From down the hall, the most important second of the night is a lighting effect.'],
+          ),
+          q(
+            'angle',
+            ['dutch-angle', 'NOW tilt the world — the wrongness you saved through the whole break-in finally detonates.'],
+            ['pov', 'The guard’s beam-eye view pins her like an insect — strong too, it just gives the moment to him instead of her.'],
+            ['eye-level', 'Level and calm is the one thing this second is not.'],
+          ),
+          q(
+            'lens',
+            ['dolly-zoom', 'The corridor stretches sickeningly behind her frozen face — the floor drops out of the plan. This is the once-per-film moment.'],
+            ['shallow-dof', 'Her face sharp against a smeared world also reads panic — without breaking reality the way the warp does.'],
+            ['deep-focus', 'Crisp calm geometry belongs to the planning scenes. The plan just died.'],
+          ),
+          q(
+            'light',
+            ['hard-light', 'The flashlight full in her face — crisp, merciless, interrogation-bright out of pure darkness.'],
+            ['chiaroscuro', 'A slash of beam against black is nearly as strong — a touch more painterly than this raw jolt wants.'],
+            ['soft-light', 'A gentle wrap would tuck her in. She has just been caught.'],
+          ),
+        ],
+      },
+      {
         id: 'nl-4',
         title: 'Over the rooftops',
+        phase: 'climax',
         script:
           'Alarm. She is out the window and running the roofline against the moon while sirens wind up below.',
         questions: [
@@ -476,6 +833,39 @@ export const STORIES: Story[] = [
           ),
         ],
       },
+      {
+        id: 'nl-5',
+        title: 'Morning news',
+        phase: 'resolution',
+        script:
+          'Dawn café. On the TV, a reporter stands outside the townhouse: “…an impossible theft.” At a corner table, she sips her coffee. A slim tube case leans against her chair.',
+        questions: [
+          q(
+            'shot',
+            ['medium', 'Waist-up at her table: calm face, coffee, and the tube case just in frame — the punchline assembled in one quiet composition.'],
+            ['wide', 'The whole café with the TV works as a drier gag — the joke plays, from further away.'],
+            ['insert', 'The case alone is half a punchline. It needs her unbothered face.'],
+          ),
+          q(
+            'angle',
+            ['eye-level', 'Deadpan, civilian, innocent — the angle wears the same poker face she does.'],
+            ['shoulder-level', 'Nearly identical and just as innocent.'],
+            ['dutch-angle', 'The danger is over. A tilt now would promise a twist that isn’t coming.'],
+          ),
+          q(
+            'lens',
+            ['deep-focus', 'The TV report sharp behind her sharp little smile — the joke IS the connection, so both planes must read.'],
+            ['normal-lens', 'Honest glass keeps the morning mundane — fine, though the TV gag loses some snap without locked depth.'],
+            ['shallow-dof', 'Blurring the newscast deletes the punchline.'],
+          ),
+          q(
+            'light',
+            ['soft-light', 'Innocent morning window light — the comedy of perfect normalcy after a night of shadows.'],
+            ['high-key', 'Bright and cheerful also sells the “nothing happened here” joke, a touch more sitcom.'],
+            ['low-key', 'Noir shadow at breakfast would confess for her.'],
+          ),
+        ],
+      },
     ],
   },
 
@@ -490,6 +880,7 @@ export const STORIES: Story[] = [
       {
         id: 'tt-1',
         title: 'Rehearsing hello',
+        phase: 'setup',
         script:
           'In the café window’s reflection, Sam practices a smile that keeps collapsing into panic.',
         questions: [
@@ -522,6 +913,7 @@ export const STORIES: Story[] = [
       {
         id: 'tt-2',
         title: 'She’s here',
+        phase: 'setup',
         script:
           'The door chimes. Riley walks in out of the rain, scanning the room for a face she only knows from a photo.',
         questions: [
@@ -552,8 +944,42 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'tt-2b',
+        title: 'The spill',
+        phase: 'build',
+        script:
+          'Two minutes in, he gestures too hard and knocks his cup. Coffee races across the table toward her phone; both dive for napkins; hands collide; the ice breaks with the spill.',
+        questions: [
+          q(
+            'shot',
+            ['insert', 'The spreading coffee is a comic time-bomb — the insert lets the audience watch it race her phone.'],
+            ['medium', 'Both of them flailing works and is warmer — the spill itself just stops being a character.'],
+            ['extreme-wide', 'From across the café, the disaster is a napkin ballet nobody can read.'],
+          ),
+          q(
+            'angle',
+            ['high-angle', 'Looking down at the tabletop exactly as they do — the audience dives for the napkins with them.'],
+            ['birds-eye', 'Straight down turns the table into graphic comedy — works if your film’s style is that deliberate.'],
+            ['low-angle', 'From under the table? You’d miss the entire joke.'],
+          ),
+          q(
+            'lens',
+            ['normal-lens', 'Plain glass keeps the slapstick honest — the comedy is in the timing, not the optics.'],
+            ['shallow-dof', 'Focusing the puddle and blurring the panic is a cute stylized read.'],
+            ['dolly-zoom', 'An existential warp over spilled coffee is a parody of itself.'],
+          ),
+          q(
+            'light',
+            ['high-key', 'Bright, shadowless café light — nothing is at stake and everything is funny.'],
+            ['soft-light', 'Gentle window light keeps it warm too, just a little less peppy.'],
+            ['chiaroscuro', 'Operatic shadows would turn a spill into a crime scene.'],
+          ),
+        ],
+      },
+      {
         id: 'tt-3',
         title: 'Two coffees later',
+        phase: 'build',
         script:
           'Elbows on the table, cups forgotten, the two of them lean over a shared phone screen, laughing.',
         questions: [
@@ -584,8 +1010,75 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'tt-3b',
+        title: 'The ex texts',
+        phase: 'turn',
+        script:
+          'Her phone lights up on the table: “I miss you. Please call.” Her smile flickers for half a second — and he sees it.',
+        questions: [
+          q(
+            'shot',
+            ['insert', 'The text must be read by the audience — the insert plants the intruder in five words.'],
+            ['extreme-close-up', 'Her eyes changing is powerful — but without the screen, the audience can’t know why.'],
+            ['two-shot', 'The cozy pair framing hides the one new thing in the scene.'],
+          ),
+          q(
+            'angle',
+            ['pov', 'Her private glance down at the screen — we are inside her secret the instant it arrives.'],
+            ['high-angle', 'A neutral look down at the table also reads — it just shares the secret with the room instead of with her.'],
+            ['low-angle', 'Looking up at a phone on a table is geometry from nowhere.'],
+          ),
+          q(
+            'lens',
+            ['shallow-dof', 'The screen razor-sharp while he blurs beyond it — the past literally pulling focus from the present.'],
+            ['normal-lens', 'Honest glass keeps it quiet and real, though the focus metaphor goes unused.'],
+            ['deep-focus', 'Him sharp behind the text splits the beat’s single job.'],
+          ),
+          q(
+            'light',
+            ['practical', 'The cold screen-glow on her face inside the warm café light — two light sources, two lives, one face.'],
+            ['soft-light', 'Staying soft keeps the scene gentle, but loses that eloquent clash of temperatures.'],
+            ['hard-light', 'A harsh edge announces melodrama the scene is too quiet for.'],
+          ),
+        ],
+      },
+      {
+        id: 'tt-3c',
+        title: 'The honest thing',
+        phase: 'climax',
+        script:
+          'She turns the phone face-down, takes a breath, and tells him the truth about the last year — the breakup, all of it. He doesn’t look away once.',
+        questions: [
+          q(
+            'shot',
+            ['over-the-shoulder', 'Across his shoulder onto her honesty: his presence holds the frame’s edge, quietly keeping her company in it.'],
+            ['two-shot', 'Holding both works — it just watches the conversation instead of sitting inside the listening.'],
+            ['insert', 'The face-down phone already had its shot. This beat is faces.'],
+          ),
+          q(
+            'angle',
+            ['eye-level', 'Perfectly level: confession offered and received between equals.'],
+            ['shoulder-level', 'A hair below the eyeline is just as honest here.'],
+            ['high-angle', 'Looking down turns her honesty into a weakness. It’s the bravest thing in the film.'],
+          ),
+          q(
+            'lens',
+            ['normal-lens', 'Honest story, honest glass — no optical comment, just her voice and his attention.'],
+            ['shallow-dof', 'Melting the café keeps the bubble intact — lovely, slightly more swoon than confession.'],
+            ['telephoto-lens', 'Long-lens distance makes eavesdroppers of us at the exact moment we’re invited in.'],
+          ),
+          q(
+            'light',
+            ['practical', 'Their little table lamp again — the warm pool the whole date has lived in, now holding something heavier.'],
+            ['soft-light', 'Soft wrap stays kind to both faces — right mood, slightly less tied to their established world.'],
+            ['butterfly', 'Glamour light during vulnerability says the film cares how she looks, not what she’s saying.'],
+          ),
+        ],
+      },
+      {
         id: 'tt-4',
         title: 'The pause',
+        phase: 'climax',
         script:
           'Walking out under one umbrella, they stop. Rain ticks. Neither says the obvious thing. Their hands hang very close.',
         questions: [
@@ -615,6 +1108,39 @@ export const STORIES: Story[] = [
           ),
         ],
       },
+      {
+        id: 'tt-5',
+        title: 'The number 2 bus',
+        phase: 'resolution',
+        script:
+          'Her bus pulls in. From the window seat she wipes the fogged glass and draws a little smiley at him standing in the rain. He laughs. Second date: guaranteed.',
+        questions: [
+          q(
+            'shot',
+            ['close-up', 'Her face at the glass, finger finishing the smiley — the promise and the person in one frame.'],
+            ['insert', 'Just the smiley on fogged glass is a lovely beat — it only lacks her grin behind it.'],
+            ['extreme-wide', 'From down the street, the smiley is a smudge and the ending evaporates.'],
+          ),
+          q(
+            'angle',
+            ['pov', 'His view up at her window — a perfect rhyme with her entrance seen through his eyes at the start.'],
+            ['eye-level', 'Flat-on at the glass is sweet and simple too — it just leaves the rhyme unplayed.'],
+            ['birds-eye', 'From above the bus, the goodbye is roof and rain.'],
+          ),
+          q(
+            'lens',
+            ['shallow-dof', 'Rain-bokeh streets melting behind the sharp little smiley — the whole city turns to fairy lights around it.'],
+            ['telephoto-lens', 'A long lens from his spot compresses the wet street beautifully too — a close cousin of the same feeling.'],
+            ['deep-focus', 'Sharp traffic and timetables around the window bury the smiley.'],
+          ),
+          q(
+            'light',
+            ['practical', 'The bus’s warm interior glow against the blue evening — she leaves inside a little lantern of the night.'],
+            ['soft-light', 'Soft rain-light works throughout — it just misses that warm-inside/cool-outside farewell contrast.'],
+            ['chiaroscuro', 'Dramatic shadow play on a happy goodbye reads like a warning.'],
+          ),
+        ],
+      },
     ],
   },
 
@@ -629,6 +1155,7 @@ export const STORIES: Story[] = [
       {
         id: 'vd-1',
         title: 'The courtroom',
+        phase: 'setup',
         script:
           'Morning. The gallery fills. Dust hangs in hard window beams over the empty defendant’s chair.',
         questions: [
@@ -661,6 +1188,7 @@ export const STORIES: Story[] = [
       {
         id: 'vd-2',
         title: 'The accused',
+        phase: 'build',
         script:
           'All rise. Elena stands at the defense table, jaw set, hands flat on the wood, the murmuring crowd at her back.',
         questions: [
@@ -691,8 +1219,75 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'vd-2b',
+        title: 'The prosecutor’s last look',
+        phase: 'build',
+        script:
+          'Closing arguments end. Gathering his papers, the prosecutor lifts his eyes and holds Elena’s gaze across the courtroom for one long, unreadable second.',
+        questions: [
+          q(
+            'shot',
+            ['over-the-shoulder', 'Past Elena’s shoulder into his stare: the look is aimed at her, and the framing makes us stand in its path.'],
+            ['close-up', 'His face alone carries the menace — but unmoored from her, the stare loses its target.'],
+            ['extreme-wide', 'At room scale, a look is just two people standing.'],
+          ),
+          q(
+            'angle',
+            ['eye-level', 'Dead level: two adversaries, chillingly civil — the law’s politeness stretched over a knife.'],
+            ['low-angle', 'Menace from below works, but it crowns him the winner before the jury speaks.'],
+            ['worms-eye', 'From the floor of the court, everyone is furniture and flags.'],
+          ),
+          q(
+            'lens',
+            ['telephoto-lens', 'The long lens compresses the whole courtroom between them into nothing — the stare crosses the room like a wire pulled tight.'],
+            ['shallow-dof', 'Isolating his face in blur is strong too — it just loses that collapsed-distance tension.'],
+            ['wide-angle-lens', 'Wide glass pushes them apart and slackens the wire.'],
+          ),
+          q(
+            'light',
+            ['hard-light', 'The window beams the morning established — his face crossed by the same hard judgment as the room.'],
+            ['rembrandt', 'A half-shadowed portrait suits an unreadable man — a shade more painterly than this procedural beat.'],
+            ['butterfly', 'Glamour light on a prosecutor is a category error.'],
+          ),
+        ],
+      },
+      {
+        id: 'vd-2c',
+        title: 'The wait',
+        phase: 'build',
+        script:
+          'The jury is out. A courthouse corridor. Hours pass: Elena motionless on a bench, her lawyer pacing, strangers’ footsteps echoing somewhere out of sight.',
+        questions: [
+          q(
+            'shot',
+            ['wide', 'The long empty corridor around her tiny figure — duration itself, made visible as space.'],
+            ['full', 'Her whole slumped body on the bench tells the exhaustion — the corridor’s emptiness just tells it bigger.'],
+            ['extreme-close-up', 'One trembling eye is drama. The wait is the opposite: numbness.'],
+          ),
+          q(
+            'angle',
+            ['high-angle', 'The building looking down on her one more time — she waits at the mercy of the machine.'],
+            ['eye-level', 'Sitting with her at bench height is humane and quiet — it simply presses less.'],
+            ['dutch-angle', 'Nothing is happening. That is the horror. A tilt would promise action.'],
+          ),
+          q(
+            'lens',
+            ['deep-focus', 'Every empty meter of corridor sharp to the far door — the distance the verdict must travel to reach her.'],
+            ['wide-angle-lens', 'Stretching the hall also plays — with a touch more distortion than this stillness needs.'],
+            ['shallow-dof', 'Blurring the corridor hides the emptiness that IS the scene.'],
+          ),
+          q(
+            'light',
+            ['soft-light', 'Flat, toneless institutional light — the morning’s dramatic beams are gone; even the light refuses to take sides now.'],
+            ['three-point', 'Neutral studio balance reads similar — just more “lit” than a corridor should feel.'],
+            ['chiaroscuro', 'Operatic shadows would make waiting feel like fate. It should feel like a dentist’s office.'],
+          ),
+        ],
+      },
+      {
         id: 'vd-3',
         title: 'The foreman',
+        phase: 'turn',
         script:
           'A folded slip of paper travels from the foreman’s hand to the clerk. Twelve faces reveal nothing.',
         questions: [
@@ -723,8 +1318,42 @@ export const STORIES: Story[] = [
         ],
       },
       {
+        id: 'vd-3b',
+        title: 'All rise',
+        phase: 'climax',
+        script:
+          '“Will the defendant please rise.” Elena stands. The clerk unfolds the paper. The room is so quiet the paper’s crease can be heard.',
+        questions: [
+          q(
+            'shot',
+            ['medium-close-up', 'The same framing as her first day in court — but now the set jaw is trembling. The callback measures the cost.'],
+            ['medium', 'Waist-up holds her white-knuckled hands too — a little wider, a little less intimate with her face.'],
+            ['insert', 'The paper had its shot. This second belongs to her.'],
+          ),
+          q(
+            'angle',
+            ['eye-level', 'Straight-on to the end — the film has refused to pre-judge her, and refuses now.'],
+            ['high-angle', 'The institution pressing down one last time is defensible — it just answers the question the scene must keep open.'],
+            ['low-angle', 'Crowning her before the clerk speaks spoils the coin-toss.'],
+          ),
+          q(
+            'lens',
+            ['shallow-dof', 'The courtroom dissolves; only she stays sharp — the verdict will land on one face, and it is already alone in focus.'],
+            ['telephoto-lens', 'Long-lens compression squeezes the room against her — near-identical pressure, marginally less intimate.'],
+            ['deep-focus', 'A room full of sharp faces splits the one moment that must not split.'],
+          ),
+          q(
+            'light',
+            ['rembrandt', 'Half her face in shadow, the little triangle holding on — doubt and dignity, at their darkest, one last time.'],
+            ['low-key', 'Deep shadow states the dread plainly — with less of that painterly balance still fighting for hope.'],
+            ['high-key', 'Bright light now would answer the verdict before the clerk does.'],
+          ),
+        ],
+      },
+      {
         id: 'vd-4',
         title: 'Two words',
+        phase: 'climax',
         script:
           '“Not guilty.” The room erupts. Elena’s knees give; her lawyer catches her arm; she laughs and sobs at once.',
         questions: [
@@ -751,6 +1380,39 @@ export const STORIES: Story[] = [
             ['high-key', 'Light floods in with the verdict — the visual weight of three weeks lifting.'],
             ['low-key', 'Keeping her in noir shadow contradicts the release.'],
             ['hard-light', 'The cutting window beams belong to the morning’s dread, not to this.'],
+          ),
+        ],
+      },
+      {
+        id: 'vd-5',
+        title: 'The steps',
+        phase: 'resolution',
+        script:
+          'Elena pushes through the doors onto the sunlit courthouse steps and stops. Traffic, pigeons, ordinary noise. She closes her eyes and just breathes.',
+        questions: [
+          q(
+            'shot',
+            ['wide', 'Her small figure returned to the big ordinary world — the courthouse behind her, the city ahead, the frame finally open.'],
+            ['full', 'Head to toe on the steps reads her whole unburdened posture — slightly tighter on her, slightly less world.'],
+            ['insert', 'There is no detail to point at anymore. That is the relief.'],
+          ),
+          q(
+            'angle',
+            ['low-angle', 'From the foot of the steps, sky behind her: the building that looked down on her for three weeks finally looks up.'],
+            ['eye-level', 'Meeting her level on the steps is quiet and humane — it just leaves the reversal of the opening high angle unplayed.'],
+            ['high-angle', 'The institution’s angle. She is done being under it.'],
+          ),
+          q(
+            'lens',
+            ['wide-angle-lens', 'Wide glass opens space and sky around her — after weeks of compression, the world gets big again.'],
+            ['deep-focus', 'The whole sharp city also says freedom — with a bit less of that sudden openness.'],
+            ['telephoto-lens', 'Compression is pressure, and the pressure just ended.'],
+          ),
+          q(
+            'light',
+            ['high-key', 'Full, open daylight with barely a shadow — the same light that flooded the verdict, now the weather of her life.'],
+            ['soft-light', 'Gentle daylight lands the same peace, one notch dimmer than the story’s final exhale deserves.'],
+            ['hard-light', 'The blade-like beams belong to the courtroom. Out here, the light has no edges.'],
           ),
         ],
       },
