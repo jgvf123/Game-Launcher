@@ -1,7 +1,13 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import type { ReactNode } from 'react'
 
-const NAV_ITEMS: { to: string; label: string; icon: ReactNode; end?: boolean }[] = [
+const NAV_ITEMS: {
+  to: string
+  label: string
+  longLabel?: string
+  icon: ReactNode
+  end?: boolean
+}[] = [
   {
     to: '/',
     label: 'Home',
@@ -29,6 +35,14 @@ const NAV_ITEMS: { to: string; label: string; icon: ReactNode; end?: boolean }[]
     label: 'Test',
     icon: (
       <path d="M9 3h6l1 2h4v16H4V5h4l1-2zm3 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm-1 7.5-2.2-2.2 1-1L11 12.5l3.2-3.2 1 1L11 14.5z" />
+    ),
+  },
+  {
+    to: '/storyboard',
+    label: 'Board',
+    longLabel: 'Storyboard',
+    icon: (
+      <path d="M3 4h8v7H3V4zm10 0h8v7h-8V4zM3 13h8v7H3v-7zm10 0h8v7h-8v-7z" />
     ),
   },
   {
@@ -72,7 +86,7 @@ function NavItems({ orientation }: { orientation: 'side' | 'bottom' }) {
           <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="currentColor" aria-hidden>
             {item.icon}
           </svg>
-          <span>{item.label}</span>
+          <span>{orientation === 'side' ? (item.longLabel ?? item.label) : item.label}</span>
         </NavLink>
       ))}
     </>

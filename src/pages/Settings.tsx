@@ -82,8 +82,8 @@ export function Settings() {
       <section className="rounded-2xl border border-red-200 bg-white p-6 dark:border-red-950 dark:bg-zinc-900">
         <h2 className="text-lg font-semibold text-red-700 dark:text-red-400">Full reset</h2>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-          Erases everything: all review history, spaced-repetition scheduling, test results, and
-          streaks.
+          Erases everything: all review history, spaced-repetition scheduling, test results,
+          storyboard progress, and streaks.
         </p>
         <Button variant="danger" className="mt-4" onClick={() => setConfirmAll(true)}>
           Reset all progress
