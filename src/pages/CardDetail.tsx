@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { CARD_BY_ID, MODULE_BY_ID } from '../content'
 import { Illustration } from '../components/Illustration'
-import { Button, MoodChip } from '../components/ui'
+import { ButtonLink, MoodChip } from '../components/ui'
 
 export function CardDetail() {
   const { cardId } = useParams()
@@ -12,9 +12,9 @@ export function CardDetail() {
     return (
       <div className="animate-fade-up py-12 text-center">
         <p className="text-zinc-500 dark:text-zinc-400">That card doesn’t exist.</p>
-        <Link to="/library" className="mt-4 inline-block">
-          <Button>Back to Library</Button>
-        </Link>
+        <ButtonLink to="/library" className="mt-4">
+          Back to Library
+        </ButtonLink>
       </div>
     )
   }

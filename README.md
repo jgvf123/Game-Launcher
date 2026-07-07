@@ -14,8 +14,10 @@ npm run build      # production build into dist/
 npm run preview    # serve the production build
 ```
 
-The app uses hash-based routing, so the built `dist/` can also be served from any static
-file server (or opened locally) and every route keeps working.
+The production build is a **single self-contained `dist/index.html`** (all JS/CSS inlined,
+hash routing, relative paths): copy that one file anywhere and double-click it — it runs
+straight from disk with no server, and your progress persists in the browser you open it
+with.
 
 ## What's inside
 

@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode, type ButtonHTMLAttributes } from 'react'
+import { Link } from 'react-router-dom'
 import type { Mood } from '../content'
 
 // ────────────────────────────────── Button ─────────────────────────────────
@@ -16,6 +17,9 @@ const BUTTON_STYLES: Record<ButtonVariant, string> = {
     'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm',
 }
 
+const BUTTON_BASE =
+  'inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-base font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-strong disabled:opacity-50 disabled:pointer-events-none'
+
 export function Button({
   variant = 'secondary',
   className = '',
@@ -24,8 +28,27 @@ export function Button({
   return (
     <button
       {...props}
-      className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-base font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-strong disabled:opacity-50 disabled:pointer-events-none ${BUTTON_STYLES[variant]} ${className}`}
+      className={`${BUTTON_BASE} ${BUTTON_STYLES[variant]} ${className}`}
     />
+  )
+}
+
+/** A router Link styled as a Button. Never nest a Button inside a Link — anchors with nested interactive elements don't navigate. */
+export function ButtonLink({
+  to,
+  variant = 'secondary',
+  className = '',
+  children,
+}: {
+  to: string
+  variant?: ButtonVariant
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <Link to={to} className={`${BUTTON_BASE} ${BUTTON_STYLES[variant]} ${className}`}>
+      {children}
+    </Link>
   )
 }
 

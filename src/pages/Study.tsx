@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { CARD_BY_ID } from '../content'
 import { Illustration } from '../components/Illustration'
-import { Button, EmptyState, ProgressBar } from '../components/ui'
+import { Button, ButtonLink, EmptyState, ProgressBar } from '../components/ui'
 import { dueCardIds, newCardIds, useAppState } from '../lib/state'
 import type { Rating } from '../lib/srs'
 
@@ -96,9 +95,9 @@ export function Study() {
           <EmptyState
             title="All caught up"
             action={
-              <Link to="/test">
-                <Button variant="primary">Take a test instead</Button>
-              </Link>
+              <ButtonLink to="/test" variant="primary">
+                Take a test instead
+              </ButtonLink>
             }
           >
             Nothing is due for review right now, and every card has been introduced. Come back
@@ -153,9 +152,9 @@ export function Study() {
         </div>
         <div className="flex justify-center gap-3">
           <Button onClick={() => setQueue(null)}>Back to Study</Button>
-          <Link to="/progress">
-            <Button variant="primary">See progress</Button>
-          </Link>
+          <ButtonLink to="/progress" variant="primary">
+            See progress
+          </ButtonLink>
         </div>
       </div>
     )

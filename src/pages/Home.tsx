@@ -7,7 +7,7 @@ import {
   newCardIds,
   useAppState,
 } from '../lib/state'
-import { Button, ProgressBar } from '../components/ui'
+import { ButtonLink, ProgressBar } from '../components/ui'
 
 export function Home() {
   const { reviews, quizzes, streak } = useAppState()
@@ -50,12 +50,10 @@ export function Home() {
             </li>
           </ol>
           <div className="mt-5 flex flex-wrap gap-3">
-            <Link to="/library">
-              <Button variant="primary">Browse the Library</Button>
-            </Link>
-            <Link to="/study">
-              <Button>Start studying</Button>
-            </Link>
+            <ButtonLink to="/library" variant="primary">
+              Browse the Library
+            </ButtonLink>
+            <ButtonLink to="/study">Start studying</ButtonLink>
           </div>
         </section>
       ) : (
@@ -70,11 +68,9 @@ export function Home() {
                   ? 'all caught up — learn something new?'
                   : 'all caught up'}
             </p>
-            <Link to="/study" className="mt-3 block">
-              <Button variant="primary" className="w-full">
-                {due.length > 0 ? 'Review now' : 'Study'}
-              </Button>
-            </Link>
+            <ButtonLink to="/study" variant="primary" className="mt-3 w-full">
+              {due.length > 0 ? 'Review now' : 'Study'}
+            </ButtonLink>
           </div>
           <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
             <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Study streak</p>

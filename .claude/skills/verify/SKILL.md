@@ -41,6 +41,13 @@ run, then delete. Routes are hash-based: `#/`, `#/library`, `#/library/<cardId>`
 
 ## Gotchas
 
+- The production build is single-file (`vite-plugin-singlefile`); verify it over
+  `file:///…/dist/index.html` too — that's how the user runs it. Router clicks work
+  on `file://` (hash history).
+- Avoid `text=Browse the Library`-style selectors: Home's "Start here" list items
+  contain the same words and Playwright may click the `<li>` instead of the button.
+  Use `getByRole('link'/'button', { name, exact: true })`.
+
 - After `await page.click('nav a…')` wait for a selector unique to the target page —
   headings like "Shot Sizes" also appear on Home.
 - Screenshot reads can be stale in the harness; when in doubt sample pixels from the PNG

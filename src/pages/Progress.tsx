@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom'
 import { MODULES, MODULE_BY_ID } from '../content'
 import { QuizChart } from '../components/QuizChart'
-import { Button, EmptyState, MasteredBadge, ProgressBar } from '../components/ui'
+import { ButtonLink, EmptyState, MasteredBadge, ProgressBar } from '../components/ui'
 import { allModuleProgress, effectiveStreak, useAppState, type QuizRecord } from '../lib/state'
 
 function scopeShort(q: QuizRecord): string {
@@ -28,9 +27,9 @@ export function Progress() {
         <EmptyState
           title="Nothing to chart yet"
           action={
-            <Link to="/study">
-              <Button variant="primary">Start studying</Button>
-            </Link>
+            <ButtonLink to="/study" variant="primary">
+              Start studying
+            </ButtonLink>
           }
         >
           Study a few cards or take a test and your progress will start showing up here.
@@ -135,9 +134,9 @@ export function Progress() {
           <EmptyState
             title="No tests yet"
             action={
-              <Link to="/test">
-                <Button variant="primary">Take your first test</Button>
-              </Link>
+              <ButtonLink to="/test" variant="primary">
+                Take your first test
+              </ButtonLink>
             }
           >
             Your scores will chart here once you take a test. The dashed line marks the 80%
