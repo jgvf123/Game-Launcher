@@ -9,15 +9,26 @@ Single user, no backend, no accounts: everything persists in your browser's loca
 
 ```bash
 npm install
-npm run dev        # development server
-npm run build      # production build into dist/
-npm run preview    # serve the production build
+npm run dev            # development server
+npm run build          # installable PWA build into dist/ (for static hosting)
+npm run build:single   # everything inlined into one dist/index.html (runs from disk)
+npm run preview        # serve the production build
 ```
 
-The production build is a **single self-contained `dist/index.html`** (all JS/CSS inlined,
-hash routing, relative paths): copy that one file anywhere and double-click it — it runs
-straight from disk with no server, and your progress persists in the browser you open it
-with.
+## Installing on Android (as an app)
+
+The default build is an installable **PWA**. A GitHub Actions workflow
+(`.github/workflows/deploy.yml`) deploys it to GitHub Pages on every push; enable it once
+in the repo under **Settings → Pages → Source: GitHub Actions**. Then on your phone:
+
+1. Open the Pages URL in Chrome (e.g. `https://<user>.github.io/Game-Launcher/`).
+2. Tap the **⋮ menu → Add to Home screen → Install**.
+3. It now opens fullscreen from its own icon and works completely offline —
+   the service worker precaches the entire app.
+
+Alternatively, `npm run build:single` produces a single self-contained `dist/index.html`
+you can copy anywhere and open directly — no server, no install, progress saved per
+browser.
 
 ## What's inside
 
