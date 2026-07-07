@@ -38,6 +38,9 @@ export interface StoryProgress {
   completed: boolean
 }
 
+/** Best result achieved on a drill: nailed it, picked the workable option, or got there via retries. */
+export type DrillResult = 'perfect' | 'good' | 'learned'
+
 type Theme = 'light' | 'dark'
 
 interface AppState {
@@ -45,11 +48,13 @@ interface AppState {
   quizzes: QuizRecord[]
   streak: StreakState
   stories: Record<string, StoryProgress>
+  drills: Record<string, DrillResult>
   theme: Theme
   rateCard: (cardId: string, rating: Rating) => void
   recordQuiz: (record: Omit<QuizRecord, 'id' | 'date'>) => void
   setStoryProgress: (storyId: string, progress: StoryProgress) => void
   resetStory: (storyId: string) => void
+  recordDrill: (drillId: string, result: DrillResult) => void
   setTheme: (theme: Theme) => void
   resetModule: (moduleId: ModuleId) => void
   resetAll: () => void
@@ -93,12 +98,14 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [stories, setStories] = useState<Record<string, StoryProgress>>(() =>
     load(KEYS.stories, {}),
   )
+  const [drills, setDrills] = useState<Record<string, DrillResult>>(() => load(KEYS.drills, {}))
   const [theme, setThemeState] = useState<Theme>(initialTheme)
 
   useEffect(() => save(KEYS.reviews, reviews), [reviews])
   useEffect(() => save(KEYS.quizzes, quizzes), [quizzes])
   useEffect(() => save(KEYS.streak, streak), [streak])
   useEffect(() => save(KEYS.stories, stories), [stories])
+  useEffect(() => save(KEYS.drills, drills), [drills])
   useEffect(() => {
     save(KEYS.theme, theme)
     document.documentElement.classList.toggle('dark', theme === 'dark')
@@ -126,6 +133,24 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setStories((prev) => Object.fromEntries(Object.entries(prev).filter(([id]) => id !== storyId)))
   }, [])
 
+  const DRILL_RANK: Record<DrillResult, number> = useMemo(
+    () => ({ perfect: 3, good: 2, learned: 1 }),
+    [],
+  )
+
+  const recordDrill = useCallback(
+    (drillId: string, result: DrillResult) => {
+      setDrills((prev) => {
+        const existing = prev[drillId]
+        // Keep the best result ever achieved for the drill.
+        if (existing && DRILL_RANK[existing] >= DRILL_RANK[result]) return prev
+        return { ...prev, [drillId]: result }
+      })
+      setStreak(advanceStreak)
+    },
+    [DRILL_RANK],
+  )
+
   const setTheme = useCallback((t: Theme) => setThemeState(t), [])
 
   const resetModule = useCallback((moduleId: ModuleId) => {
@@ -143,10 +168,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setQuizzes([])
     setStreak(EMPTY_STREAK)
     setStories({})
+    setDrills({})
     remove(KEYS.reviews)
     remove(KEYS.quizzes)
     remove(KEYS.streak)
     remove(KEYS.stories)
+    remove(KEYS.drills)
   }, [])
 
   const value = useMemo(
@@ -155,11 +182,13 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       quizzes,
       streak,
       stories,
+      drills,
       theme,
       rateCard,
       recordQuiz,
       setStoryProgress,
       resetStory,
+      recordDrill,
       setTheme,
       resetModule,
       resetAll,
@@ -169,11 +198,13 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       quizzes,
       streak,
       stories,
+      drills,
       theme,
       rateCard,
       recordQuiz,
       setStoryProgress,
       resetStory,
+      recordDrill,
       setTheme,
       resetModule,
       resetAll,

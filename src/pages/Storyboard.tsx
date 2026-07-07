@@ -17,6 +17,24 @@ export function Storyboard() {
         </p>
       </header>
 
+      <Link
+        to="/drills"
+        className="block rounded-2xl border border-accent-strong/40 bg-accent-soft p-5 transition-colors duration-150 hover:border-accent-strong dark:border-accent/40 dark:bg-zinc-900 dark:hover:border-accent"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="text-lg font-semibold text-accent-strong dark:text-accent">
+              Director’s Eye — scene drills
+            </h2>
+            <p className="mt-0.5 text-sm text-zinc-600 dark:text-zinc-300">
+              Quick single-decision scenes: pick the angle or movement the moment needs, get
+              graded (best / workable / wrong), and collect the principle behind each one.
+            </p>
+          </div>
+          <span className="text-sm font-semibold text-accent-strong dark:text-accent">Play →</span>
+        </div>
+      </Link>
+
       <div className="space-y-4">
         {STORIES.map((story) => {
           const progress = stories[story.id]

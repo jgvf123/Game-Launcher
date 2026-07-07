@@ -8,6 +8,7 @@ export const KEYS = {
   streak: `${PREFIX}streak`,
   theme: `${PREFIX}theme`,
   stories: `${PREFIX}stories`,
+  drills: `${PREFIX}drills`,
 } as const
 
 export function load<T>(key: string, fallback: T): T {
