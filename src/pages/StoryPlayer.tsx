@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import {
   DIMENSIONS,
   DIMENSION_LABEL,
+  PHASE_LABEL,
   STORY_BY_ID,
   beatFrameSpec,
   type Dimension,
@@ -25,6 +26,21 @@ function shuffled<T>(items: T[], seed: string): T[] {
     ;[arr[i], arr[j]] = [arr[j], arr[i]]
   }
   return arr
+}
+
+/** Where the beat sits in the dramatic arc — climax gets the accent. */
+function PhaseChip({ beat }: { beat: StoryBeat }) {
+  const style =
+    beat.phase === 'climax'
+      ? 'bg-accent-strong text-white'
+      : beat.phase === 'turn'
+        ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300'
+        : 'bg-zinc-200/70 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300'
+  return (
+    <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide ${style}`}>
+      {PHASE_LABEL[beat.phase]}
+    </span>
+  )
 }
 
 /** Horizontal storyboard strip: finished frames, the current slot, empty future slots. */
@@ -242,7 +258,10 @@ function TeachBeat({ beat, onDone }: { beat: StoryBeat; onDone: () => void }) {
   return (
     <div className="space-y-4">
       <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="text-lg font-semibold">{beat.title}</h2>
+        <div className="flex flex-wrap items-center gap-2">
+          <h2 className="text-lg font-semibold">{beat.title}</h2>
+          <PhaseChip beat={beat} />
+        </div>
         <p className="mt-1 leading-relaxed text-zinc-600 dark:text-zinc-300">{beat.script}</p>
       </div>
 
@@ -331,7 +350,10 @@ function PracticeBeat({
   return (
     <div className="space-y-4">
       <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="text-lg font-semibold">{beat.title}</h2>
+        <div className="flex flex-wrap items-center gap-2">
+          <h2 className="text-lg font-semibold">{beat.title}</h2>
+          <PhaseChip beat={beat} />
+        </div>
         <p className="mt-1 leading-relaxed text-zinc-600 dark:text-zinc-300">{beat.script}</p>
         {Object.keys(picks).length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
