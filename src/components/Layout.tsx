@@ -46,6 +46,14 @@ const NAV_ITEMS: {
     ),
   },
   {
+    to: '/lab',
+    label: 'Lab',
+    longLabel: 'Prompt Lab',
+    icon: (
+      <path d="M9 2h6v2h-1v5.2l4.8 8.4A2 2 0 0 1 17.1 21H6.9a2 2 0 0 1-1.7-3.4L10 9.2V4H9V2zm3 8.6L8.7 16h6.6L12 10.6z" />
+    ),
+  },
+  {
     to: '/progress',
     label: 'Progress',
     icon: (

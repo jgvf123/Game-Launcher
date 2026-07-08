@@ -2,6 +2,42 @@ import { MODULES, MODULE_BY_ID } from '../content'
 import { QuizChart } from '../components/QuizChart'
 import { ButtonLink, EmptyState, MasteredBadge, ProgressBar } from '../components/ui'
 import { allModuleProgress, effectiveStreak, useAppState, type QuizRecord } from '../lib/state'
+import { labProgressSummary, readLabSnapshot } from '../lab/state'
+
+function LabProgressSection() {
+  const lab = readLabSnapshot()
+  const summary = labProgressSummary(lab.labReviews, lab.readLessons)
+  if (summary.read === 0 && lab.labQuizzes.length === 0 && lab.logEntries.length === 0) return null
+  const lastQuiz = lab.labQuizzes[lab.labQuizzes.length - 1]
+  return (
+    <section>
+      <h2 className="mb-3 text-lg font-semibold">Prompt Lab</h2>
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Lessons read</p>
+          <p className="mt-1 text-3xl font-bold">
+            {summary.read}
+            <span className="text-base font-medium text-zinc-500"> / {summary.total}</span>
+          </p>
+        </div>
+        <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Concepts mastered</p>
+          <p className="mt-1 text-3xl font-bold">{summary.mastered}</p>
+        </div>
+        <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Last Lab quiz</p>
+          <p className="mt-1 text-3xl font-bold">
+            {lastQuiz ? `${Math.round((lastQuiz.score / lastQuiz.total) * 100)}%` : '—'}
+          </p>
+        </div>
+        <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Practice entries</p>
+          <p className="mt-1 text-3xl font-bold">{lab.logEntries.length}</p>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 function scopeShort(q: QuizRecord): string {
   if (q.scope.kind === 'all') return 'Full test'
@@ -127,6 +163,8 @@ export function Progress() {
           })}
         </div>
       </section>
+
+      <LabProgressSection />
 
       <section>
         <h2 className="mb-3 text-lg font-semibold">Quiz history</h2>
