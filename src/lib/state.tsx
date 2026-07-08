@@ -55,6 +55,8 @@ interface AppState {
   setStoryProgress: (storyId: string, progress: StoryProgress) => void
   resetStory: (storyId: string) => void
   recordDrill: (drillId: string, result: DrillResult) => void
+  /** Advance the daily streak from any learning activity (used by Prompt Lab). */
+  touchStreak: () => void
   setTheme: (theme: Theme) => void
   resetModule: (moduleId: ModuleId) => void
   resetAll: () => void
@@ -151,6 +153,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     [DRILL_RANK],
   )
 
+  const touchStreak = useCallback(() => setStreak(advanceStreak), [])
+
   const setTheme = useCallback((t: Theme) => setThemeState(t), [])
 
   const resetModule = useCallback((moduleId: ModuleId) => {
@@ -189,6 +193,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       setStoryProgress,
       resetStory,
       recordDrill,
+      touchStreak,
       setTheme,
       resetModule,
       resetAll,
@@ -205,6 +210,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       setStoryProgress,
       resetStory,
       recordDrill,
+      touchStreak,
       setTheme,
       resetModule,
       resetAll,

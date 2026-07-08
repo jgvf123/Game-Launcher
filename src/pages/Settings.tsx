@@ -3,11 +3,21 @@ import { MODULES } from '../content'
 import type { ModuleId } from '../content'
 import { Button, Modal } from '../components/ui'
 import { moduleProgress, useAppState } from '../lib/state'
+import {
+  clearLogStorage,
+  clearSavedPromptsStorage,
+  readLabSnapshot,
+  resetLabProgressStorage,
+} from '../lab/state'
 
 export function Settings() {
   const { theme, setTheme, resetModule, resetAll, reviews, quizzes } = useAppState()
   const [confirmModule, setConfirmModule] = useState<ModuleId | null>(null)
   const [confirmAll, setConfirmAll] = useState(false)
+  const [confirmLab, setConfirmLab] = useState<null | 'progress' | 'prompts' | 'log'>(null)
+  const [labVersion, setLabVersion] = useState(0)
+  const lab = readLabSnapshot()
+  void labVersion // re-read snapshot after lab resets
 
   const confirmModuleDef = confirmModule ? MODULES.find((m) => m.id === confirmModule) : null
 
@@ -79,6 +89,49 @@ export function Settings() {
         </ul>
       </section>
 
+      <section className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+        <h2 className="text-lg font-semibold">Prompt Lab</h2>
+        <ul className="mt-4 divide-y divide-zinc-100 dark:divide-zinc-800">
+          <li className="flex items-center justify-between gap-3 py-3">
+            <div>
+              <p className="font-medium">Reset Lab learning progress</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                {lab.readLessons.length} lessons read · {lab.labQuizzes.length} quizzes — clears
+                reviews, read-state and quiz history.
+              </p>
+            </div>
+            <Button
+              onClick={() => setConfirmLab('progress')}
+              disabled={lab.readLessons.length === 0 && lab.labQuizzes.length === 0}
+            >
+              Reset
+            </Button>
+          </li>
+          <li className="flex items-center justify-between gap-3 py-3">
+            <div>
+              <p className="font-medium">Clear saved prompts</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                {lab.savedPrompts.length} saved in your Builder library.
+              </p>
+            </div>
+            <Button onClick={() => setConfirmLab('prompts')} disabled={lab.savedPrompts.length === 0}>
+              Clear
+            </Button>
+          </li>
+          <li className="flex items-center justify-between gap-3 py-3">
+            <div>
+              <p className="font-medium">Clear practice log</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                {lab.logEntries.length} entries incl. stored media (device-only).
+              </p>
+            </div>
+            <Button onClick={() => setConfirmLab('log')} disabled={lab.logEntries.length === 0}>
+              Clear
+            </Button>
+          </li>
+        </ul>
+      </section>
+
       <section className="rounded-2xl border border-red-200 bg-white p-6 dark:border-red-950 dark:bg-zinc-900">
         <h2 className="text-lg font-semibold text-red-700 dark:text-red-400">Full reset</h2>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
@@ -124,10 +177,50 @@ export function Settings() {
             variant="danger"
             onClick={() => {
               resetAll()
+              resetLabProgressStorage()
+              clearSavedPromptsStorage()
+              clearLogStorage()
+              setLabVersion((v) => v + 1)
               setConfirmAll(false)
             }}
           >
             Erase everything
+          </Button>
+        </div>
+      </Modal>
+
+      <Modal
+        open={confirmLab !== null}
+        onClose={() => setConfirmLab(null)}
+        title={
+          confirmLab === 'progress'
+            ? 'Reset Prompt Lab progress?'
+            : confirmLab === 'prompts'
+              ? 'Clear saved prompts?'
+              : 'Clear practice log?'
+        }
+      >
+        <p>
+          {confirmLab === 'progress' &&
+            'Clears Lab lesson read-state, spaced-repetition reviews and quiz history. Saved prompts and your practice log are kept.'}
+          {confirmLab === 'prompts' && 'Deletes every prompt saved from the Builder.'}
+          {confirmLab === 'log' &&
+            'Deletes all practice-log entries and their stored media from this device.'}{' '}
+          This cannot be undone.
+        </p>
+        <div className="mt-5 flex justify-end gap-3">
+          <Button onClick={() => setConfirmLab(null)}>Cancel</Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              if (confirmLab === 'progress') resetLabProgressStorage()
+              if (confirmLab === 'prompts') clearSavedPromptsStorage()
+              if (confirmLab === 'log') clearLogStorage()
+              setLabVersion((v) => v + 1)
+              setConfirmLab(null)
+            }}
+          >
+            Confirm
           </Button>
         </div>
       </Modal>
