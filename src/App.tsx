@@ -23,6 +23,12 @@ import { LessonPage } from './pages/v2/LessonPage'
 import { Review } from './pages/v2/Review'
 import { Glossary } from './pages/v2/Glossary'
 import { ShipLog } from './pages/v2/ShipLog'
+import { PromptBuilder } from './pages/v2/PromptBuilder'
+import { ShotAnalyzer } from './pages/v2/ShotAnalyzer'
+import { ShotList } from './pages/v2/ShotList'
+import { Projects } from './pages/v2/Projects'
+import { Practice } from './pages/v2/Practice'
+import { More } from './pages/v2/More'
 
 export default function App() {
   return (
@@ -39,6 +45,12 @@ export default function App() {
             <Route path="/review" element={<Review />} />
             <Route path="/glossary" element={<Glossary />} />
             <Route path="/ship-log" element={<ShipLog />} />
+            <Route path="/tools/prompt-builder" element={<PromptBuilder />} />
+            <Route path="/tools/shot-analyzer" element={<ShotAnalyzer />} />
+            <Route path="/tools/shot-list" element={<ShotList />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/practice" element={<Practice />} />
+            <Route path="/more" element={<More />} />
             <Route path="/library" element={<Library />} />
             <Route path="/library/:cardId" element={<CardDetail />} />
             <Route path="/study" element={<Study />} />

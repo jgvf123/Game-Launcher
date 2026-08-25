@@ -43,7 +43,7 @@ export function DiagramShell({
   controls?: ReactNode
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="overflow-hidden rounded-xl border border-line bg-surface">
       <div className="aspect-[320/200] w-full">{children}</div>
       {controls ? (
         <div className="border-t border-zinc-200 px-3 py-3 dark:border-zinc-800">{controls}</div>
@@ -74,7 +74,7 @@ export function Slider({
   return (
     <label className="block">
       <span className="flex items-baseline justify-between text-sm font-medium">
-        <span className="text-zinc-700 dark:text-zinc-300">{label}</span>
+        <span className="text-ink-soft">{label}</span>
         <span className="tabular-nums font-semibold text-accent-strong dark:text-accent">
           {value}
           {suffix}
@@ -89,7 +89,7 @@ export function Slider({
         onChange={(e) => onChange(Number(e.target.value))}
         className="mt-1.5 w-full accent-[var(--color-accent-strong)]"
       />
-      {hint ? <span className="block text-xs text-zinc-500 dark:text-zinc-400">{hint}</span> : null}
+      {hint ? <span className="block text-xs text-ink-soft">{hint}</span> : null}
     </label>
   )
 }
@@ -107,9 +107,7 @@ export function Segmented<T extends string>({
 }) {
   return (
     <div>
-      <span className="mb-1.5 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-        {label}
-      </span>
+      <span className="mb-1.5 block text-sm font-medium text-ink-soft">{label}</span>
       <div role="group" aria-label={label} className="flex flex-wrap gap-1.5">
         {options.map((o) => {
           const active = o.value === value
@@ -120,9 +118,7 @@ export function Segmented<T extends string>({
               aria-pressed={active}
               onClick={() => onChange(o.value)}
               className={`rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors ${
-                active
-                  ? 'bg-accent-strong text-white'
-                  : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700'
+                active ? 'bg-accent-strong text-white' : 'bg-surface text-ink-soft hover:text-ink'
               }`}
             >
               {o.label}
@@ -136,9 +132,7 @@ export function Segmented<T extends string>({
 
 /** A short verdict line under a diagram — what the current setting actually means. */
 export function Readout({ children }: { children: ReactNode }) {
-  return (
-    <p className="mt-3 text-sm leading-snug text-zinc-600 dark:text-zinc-400">{children}</p>
-  )
+  return <p className="mt-3 text-sm leading-snug text-ink-soft">{children}</p>
 }
 
 /** Small caption text drawn inside an SVG. */
@@ -162,7 +156,8 @@ export function Tag({
       x={x}
       y={y}
       textAnchor={anchor}
-      fontSize={size}
+      /* Sized down as one: the stage is rendered wider now, so raw sizes read oversized. */
+      fontSize={size * 0.78}
       fill={color}
       fontFamily="ui-sans-serif, system-ui, sans-serif"
       fontWeight={600}

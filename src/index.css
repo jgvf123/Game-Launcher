@@ -6,11 +6,30 @@
   --color-accent: oklch(0.72 0.15 65);
   --color-accent-strong: oklch(0.62 0.16 60);
   --color-accent-soft: oklch(0.95 0.04 75);
+  /*
+   * Surface tokens indirect through per-mode custom properties, so
+   * `bg-surface` / `text-ink` / `border-line` are theme-aware on their own.
+   * That keeps components free of `dark:` variants, which is most of what
+   * made the old markup noisy to read and to look at.
+   */
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
 }
 
 :root {
+  /* Warm paper rather than cold grey — this is a place to read for an hour. */
+  --paper: oklch(0.982 0.004 85);
+  --surface: oklch(1 0 0);
+  --line: oklch(0.912 0.004 85);
+  --ink: oklch(0.29 0.012 60);
+  --ink-soft: oklch(0.52 0.01 60);
+  --ink-faint: oklch(0.67 0.008 60);
   /* Illustration palette — light */
   --ill-bg: oklch(0.97 0.005 90);
   --ill-frame: oklch(0.35 0.01 90);
@@ -24,6 +43,12 @@
 }
 
 .dark {
+  --paper: oklch(0.175 0.008 265);
+  --surface: oklch(0.218 0.008 265);
+  --line: oklch(0.295 0.008 265);
+  --ink: oklch(0.915 0.005 85);
+  --ink-soft: oklch(0.70 0.008 85);
+  --ink-faint: oklch(0.55 0.008 85);
   --ill-bg: oklch(0.24 0.008 260);
   --ill-frame: oklch(0.82 0.01 90);
   --ill-stroke: oklch(0.72 0.01 90);
@@ -39,7 +64,45 @@ html {
 }
 
 body {
-  @apply bg-zinc-50 text-zinc-800 antialiased dark:bg-zinc-950 dark:text-zinc-200;
+  @apply bg-paper text-ink antialiased;
+}
+
+/*
+ * Lesson prose. One measure, one rhythm, no competing sizes — the page should
+ * feel like a page, not like a dashboard with paragraphs in it.
+ */
+.reading {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.reading p + p {
+  margin-top: 1.1em;
+}
+.reading ul {
+  margin-top: 1.1em;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.reading li + li {
+  margin-top: 0.5em;
+}
+.reading li::marker {
+  color: var(--ink-faint);
+}
+
+/* Steps cross-fade instead of jumping, so moving through a lesson feels calm. */
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-step {
+  animation: step-in 260ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 /* ---- Flashcard flip ---- */
@@ -85,7 +148,8 @@ body {
   .flip-inner {
     transition: none;
   }
-  .animate-fade-up {
+  .animate-fade-up,
+  .animate-step {
     animation: none;
   }
 }

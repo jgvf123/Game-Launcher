@@ -77,32 +77,34 @@ export function Review() {
     return (
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Review</h1>
-        <p className="mt-1 text-base text-zinc-500 dark:text-zinc-400">
-          One queue for everything you have learned — lesson checks, glossary terms and the
-          concept cards, scheduled together by the same SM-2 engine.
+        <p className="mt-1 text-base text-ink-soft">
+          One queue for everything you have learned — lesson checks, glossary terms and the concept
+          cards, scheduled together by the same SM-2 engine.
         </p>
 
         {total === 0 ? (
           <div className="mt-8">
             <EmptyState title="Nothing due right now">
               Open a lesson and answer its three checks, and they will start appearing here on
-              schedule. <Link to="/tracks" className="underline">Go to the tracks</Link>.
+              schedule.{' '}
+              <Link to="/tracks" className="underline">
+                Go to the tracks
+              </Link>
+              .
             </EmptyState>
           </div>
         ) : (
           <>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                <p className="text-3xl font-bold text-accent-strong dark:text-accent">{due.length}</p>
-                <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                  due for review
+              <div className="rounded-xl bg-surface p-4">
+                <p className="text-3xl font-bold text-accent-strong dark:text-accent">
+                  {due.length}
                 </p>
+                <p className="text-sm font-medium text-ink-soft">due for review</p>
               </div>
-              <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+              <div className="rounded-xl bg-surface p-4">
                 <p className="text-3xl font-bold">{Math.min(fresh.length, NEW_PER_SESSION)}</p>
-                <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                  new this session
-                </p>
+                <p className="text-sm font-medium text-ink-soft">new this session</p>
               </div>
             </div>
             <Button variant="primary" className="mt-5" onClick={start}>
@@ -123,15 +125,15 @@ export function Review() {
         <p className="mt-2 text-4xl font-bold text-accent-strong dark:text-accent">
           {total > 0 ? Math.round((score.right / total) * 100) : 0}%
         </p>
-        <p className="mt-1 text-base text-zinc-500 dark:text-zinc-400">
-          {score.right} right, {score.wrong} wrong. The ones you missed come back soon; the ones
-          you nailed step further out.
+        <p className="mt-1 text-base text-ink-soft">
+          {score.right} right, {score.wrong} wrong. The ones you missed come back soon; the ones you
+          nailed step further out.
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <Button onClick={() => setQueue(null)}>Back to review</Button>
           <Link
             to="/tracks"
-            className="inline-flex items-center rounded-lg px-4 py-2 font-medium text-zinc-600 hover:bg-zinc-200/60 dark:text-zinc-300 dark:hover:bg-zinc-800"
+            className="inline-flex items-center rounded-lg px-4 py-2 font-medium text-ink-soft hover:bg-surface"
           >
             Learn something new
           </Link>
@@ -148,22 +150,22 @@ export function Review() {
     <div className="mx-auto max-w-2xl">
       <div className="mb-4">
         <ProgressBar value={index} max={queue.length} label="Session progress" />
-        <p className="mt-1.5 text-sm font-medium text-zinc-500 dark:text-zinc-400">
+        <p className="mt-1.5 text-sm font-medium text-ink-soft">
           {index + 1} of {queue.length} &middot; {KIND_LABEL[item.kind]}
         </p>
       </div>
 
-      <div className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-xl bg-surface p-5">
         <p className="text-lg font-medium leading-snug">{item.prompt}</p>
         <div className="mt-4 space-y-2">
           {item.options.map((opt, oi) => {
             const isAnswer = oi === item.answerIndex
             const isPick = oi === picked
-            let tone =
-              'border-zinc-200 hover:border-accent hover:bg-accent-soft/40 dark:border-zinc-700 dark:hover:bg-zinc-800'
-            if (picked !== null && isAnswer) tone = 'border-green-500 bg-green-50 dark:bg-green-950/40'
+            let tone = 'border-line hover:border-accent hover:bg-accent-soft/40  '
+            if (picked !== null && isAnswer)
+              tone = 'border-green-500 bg-green-50 dark:bg-green-950/40'
             else if (picked !== null && isPick) tone = 'border-red-400 bg-red-50 dark:bg-red-950/40'
-            else if (picked !== null) tone = 'border-zinc-200 opacity-60 dark:border-zinc-700'
+            else if (picked !== null) tone = 'border-line opacity-60 '
             return (
               <button
                 key={oi}
@@ -180,7 +182,7 @@ export function Review() {
 
         {picked !== null ? (
           <>
-            <p className="mt-4 rounded-lg bg-zinc-100 px-3 py-2.5 text-base leading-snug text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+            <p className="mt-4 rounded-lg bg-surface px-3 py-2.5 text-base leading-snug text-ink-soft">
               {item.why}
             </p>
             {lesson ? (

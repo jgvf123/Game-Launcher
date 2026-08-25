@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TERM_LOOKUP } from '../curriculum'
+import { useLanguage } from '../lib/prefs'
 
 /**
  * A **bolded** term in lesson prose. Tap or click to see the definition and
@@ -12,6 +13,7 @@ import { TERM_LOOKUP } from '../curriculum'
  */
 export function TermTooltip({ text }: { text: string }) {
   const term = TERM_LOOKUP.get(text.trim().toLowerCase())
+  const lang = useLanguage()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
 
@@ -44,14 +46,14 @@ export function TermTooltip({ text }: { text: string }) {
         {text}
       </button>
       {open ? (
-        <span className="absolute bottom-full left-0 z-30 mb-2 block w-72 max-w-[80vw] rounded-lg border border-zinc-200 bg-white p-3 text-left text-sm font-normal shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
+        <span className="absolute bottom-full left-0 z-30 mb-2 block w-72 max-w-[80vw] rounded-lg border border-line bg-surface p-3 text-left text-sm font-normal shadow-lg">
           <span className="block font-semibold">{term.term}</span>
-          <span className="mt-1 block leading-snug text-zinc-600 dark:text-zinc-300">
-            {term.definition}
-          </span>
-          <span className="mt-2 block rounded bg-accent-soft/70 px-2 py-1.5 leading-snug text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
-            {term.hinglish}
-          </span>
+          <span className="mt-1 block leading-snug text-ink-soft">{term.definition}</span>
+          {lang === 'both' ? (
+            <span className="mt-2 block rounded bg-accent-soft/70 px-2 py-1.5 leading-snug text-ink-soft">
+              {term.hinglish}
+            </span>
+          ) : null}
           <Link
             to={`/glossary?term=${term.id}`}
             className="mt-2 block text-xs font-medium text-accent-strong hover:underline dark:text-accent"
