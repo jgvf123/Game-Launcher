@@ -59,8 +59,9 @@ export function Tracks() {
       <header className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight">Tracks</h1>
         <p className="mt-1 text-base text-ink-soft">
-          Ten tracks, from story thinking to getting paid. Every concept is taught twice — once the
-          way it works on a set, once the way it works when your camera is a diffusion model.
+          Ten tracks, from the camera in your hands to getting paid for what it makes. Every
+          concept is taught twice — once the way it works on a set, once the way it works when
+          your camera is a diffusion model.
         </p>
         <p className="mt-2 text-sm text-ink-soft">
           <strong className="text-accent-strong dark:text-accent">

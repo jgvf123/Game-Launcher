@@ -1,12 +1,19 @@
 import type { Module, Track } from './schema'
 
-/** The ten tracks of the Frame School v2 curriculum, in teaching order. */
+/**
+ * The ten tracks, in teaching order.
+ *
+ * Camera leads. The brief listed story first, but the learner is a VFX artist
+ * whose gap is camera craft, and starting the app on "Track C" made the very
+ * first screen read as though something earlier had been skipped. Story and
+ * script follow the visual craft rather than preceding it.
+ */
 export const TRACKS: Track[] = [
-  { id: 'story', letter: 'A', title: 'Story & Thinking', tagline: 'Why anyone watches: premise, character, tension, and the shapes a story takes.', order: 1 },
-  { id: 'script', letter: 'B', title: 'Script & Blueprint', tagline: 'Turning an idea into a document a crew — or a model — can execute.', order: 2 },
-  { id: 'camera', letter: 'C', title: 'Camera & Lens', tagline: 'Exposure, glass, framing and movement — how the camera makes meaning.', order: 3 },
-  { id: 'light', letter: 'D', title: 'Light & Mood', tagline: 'Direction, quality and ratio: the fastest route to how a frame feels.', order: 4 },
-  { id: 'color', letter: 'E', title: 'Color', tagline: 'Palette as narrative, and the pipeline that gets it to the screen intact.', order: 5 },
+  { id: 'camera', letter: 'A', title: 'Camera & Lens', tagline: 'Exposure, glass, framing and movement — how the camera makes meaning.', order: 1 },
+  { id: 'light', letter: 'B', title: 'Light & Mood', tagline: 'Direction, quality and ratio: the fastest route to how a frame feels.', order: 2 },
+  { id: 'color', letter: 'C', title: 'Color', tagline: 'Palette as narrative, and the pipeline that gets it to the screen intact.', order: 3 },
+  { id: 'story', letter: 'D', title: 'Story & Thinking', tagline: 'Why anyone watches: premise, character, tension, and the shapes a story takes.', order: 4 },
+  { id: 'script', letter: 'E', title: 'Script & Blueprint', tagline: 'Turning an idea into a document a crew — or a model — can execute.', order: 5 },
   { id: 'editing', letter: 'F', title: 'Editing & Rhythm', tagline: 'Continuity, cut types and pace — where the film is actually built.', order: 6 },
   { id: 'sound', letter: 'G', title: 'Sound', tagline: 'The half of "cinematic" that nobody looks at and everybody hears.', order: 7 },
   { id: 'production', letter: 'H', title: 'How Production Works', tagline: 'Brief to delivery: the professional flow, the paperwork, the vocabulary.', order: 8 },
