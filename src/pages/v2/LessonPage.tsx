@@ -1,7 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
-import { LESSON_BY_ID, TRACK_BY_ID, checkItemId, nextLesson } from '../../curriculum'
+import {
+  LESSON_BY_ID,
+  MODULE_BY_ID,
+  TRACK_BY_ID,
+  checkItemId,
+  lessonsInModule,
+  nextLesson,
+} from '../../curriculum'
 import type { Lesson } from '../../curriculum'
 import { DIAGRAMS } from '../../diagrams/registry'
 import { markChecksDone, shipAssignment, touchLesson, unshipLesson } from '../../data/db'
@@ -38,6 +45,26 @@ function buildSteps(lesson: Lesson): Step[] {
     ...lesson.checks.map((_, index) => ({ kind: 'check' as const, index })),
     { kind: 'assignment' },
   ]
+}
+
+/** What this step is, in two words, so the rail says more than a number. */
+function stepName(step: Step): string {
+  switch (step.kind) {
+    case 'idea':
+      return 'The idea'
+    case 'diagram':
+      return 'Try it'
+    case 'examples':
+      return 'Examples'
+    case 'mistakes':
+      return 'Mistakes'
+    case 'ai':
+      return 'In AI'
+    case 'check':
+      return `Question ${step.index + 1}`
+    case 'assignment':
+      return 'Your task'
+  }
 }
 
 const MARKDOWN_BASE = {
@@ -116,6 +143,9 @@ export function LessonPage() {
   const track = TRACK_BY_ID.get(lesson.trackId)
   const shipped = shipLog.find((r) => r.lessonId === lesson.id)
   const upNext = nextLesson(lesson.id)
+  const moduleLessons = lessonsInModule(lesson.moduleId)
+  const lessonPosition = moduleLessons.findIndex((l) => l.id === lesson.id) + 1
+  const moduleSize = moduleLessons.length
 
   function advance() {
     if (isLast) {
@@ -139,30 +169,44 @@ export function LessonPage() {
 
   return (
     <article className="animate-fade-up">
-      {/* Thin rail: where you are, and the way out. Nothing else. */}
-      <div className="flex items-center gap-4">
+      {/*
+       * Two levels of "where am I": which lesson of the module, and which
+       * step of this lesson. A bare 6/9 told you neither.
+       */}
+      <div>
         <Link
           to={track ? `/track/${track.id}` : '/tracks'}
-          className="shrink-0 text-sm text-ink-faint transition-colors hover:text-ink"
+          className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent-strong dark:hover:text-accent"
         >
           &larr; {track?.title ?? 'Tracks'}
         </Link>
-        <div className="h-1 flex-1 overflow-hidden rounded-full bg-line">
-          <div
-            className="bar-fill h-full rounded-full bg-accent-strong"
-            style={{ width: `${((index + 1) / steps.length) * 100}%` }}
-          />
+
+        <p className="mt-3 text-sm text-ink-faint">
+          {MODULE_BY_ID.get(lesson.moduleId)?.title} &middot; Lesson {lessonPosition} of{' '}
+          {moduleSize}
+        </p>
+
+        <div className="mt-2 flex items-center gap-3">
+          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-line">
+            <div
+              className="bar-fill h-full rounded-full bg-accent-strong"
+              style={{ width: `${((index + 1) / steps.length) * 100}%` }}
+            />
+          </div>
+          <span className="shrink-0 text-sm font-medium text-ink-soft">
+            Step {index + 1} of {steps.length}
+          </span>
         </div>
-        <span className="shrink-0 text-sm tabular-nums text-ink-faint">
-          {index + 1}/{steps.length}
-        </span>
+        <p className="mt-1.5 text-sm font-semibold text-accent-strong dark:text-accent">
+          {stepName(step)}
+        </p>
       </div>
 
       <div key={index} className="animate-step pt-9">
         {/* ── the idea ── */}
         {step.kind === 'idea' ? (
           <>
-            <StepLabel>The idea &middot; {lesson.estMinutes} min</StepLabel>
+            <StepLabel>{lesson.estMinutes} min read</StepLabel>
             <h1 className="mt-2 text-[1.6rem] font-bold leading-[1.25] tracking-tight sm:text-[1.9rem]">
               {lesson.title}
             </h1>
@@ -199,8 +243,7 @@ export function LessonPage() {
               const Diagram = DIAGRAMS[visual.component]
               return (
                 <>
-                  <StepLabel>{visual.interactive ? 'Try it' : 'Look at it'}</StepLabel>
-                  <h2 className="mt-2 text-[1.35rem] font-bold leading-tight tracking-tight">
+                  <h2 className="text-[1.35rem] font-bold leading-tight tracking-tight">
                     {visual.interactive ? 'Move the control and watch' : 'The diagram'}
                   </h2>
                   <p className="reading mt-2 max-w-[34rem] text-ink-soft">{visual.caption}</p>
@@ -213,8 +256,7 @@ export function LessonPage() {
         {/* ── examples ── */}
         {step.kind === 'examples' ? (
           <>
-            <StepLabel>Seen in</StepLabel>
-            <h2 className="mt-2 text-[1.35rem] font-bold leading-tight tracking-tight">
+            <h2 className="text-[1.35rem] font-bold leading-tight tracking-tight">
               Two examples
             </h2>
             <div className="mt-6 max-w-[34rem] space-y-7">
@@ -240,8 +282,7 @@ export function LessonPage() {
         {/* ── mistakes ── */}
         {step.kind === 'mistakes' ? (
           <>
-            <StepLabel>Avoid</StepLabel>
-            <h2 className="mt-2 text-[1.35rem] font-bold leading-tight tracking-tight">
+            <h2 className="text-[1.35rem] font-bold leading-tight tracking-tight">
               Three common mistakes
             </h2>
             <ol className="mt-6 max-w-[34rem] space-y-6">
@@ -258,8 +299,7 @@ export function LessonPage() {
         {/* ── AI translation ── */}
         {step.kind === 'ai' ? (
           <>
-            <StepLabel>Now the other half</StepLabel>
-            <h2 className="mt-2 text-[1.35rem] font-bold leading-tight tracking-tight">
+            <h2 className="text-[1.35rem] font-bold leading-tight tracking-tight">
               The same idea, when your camera is a model
             </h2>
             <div className="reading mt-6 max-w-[34rem]">
@@ -284,10 +324,7 @@ export function LessonPage() {
               const answer = answerCheck(step.index)
               return (
                 <>
-                  <StepLabel>
-                    Check {step.index + 1} of {lesson.checks.length}
-                  </StepLabel>
-                  <h2 className="mt-2 max-w-[34rem] text-[1.35rem] font-semibold leading-[1.35]">
+                  <h2 className="max-w-[34rem] text-[1.35rem] font-semibold leading-[1.35]">
                     {q.prompt}
                   </h2>
                   <div className="mt-7 max-w-[34rem] space-y-2.5">
@@ -325,7 +362,7 @@ export function LessonPage() {
         {step.kind === 'assignment' ? (
           <>
             <StepLabel>
-              Make something &middot; {lesson.assignment.timeboxMinutes} min &middot;{' '}
+              {lesson.assignment.timeboxMinutes} min &middot;{' '}
               {lesson.assignment.usesTools.join(', ')}
             </StepLabel>
             <h2 className="mt-2 text-[1.35rem] font-bold leading-tight tracking-tight">
@@ -397,7 +434,7 @@ export function LessonPage() {
           onClick={advance}
           disabled={step.kind === 'check' && answers[lesson.checks[step.index].id] === undefined}
         >
-          {isLast ? (upNext ? 'Next lesson' : 'Done') : 'Continue'}
+          {isLast ? (upNext ? 'Finish · go to next lesson' : 'Finish lesson') : 'Continue'}
         </Primary>
 
         {index > 0 ? (

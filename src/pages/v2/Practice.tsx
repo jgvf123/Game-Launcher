@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { LESSON_SEQUENCE } from '../../curriculum'
 import { useLessonProgress, useShipLog } from '../../data/hooks'
+import { PillLink } from '../../components/ui'
 
 /**
  * The making half of the app. Four tools and whatever you owe yourself —
@@ -81,15 +82,11 @@ export function Practice() {
       ) : null}
 
       {shipLog.length > 0 ? (
-        <Link
-          to="/ship-log"
-          className="mt-8 inline-block text-sm text-ink-soft transition-colors hover:text-ink"
-        >
-          <span className="font-semibold text-accent-strong dark:text-accent">
-            {shipLog.length}
-          </span>{' '}
-          shipped so far &rarr;
-        </Link>
+        <div className="mt-8">
+          <PillLink to="/ship-log" count={shipLog.length}>
+            shipped so far
+          </PillLink>
+        </div>
       ) : null}
     </div>
   )
