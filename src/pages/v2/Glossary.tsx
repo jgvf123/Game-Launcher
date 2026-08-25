@@ -92,7 +92,7 @@ export function Glossary() {
                   </span>
                 </dt>
                 <dd className="mt-1.5 text-base leading-relaxed">{term.definition}</dd>
-                <dd className="mt-2 rounded-lg bg-accent-soft/60 px-3 py-2 text-base leading-relaxed text-ink-soft">
+                <dd className="mt-2 rounded-lg bg-accent-soft px-3 py-2 text-base leading-relaxed text-ink">
                   {term.hinglish}
                 </dd>
                 {lesson ? (

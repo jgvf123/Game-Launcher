@@ -50,7 +50,7 @@ export function TermTooltip({ text }: { text: string }) {
           <span className="block font-semibold">{term.term}</span>
           <span className="mt-1 block leading-snug text-ink-soft">{term.definition}</span>
           {lang === 'both' ? (
-            <span className="mt-2 block rounded bg-accent-soft/70 px-2 py-1.5 leading-snug text-ink-soft">
+            <span className="mt-2 block rounded bg-accent-soft px-2.5 py-2 leading-snug text-ink">
               {term.hinglish}
             </span>
           ) : null}

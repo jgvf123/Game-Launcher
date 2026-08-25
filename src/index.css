@@ -5,7 +5,12 @@
 @theme {
   --color-accent: oklch(0.72 0.15 65);
   --color-accent-strong: oklch(0.62 0.16 60);
-  --color-accent-soft: oklch(0.95 0.04 75);
+  /*
+   * Theme-aware like the surface tokens. It used to be a fixed light value,
+   * so in dark mode any `bg-accent-soft` panel stayed pale and the ink on it
+   * — which does flip — became unreadable.
+   */
+  --color-accent-soft: var(--accent-soft);
   /*
    * Surface tokens indirect through per-mode custom properties, so
    * `bg-surface` / `text-ink` / `border-line` are theme-aware on their own.
@@ -23,13 +28,14 @@
 }
 
 :root {
+  --accent-soft: oklch(0.95 0.04 75);
   /* Warm paper rather than cold grey — this is a place to read for an hour. */
   --paper: oklch(0.982 0.004 85);
   --surface: oklch(1 0 0);
   --line: oklch(0.912 0.004 85);
   --ink: oklch(0.29 0.012 60);
   --ink-soft: oklch(0.52 0.01 60);
-  --ink-faint: oklch(0.67 0.008 60);
+  --ink-faint: oklch(0.555 0.01 60);
   /* Illustration palette — light */
   --ill-bg: oklch(0.97 0.005 90);
   --ill-frame: oklch(0.35 0.01 90);
@@ -43,12 +49,14 @@
 }
 
 .dark {
+  /* A warm tint that sits just above `surface`, not a pale panel. */
+  --accent-soft: oklch(0.285 0.032 70);
   --paper: oklch(0.175 0.008 265);
   --surface: oklch(0.218 0.008 265);
   --line: oklch(0.295 0.008 265);
   --ink: oklch(0.915 0.005 85);
   --ink-soft: oklch(0.70 0.008 85);
-  --ink-faint: oklch(0.55 0.008 85);
+  --ink-faint: oklch(0.625 0.008 85);
   --ill-bg: oklch(0.24 0.008 260);
   --ill-frame: oklch(0.82 0.01 90);
   --ill-stroke: oklch(0.72 0.01 90);

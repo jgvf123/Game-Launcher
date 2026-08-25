@@ -87,7 +87,7 @@ export function Tracks() {
               className={`flex gap-4 rounded-xl border p-4 transition-colors ${
                 empty
                   ? 'border-dashed border-line hover:bg-zinc-50  dark:hover:bg-surface'
-                  : 'border-line bg-surface hover:border-accent hover:bg-accent-soft/40  /70'
+                  : 'border-line bg-surface hover:border-accent hover:bg-accent-soft/40'
               }`}
             >
               <Ring done={done} total={scope.written || 1} letter={track.letter} />

@@ -188,7 +188,7 @@ export function EmptyState({
 
 export function MasteredBadge() {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-accent-soft px-2.5 py-0.5 text-sm font-semibold text-accent-strong">
+    <span className="inline-flex items-center gap-1 rounded-full bg-accent-soft px-2.5 py-0.5 text-sm font-semibold text-accent-strong dark:text-accent">
       <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
         <path d="M8 1l2 4.1 4.5.7-3.2 3.2.7 4.5L8 11.4 4 13.5l.7-4.5L1.5 5.8 6 5.1 8 1z" />
       </svg>
