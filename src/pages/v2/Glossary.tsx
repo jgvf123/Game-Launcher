@@ -32,7 +32,7 @@ export function Glossary() {
   return (
     <div>
       <h1 className="text-2xl font-bold tracking-tight">Glossary</h1>
-      <p className="mt-1 text-base text-zinc-500 dark:text-zinc-400">
+      <p className="mt-1 text-base text-ink-soft">
         Every term the lessons put in bold, in English and in Hinglish, linked back to the lesson
         that teaches it. {TERMS.length} terms so far.
       </p>
@@ -43,7 +43,7 @@ export function Glossary() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search a term, a definition, or the Hinglish…"
-          className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-strong dark:border-zinc-700 dark:bg-zinc-900"
+          className="w-full rounded-lg border border-line bg-surface px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-strong"
         />
         <div className="flex flex-wrap gap-1.5">
           {(['all', ...tracksWithTerms.map((t) => t.id)] as (TrackId | 'all')[]).map((id) => {
@@ -56,9 +56,7 @@ export function Glossary() {
                 aria-pressed={active}
                 onClick={() => setTrack(id)}
                 className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
-                  active
-                    ? 'bg-accent-strong text-white'
-                    : 'bg-zinc-200/70 text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700'
+                  active ? 'bg-accent-strong text-white' : 'bg-surface text-ink-soft hover:text-ink'
                 }`}
               >
                 {label}
@@ -70,9 +68,7 @@ export function Glossary() {
 
       {results.length === 0 ? (
         <div className="mt-8">
-          <EmptyState title="No match">
-            Nothing in the glossary matches that yet.
-          </EmptyState>
+          <EmptyState title="No match">Nothing in the glossary matches that yet.</EmptyState>
         </div>
       ) : (
         <dl className="mt-5 space-y-3">
@@ -85,18 +81,18 @@ export function Glossary() {
                 id={term.id}
                 className={`rounded-xl border p-4 ${
                   isHighlighted
-                    ? 'border-accent-strong bg-accent-soft/40 dark:bg-zinc-900'
-                    : 'border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900'
+                    ? 'border-accent-strong bg-accent-soft/40 '
+                    : 'border-line bg-surface'
                 }`}
               >
                 <dt className="flex flex-wrap items-baseline gap-2">
                   <span className="text-lg font-semibold">{term.term}</span>
-                  <span className="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
+                  <span className="text-xs font-medium uppercase tracking-wide text-ink-faint">
                     {TRACK_BY_ID.get(term.trackId)?.title}
                   </span>
                 </dt>
                 <dd className="mt-1.5 text-base leading-relaxed">{term.definition}</dd>
-                <dd className="mt-2 rounded-lg bg-accent-soft/60 px-3 py-2 text-base leading-relaxed text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                <dd className="mt-2 rounded-lg bg-accent-soft/60 px-3 py-2 text-base leading-relaxed text-ink-soft">
                   {term.hinglish}
                 </dd>
                 {lesson ? (
@@ -110,7 +106,7 @@ export function Glossary() {
                   </dd>
                 ) : null}
                 {term.seeAlso.length > 0 ? (
-                  <dd className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">
+                  <dd className="mt-1.5 text-sm text-ink-soft">
                     See also:{' '}
                     {term.seeAlso.map((id, i) => (
                       <span key={id}>

@@ -46,13 +46,11 @@ export function TermTooltip({ text }: { text: string }) {
         {text}
       </button>
       {open ? (
-        <span className="absolute bottom-full left-0 z-30 mb-2 block w-72 max-w-[80vw] rounded-lg border border-zinc-200 bg-white p-3 text-left text-sm font-normal shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
+        <span className="absolute bottom-full left-0 z-30 mb-2 block w-72 max-w-[80vw] rounded-lg border border-line bg-surface p-3 text-left text-sm font-normal shadow-lg">
           <span className="block font-semibold">{term.term}</span>
-          <span className="mt-1 block leading-snug text-zinc-600 dark:text-zinc-300">
-            {term.definition}
-          </span>
+          <span className="mt-1 block leading-snug text-ink-soft">{term.definition}</span>
           {lang === 'both' ? (
-            <span className="mt-2 block rounded bg-accent-soft/70 px-2 py-1.5 leading-snug text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
+            <span className="mt-2 block rounded bg-accent-soft/70 px-2 py-1.5 leading-snug text-ink-soft">
               {term.hinglish}
             </span>
           ) : null}

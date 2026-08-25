@@ -75,7 +75,7 @@ export function PromptBuilder() {
   return (
     <div className="mx-auto max-w-3xl">
       <h1 className="text-2xl font-bold tracking-tight">Prompt Builder</h1>
-      <p className="mt-1 text-base text-zinc-500 dark:text-zinc-400">
+      <p className="mt-1 text-base text-ink-soft">
         Fill the slots a director would actually decide, in the order that matters. Every field
         links back to the lesson that teaches it — this is the bridge between the theory and the
         thing you are actually making today.
@@ -85,10 +85,7 @@ export function PromptBuilder() {
         {PROMPT_FIELDS.map((field) => {
           const value = values[field.id] ?? ''
           return (
-            <div
-              key={field.id}
-              className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
-            >
+            <div key={field.id} className="rounded-xl bg-surface p-4">
               <label className="block">
                 <span className="flex flex-wrap items-baseline gap-2">
                   <span className="font-semibold">{field.label}</span>
@@ -99,16 +96,14 @@ export function PromptBuilder() {
                   ) : null}
                 </span>
                 {lang === 'both' ? (
-                  <span className="mt-0.5 block text-sm text-zinc-500 dark:text-zinc-400">
-                    {field.hinglish}
-                  </span>
+                  <span className="mt-0.5 block text-sm text-ink-soft">{field.hinglish}</span>
                 ) : null}
                 <input
                   type="text"
                   value={value}
                   onChange={(e) => set(field.id, e.target.value)}
                   placeholder={field.placeholder}
-                  className="mt-2 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-strong dark:border-zinc-700 dark:bg-zinc-950"
+                  className="mt-2 w-full rounded-lg border border-line bg-surface px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-strong"
                 />
               </label>
               {field.options.length > 0 ? (
@@ -121,7 +116,7 @@ export function PromptBuilder() {
                       className={`rounded-full px-2.5 py-1 text-sm transition-colors ${
                         value === opt
                           ? 'bg-accent-strong text-white'
-                          : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700'
+                          : 'bg-surface text-ink-soft hover:text-ink'
                       }`}
                     >
                       {opt}
@@ -135,7 +130,7 @@ export function PromptBuilder() {
       </div>
 
       {/* Negatives */}
-      <div className="mt-4 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="mt-4 rounded-xl bg-surface p-4">
         <label className="flex items-center gap-2 font-semibold">
           <input
             type="checkbox"
@@ -145,7 +140,7 @@ export function PromptBuilder() {
           />
           Negative prompt
         </label>
-        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="mt-1 text-sm text-ink-soft">
           SDXL and ComfyUI workflows use this. FLUX Schnell mostly ignores it — leave it off there
           and fix problems in the positive prompt instead.
         </p>
@@ -154,15 +149,15 @@ export function PromptBuilder() {
           onChange={(e) => setNegatives(e.target.value)}
           rows={2}
           disabled={!useNegatives}
-          className="mt-2 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-950"
+          className="mt-2 w-full rounded-lg border border-line bg-surface px-3 py-2 text-base disabled:opacity-50"
         />
       </div>
 
       {/* Output */}
-      <div className="sticky bottom-20 mt-6 rounded-xl border-2 border-accent-strong/50 bg-accent-soft/50 p-4 backdrop-blur md:bottom-4 dark:border-accent/40 dark:bg-zinc-900/95">
+      <div className="sticky bottom-20 mt-6 rounded-xl border-2 border-accent-strong/50 bg-accent-soft/50 p-4 backdrop-blur md:bottom-4 dark:border-accent/40">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-bold">Your prompt</h2>
-          <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+          <span className="text-sm font-medium text-ink-soft">
             {filled.length} of {PROMPT_FIELDS.length} slots
           </span>
         </div>
@@ -176,7 +171,7 @@ export function PromptBuilder() {
               : 'Fill a slot or two and your prompt appears here.'
           }
           rows={4}
-          className="mt-2 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 font-mono text-sm dark:border-zinc-700 dark:bg-zinc-950"
+          className="mt-2 w-full rounded-lg border border-line bg-surface px-3 py-2 font-mono text-sm"
         />
         <div className="mt-2 flex flex-wrap gap-2">
           <Button variant="primary" onClick={() => void copy()} disabled={!prompt}>
@@ -192,20 +187,17 @@ export function PromptBuilder() {
       {filled.length > 0 ? (
         <section className="mt-8">
           <h2 className="text-lg font-bold tracking-tight">Why this prompt works</h2>
-          <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-0.5 text-sm text-ink-soft">
             What each slot you filled is doing to the image, and where it is taught.
           </p>
           <ul className="mt-3 space-y-2">
             {filled.map((field) => {
               const link = slotLink(field)
               return (
-                <li
-                  key={field.id}
-                  className="rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
-                >
+                <li key={field.id} className="rounded-lg bg-surface p-3">
                   <p className="text-sm font-semibold text-accent-strong dark:text-accent">
                     {field.label}
-                    <span className="ml-2 font-normal text-zinc-500 dark:text-zinc-400">
+                    <span className="ml-2 font-normal text-ink-soft">
                       &ldquo;{values[field.id]}&rdquo;
                     </span>
                   </p>
@@ -224,12 +216,11 @@ export function PromptBuilder() {
           </ul>
 
           {empty.length > 0 ? (
-            <div className="mt-4 rounded-lg border border-dashed border-zinc-300 p-3 dark:border-zinc-700">
+            <div className="mt-4 rounded-lg border border-dashed border-line p-3">
               <p className="text-sm font-semibold">Still empty</p>
-              <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="mt-1 text-sm text-ink-soft">
                 {empty.map((f) => f.label).join(' · ')}. An empty slot is not neutral — the model
-                fills it with its own default, and that default is what makes an image look
-                generic.
+                fills it with its own default, and that default is what makes an image look generic.
               </p>
             </div>
           ) : null}
@@ -245,14 +236,14 @@ export function PromptBuilder() {
             value={presetName}
             onChange={(e) => setPresetName(e.target.value)}
             placeholder="Name this setup…"
-            className="min-w-0 flex-1 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-900"
+            className="min-w-0 flex-1 rounded-lg border border-line bg-surface px-3 py-2 text-base"
           />
           <Button onClick={() => void savePreset()} disabled={!presetName.trim() || !prompt}>
             Save
           </Button>
         </div>
         {presets.length === 0 ? (
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-2 text-sm text-ink-soft">
             Nothing saved yet. Presets are useful for locking a look across a whole shot list.
           </p>
         ) : (
@@ -260,11 +251,11 @@ export function PromptBuilder() {
             {presets.map((preset) => (
               <li
                 key={preset.id}
-                className="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-800 dark:bg-zinc-900"
+                className="flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-2"
               >
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-medium">{preset.name}</span>
-                  <span className="block text-xs text-zinc-500 dark:text-zinc-400">
+                  <span className="block text-xs text-ink-soft">
                     {new Date(preset.updatedAt).toLocaleDateString()}
                   </span>
                 </span>

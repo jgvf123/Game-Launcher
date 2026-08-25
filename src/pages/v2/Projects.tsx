@@ -52,11 +52,11 @@ function ProjectCard({ project }: { project: ProjectRow }) {
   }
 
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="rounded-xl bg-surface p-4">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
           <h2 className="text-lg font-bold leading-tight">{project.title}</h2>
-          <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-0.5 text-sm text-ink-soft">
             {finished ? (
               <span className="font-semibold text-green-700 dark:text-green-400">
                 Delivered — every gate passed.
@@ -95,8 +95,8 @@ function ProjectCard({ project }: { project: ProjectRow }) {
                 complete
                   ? 'bg-accent-strong text-white'
                   : isCurrent
-                    ? 'bg-accent-soft text-accent-strong dark:bg-zinc-800 dark:text-accent'
-                    : 'bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500'
+                    ? 'bg-accent-soft text-accent-strong dark:bg-surface dark:text-accent'
+                    : 'bg-surface text-ink-faint'
               }`}
             >
               {complete ? '✓ ' : isCurrent ? '' : '🔒 '}
@@ -116,10 +116,10 @@ function ProjectCard({ project }: { project: ProjectRow }) {
                 key={stage.id}
                 className={`rounded-lg border p-3 ${
                   locked
-                    ? 'border-dashed border-zinc-300 opacity-60 dark:border-zinc-700'
+                    ? 'border-dashed border-line opacity-55'
                     : complete
                       ? 'border-green-500/50 bg-green-50/40 dark:bg-green-950/20'
-                      : 'border-accent-strong/50 bg-accent-soft/30 dark:border-accent/40 dark:bg-zinc-800/50'
+                      : 'border-accent-strong/40 bg-accent-soft/40 dark:border-accent/30 dark:bg-surface'
                 }`}
               >
                 <h3 className="flex flex-wrap items-baseline gap-2 font-semibold">
@@ -127,26 +127,22 @@ function ProjectCard({ project }: { project: ProjectRow }) {
                     {i + 1}. {stage.title}
                   </span>
                   {locked ? (
-                    <span className="text-xs font-medium uppercase tracking-wide text-zinc-400">
+                    <span className="text-xs font-medium uppercase tracking-wide text-ink-faint">
                       locked
                     </span>
                   ) : null}
                 </h3>
                 {lang === 'both' ? (
-                  <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
-                    {stage.hinglish}
-                  </p>
+                  <p className="mt-0.5 text-sm text-ink-soft">{stage.hinglish}</p>
                 ) : null}
 
                 {locked ? (
-                  <p className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">
+                  <p className="mt-1.5 text-sm text-ink-soft">
                     Finish {PROJECT_STAGES[activeIndex].title} first. That is the whole point.
                   </p>
                 ) : (
                   <>
-                    <p className="mt-1.5 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
-                      {stage.why}
-                    </p>
+                    <p className="mt-1.5 text-sm leading-snug text-ink-soft">{stage.why}</p>
                     <ul className="mt-2 space-y-1.5">
                       {stage.checklist.map((item, index) => (
                         <li key={index}>
@@ -214,10 +210,10 @@ export function Projects() {
   return (
     <div>
       <h1 className="text-2xl font-bold tracking-tight">Projects</h1>
-      <p className="mt-1 text-base text-zinc-500 dark:text-zinc-400">
-        Nine gates from concept to delivery. A stage will not close until its checklist is done,
-        and the next one stays locked until it does. This is rigid on purpose — skipping
-        pre-production is the habit that costs the most.
+      <p className="mt-1 text-base text-ink-soft">
+        Nine gates from concept to delivery. A stage will not close until its checklist is done, and
+        the next one stays locked until it does. This is rigid on purpose — skipping pre-production
+        is the habit that costs the most.
       </p>
 
       <div className="mt-4 flex flex-wrap gap-2">
@@ -229,7 +225,7 @@ export function Projects() {
             if (e.key === 'Enter') void create()
           }}
           placeholder="New project name…"
-          className="min-w-0 flex-1 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-900"
+          className="min-w-0 flex-1 rounded-lg border border-line bg-surface px-3 py-2 text-base"
         />
         <Button variant="primary" onClick={() => void create()} disabled={!title.trim()}>
           Start project

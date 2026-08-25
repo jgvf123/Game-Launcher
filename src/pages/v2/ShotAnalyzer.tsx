@@ -84,7 +84,7 @@ export function ShotAnalyzer() {
   return (
     <div className="mx-auto max-w-3xl">
       <h1 className="text-2xl font-bold tracking-tight">Shot Analyzer</h1>
-      <p className="mt-1 text-base text-zinc-500 dark:text-zinc-400">
+      <p className="mt-1 text-base text-ink-soft">
         Load a frame — from any film, or your own render. Read it, then check yourself against the
         rubric. The app tracks which attributes you keep getting wrong, which is the feedback a
         junior never gets.
@@ -100,9 +100,7 @@ export function ShotAnalyzer() {
             </span>{' '}
             — {Math.round(weakest.pct * 100)}% right.
           </p>
-          <p className="mt-1 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
-            {weakest.attr.howToRead}
-          </p>
+          <p className="mt-1 text-sm leading-snug text-ink-soft">{weakest.attr.howToRead}</p>
         </div>
       ) : null}
 
@@ -118,7 +116,7 @@ export function ShotAnalyzer() {
           }}
           className="block w-full text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-accent-strong file:px-4 file:py-2 file:text-sm file:font-medium file:text-white"
         />
-        <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+        <p className="mt-1 text-xs text-ink-soft">
           The image never leaves your machine — it is not uploaded or stored, just read in the
           browser.
         </p>
@@ -129,25 +127,22 @@ export function ShotAnalyzer() {
           <img
             src={imageUrl}
             alt="The frame you are analysing"
-            className="mt-4 max-h-[60vh] w-full rounded-xl border border-zinc-200 object-contain dark:border-zinc-800"
+            className="mt-4 max-h-[60vh] w-full rounded-xl border border-line object-contain"
           />
 
           {phase === 'tag' ? (
             <>
               <h2 className="mt-6 text-lg font-bold tracking-tight">Read the frame</h2>
-              <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="mt-0.5 text-sm text-ink-soft">
                 Commit to an answer for all eight before you look at the rubric. Guessing after
                 seeing the answer teaches you nothing.
               </p>
               <div className="mt-3 space-y-3">
                 {ANALYZER_ATTRIBUTES.map((attr) => (
-                  <div
-                    key={attr.id}
-                    className="rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
-                  >
+                  <div key={attr.id} className="rounded-xl bg-surface p-3">
                     <p className="font-semibold">{attr.label}</p>
                     {lang === 'both' ? (
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400">{attr.hinglish}</p>
+                      <p className="text-sm text-ink-soft">{attr.hinglish}</p>
                     ) : null}
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {attr.options.map((opt) => (
@@ -158,7 +153,7 @@ export function ShotAnalyzer() {
                           className={`rounded-full px-2.5 py-1 text-sm transition-colors ${
                             tags[attr.id] === opt
                               ? 'bg-accent-strong text-white'
-                              : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700'
+                              : 'bg-surface text-ink-soft hover:text-ink'
                           }`}
                         >
                           {opt}
@@ -177,9 +172,7 @@ export function ShotAnalyzer() {
                 Reveal the rubric
               </Button>
               {!allTagged ? (
-                <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-                  Answer all eight first.
-                </p>
+                <p className="mt-2 text-sm text-ink-soft">Answer all eight first.</p>
               ) : null}
             </>
           ) : null}
@@ -187,7 +180,7 @@ export function ShotAnalyzer() {
           {phase === 'grade' ? (
             <>
               <h2 className="mt-6 text-lg font-bold tracking-tight">Grade yourself</h2>
-              <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="mt-0.5 text-sm text-ink-soft">
                 Read how each attribute is actually judged, then mark your own call. Only honest
                 marks make the weak-area tracking worth anything.
               </p>
@@ -196,18 +189,15 @@ export function ShotAnalyzer() {
                   const lesson = attr.lessonId ? LESSON_BY_ID.get(attr.lessonId) : undefined
                   const mark = scores[attr.id]
                   return (
-                    <div
-                      key={attr.id}
-                      className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
-                    >
+                    <div key={attr.id} className="rounded-xl bg-surface p-4">
                       <p className="flex flex-wrap items-baseline gap-2 font-semibold">
                         {attr.label}
-                        <span className="rounded-full bg-accent-soft px-2 py-0.5 text-sm text-accent-strong dark:bg-zinc-800 dark:text-accent">
+                        <span className="rounded-full bg-accent-soft px-2 py-0.5 text-sm text-accent-strong  dark:text-accent">
                           you said: {tags[attr.id]}
                         </span>
                       </p>
                       <p className="mt-2 text-base leading-relaxed">{attr.howToRead}</p>
-                      <p className="mt-2 rounded-lg bg-zinc-100 px-3 py-2 text-sm leading-snug text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+                      <p className="mt-2 rounded-lg bg-surface px-3 py-2 text-sm leading-snug text-ink-soft">
                         <span className="font-semibold">Common trap: </span>
                         {attr.trap}
                       </p>
@@ -256,11 +246,11 @@ export function ShotAnalyzer() {
           ) : null}
 
           {phase === 'done' ? (
-            <div className="mt-6 rounded-xl border-2 border-accent-strong/50 bg-accent-soft/40 p-5 text-center dark:border-accent/40 dark:bg-zinc-900">
+            <div className="mt-6 rounded-xl border-2 border-accent-strong/50 bg-accent-soft/40 p-5 text-center dark:border-accent/40">
               <p className="text-3xl font-bold text-accent-strong dark:text-accent">
                 {correctCount} / {ANALYZER_ATTRIBUTES.length}
               </p>
-              <p className="mt-1 text-base text-zinc-600 dark:text-zinc-300">
+              <p className="mt-1 text-base text-ink-soft">
                 Recorded. Attempt number {attempts.length}.
               </p>
               <Button variant="primary" className="mt-4" onClick={reset}>
@@ -275,7 +265,7 @@ export function ShotAnalyzer() {
       {attempts.length > 0 ? (
         <section className="mt-10">
           <h2 className="text-lg font-bold tracking-tight">Your accuracy</h2>
-          <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-0.5 text-sm text-ink-soft">
             Across {attempts.length} frame{attempts.length === 1 ? '' : 's'}.
           </p>
           <ul className="mt-3 space-y-2.5">
@@ -287,7 +277,7 @@ export function ShotAnalyzer() {
                 <li key={attr.id}>
                   <div className="flex items-baseline justify-between gap-2 text-sm">
                     <span className="font-medium">{attr.label}</span>
-                    <span className="tabular-nums text-zinc-500 dark:text-zinc-400">
+                    <span className="tabular-nums text-ink-soft">
                       {pct}% &middot; {row.right}/{row.total}
                     </span>
                   </div>

@@ -131,13 +131,9 @@ function Thumbnail({ shot }: { shot: ShotRow }) {
   return (
     <div className="shrink-0">
       {url ? (
-        <img
-          src={url}
-          alt=""
-          className="h-16 w-24 rounded-lg border border-zinc-200 object-cover dark:border-zinc-700"
-        />
+        <img src={url} alt="" className="h-16 w-24 rounded-lg border border-line object-cover" />
       ) : (
-        <div className="flex h-16 w-24 items-center justify-center rounded-lg border border-dashed border-zinc-300 text-xs text-zinc-400 dark:border-zinc-700">
+        <div className="flex h-16 w-24 items-center justify-center rounded-lg border border-dashed border-line text-xs text-ink-faint">
           no still
         </div>
       )}
@@ -213,10 +209,9 @@ export function ShotList() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Shot List</h1>
-          <p className="mt-1 text-base text-zinc-500 dark:text-zinc-400">
-            The document that turns an idea into a day of work. Fill it before you generate
-            anything — deciding shot by shot in front of the model is how budgets and evenings
-            disappear.
+          <p className="mt-1 text-base text-ink-soft">
+            The document that turns an idea into a day of work. Fill it before you generate anything
+            — deciding shot by shot in front of the model is how budgets and evenings disappear.
           </p>
         </div>
         <Button variant="primary" onClick={() => void addShot()}>
@@ -243,7 +238,7 @@ export function ShotList() {
           <Button className="px-3 py-1.5 text-sm" onClick={() => printPdf(shots)}>
             Export PDF
           </Button>
-          <span className="self-center text-sm text-zinc-500 dark:text-zinc-400">
+          <span className="self-center text-sm text-ink-soft">
             {shots.length} shots &middot;{' '}
             {shots.reduce((n, s) => n + (Number(s.durationSeconds) || 0), 0)}s total
           </span>
@@ -260,8 +255,8 @@ export function ShotList() {
               </Button>
             }
           >
-            A shot list is where a vague idea becomes a countable amount of work. Add rows, fill
-            the craft columns, then write the prompt last.
+            A shot list is where a vague idea becomes a countable amount of work. Add rows, fill the
+            craft columns, then write the prompt last.
           </EmptyState>
         </div>
       ) : (
@@ -277,14 +272,12 @@ export function ShotList() {
                 if (from >= 0) void move(from, index)
                 setDragId(null)
               }}
-              className={`rounded-xl border bg-white p-4 dark:bg-zinc-900 ${
-                dragId === shot.id
-                  ? 'border-accent-strong opacity-60'
-                  : 'border-zinc-200 dark:border-zinc-800'
+              className={`rounded-xl border bg-surface p-4  ${
+                dragId === shot.id ? 'border-accent-strong opacity-60' : 'border-line'
               }`}
             >
               <div className="flex items-start gap-3">
-                <span className="flex h-7 w-7 shrink-0 cursor-grab items-center justify-center rounded-full bg-zinc-100 text-xs font-bold text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+                <span className="flex h-7 w-7 shrink-0 cursor-grab items-center justify-center rounded-full bg-surface text-xs font-bold text-ink-soft">
                   {index + 1}
                 </span>
                 <Thumbnail shot={shot} />
@@ -318,7 +311,7 @@ export function ShotList() {
               <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {COLUMNS.map((col) => (
                   <label key={String(col.key)} className={col.wide ? 'col-span-2' : ''}>
-                    <span className="block text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                    <span className="block text-xs font-semibold uppercase tracking-wide text-ink-soft">
                       {col.label}
                     </span>
                     <input
@@ -330,18 +323,18 @@ export function ShotList() {
                             col.key === 'durationSeconds' ? Number(e.target.value) : e.target.value,
                         } as Partial<ShotRow>)
                       }
-                      className="mt-0.5 w-full rounded-md border border-zinc-300 bg-white px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+                      className="mt-0.5 w-full rounded-md border border-line bg-surface px-2 py-1.5 text-sm"
                     />
                   </label>
                 ))}
                 <label>
-                  <span className="block text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                  <span className="block text-xs font-semibold uppercase tracking-wide text-ink-soft">
                     Status
                   </span>
                   <select
                     value={shot.status}
                     onChange={(e) => void update(shot, { status: e.target.value })}
-                    className="mt-0.5 w-full rounded-md border border-zinc-300 bg-white px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+                    className="mt-0.5 w-full rounded-md border border-line bg-surface px-2 py-1.5 text-sm"
                   >
                     {STATUSES.map((s) => (
                       <option key={s}>{s}</option>
@@ -351,7 +344,7 @@ export function ShotList() {
               </div>
 
               <label className="mt-2 block">
-                <span className="block text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                <span className="block text-xs font-semibold uppercase tracking-wide text-ink-soft">
                   Prompt
                 </span>
                 <textarea
@@ -359,7 +352,7 @@ export function ShotList() {
                   onChange={(e) => void update(shot, { prompt: e.target.value })}
                   rows={2}
                   placeholder="Paste from the Prompt Builder…"
-                  className="mt-0.5 w-full rounded-md border border-zinc-300 bg-white px-2 py-1.5 font-mono text-sm dark:border-zinc-700 dark:bg-zinc-950"
+                  className="mt-0.5 w-full rounded-md border border-line bg-surface px-2 py-1.5 font-mono text-sm"
                 />
               </label>
             </li>

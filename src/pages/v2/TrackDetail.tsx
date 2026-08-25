@@ -13,7 +13,11 @@ export function TrackDetail() {
   if (!track) {
     return (
       <EmptyState title="No such track">
-        That track id does not exist. <Link to="/tracks" className="underline">Back to tracks</Link>.
+        That track id does not exist.{' '}
+        <Link to="/tracks" className="underline">
+          Back to tracks
+        </Link>
+        .
       </EmptyState>
     )
   }
@@ -23,7 +27,7 @@ export function TrackDetail() {
 
   return (
     <div>
-      <Link to="/tracks" className="text-sm font-medium text-zinc-500 hover:underline dark:text-zinc-400">
+      <Link to="/tracks" className="text-sm font-medium text-ink-soft hover:underline">
         &larr; All tracks
       </Link>
       <header className="mb-6 mt-2">
@@ -31,8 +35,8 @@ export function TrackDetail() {
           Track {track.letter}
         </p>
         <h1 className="text-2xl font-bold tracking-tight">{track.title}</h1>
-        <p className="mt-1 text-base text-zinc-500 dark:text-zinc-400">{track.tagline}</p>
-        <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="mt-1 text-base text-ink-soft">{track.tagline}</p>
+        <p className="mt-2 text-sm text-ink-soft">
           {scope.written} of {scope.planned} lessons written across {modules.length} modules.
         </p>
       </header>
@@ -44,21 +48,21 @@ export function TrackDetail() {
             <section key={module.id}>
               <div className="mb-2 flex items-baseline justify-between gap-3">
                 <h2 className="font-semibold">{module.title}</h2>
-                <span className="shrink-0 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                <span className="shrink-0 text-xs font-medium text-ink-soft">
                   {lessons.length > 0
                     ? `${lessons.length} of ${module.plannedLessons}`
                     : `${module.plannedLessons} planned`}
                 </span>
               </div>
-              <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">{module.tagline}</p>
+              <p className="mb-2 text-sm text-ink-soft">{module.tagline}</p>
 
               {lessons.length === 0 ? (
-                <div className="rounded-lg border border-dashed border-zinc-300 px-4 py-4 text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+                <div className="rounded-lg border border-dashed border-line px-4 py-4 text-sm text-ink-soft">
                   Not written yet. When it is, it ships as {module.plannedLessons} complete lessons
                   — never as stubs.
                 </div>
               ) : (
-                <ol className="divide-y divide-zinc-200 overflow-hidden rounded-xl border border-zinc-200 bg-white dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-900">
+                <ol className="divide-y divide-line overflow-hidden rounded-2xl bg-surface">
                   {lessons.map((lesson) => {
                     const opened = progress.has(lesson.id)
                     const done = shipped.has(lesson.id)
@@ -66,7 +70,7 @@ export function TrackDetail() {
                       <li key={lesson.id}>
                         <Link
                           to={`/lesson/${lesson.id}`}
-                          className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-accent-soft/40 dark:hover:bg-zinc-800/70"
+                          className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-paper"
                         >
                           <span
                             aria-hidden
@@ -74,19 +78,19 @@ export function TrackDetail() {
                               done
                                 ? 'bg-accent-strong text-white'
                                 : opened
-                                  ? 'bg-accent-soft text-accent-strong dark:bg-zinc-800 dark:text-accent'
-                                  : 'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400'
+                                  ? 'bg-accent-soft text-accent-strong dark:bg-surface dark:text-accent'
+                                  : 'bg-surface text-ink-soft  '
                             }`}
                           >
                             {done ? '✓' : lesson.order}
                           </span>
                           <span className="min-w-0 flex-1">
                             <span className="block font-medium leading-tight">{lesson.title}</span>
-                            <span className="block text-sm leading-snug text-zinc-500 dark:text-zinc-400">
+                            <span className="block text-sm leading-snug text-ink-soft">
                               {lesson.oneLine}
                             </span>
                           </span>
-                          <span className="shrink-0 text-xs font-medium text-zinc-400 dark:text-zinc-500">
+                          <span className="shrink-0 text-xs font-medium text-ink-faint">
                             {lesson.estMinutes} min
                           </span>
                         </Link>

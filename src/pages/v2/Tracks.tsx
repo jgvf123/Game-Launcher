@@ -14,7 +14,15 @@ function Ring({ done, total, letter }: { done: number; total: number; letter: st
   const pct = total > 0 ? done / total : 0
   return (
     <svg viewBox="0 0 56 56" className="h-14 w-14 shrink-0" aria-hidden>
-      <circle cx="28" cy="28" r={r} fill="none" stroke="currentColor" strokeWidth="4" className="text-zinc-200 dark:text-zinc-800" />
+      <circle
+        cx="28"
+        cy="28"
+        r={r}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="4"
+        className="text-zinc-200 dark:text-ink"
+      />
       <circle
         cx="28"
         cy="28"
@@ -34,7 +42,7 @@ function Ring({ done, total, letter }: { done: number; total: number; letter: st
         fontSize="17"
         fontWeight="700"
         fill="currentColor"
-        className="text-zinc-700 dark:text-zinc-200"
+        className="text-ink-soft"
       >
         {letter}
       </text>
@@ -50,16 +58,16 @@ export function Tracks() {
     <div>
       <header className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight">Tracks</h1>
-        <p className="mt-1 text-base text-zinc-500 dark:text-zinc-400">
-          Ten tracks, from story thinking to getting paid. Every concept is taught twice — once
-          the way it works on a set, once the way it works when your camera is a diffusion model.
+        <p className="mt-1 text-base text-ink-soft">
+          Ten tracks, from story thinking to getting paid. Every concept is taught twice — once the
+          way it works on a set, once the way it works when your camera is a diffusion model.
         </p>
-        <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="mt-2 text-sm text-ink-soft">
           <strong className="text-accent-strong dark:text-accent">
             {CURRICULUM_SCOPE.written} lessons written
           </strong>{' '}
-          of {CURRICULUM_SCOPE.planned} planned. Nothing here is a stub — a lesson exists in full
-          or it does not exist.
+          of {CURRICULUM_SCOPE.planned} planned. Nothing here is a stub — a lesson exists in full or
+          it does not exist.
         </p>
       </header>
 
@@ -78,17 +86,15 @@ export function Tracks() {
               to={`/track/${track.id}`}
               className={`flex gap-4 rounded-xl border p-4 transition-colors ${
                 empty
-                  ? 'border-dashed border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900'
-                  : 'border-zinc-200 bg-white hover:border-accent hover:bg-accent-soft/40 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800/70'
+                  ? 'border-dashed border-line hover:bg-zinc-50  dark:hover:bg-surface'
+                  : 'border-line bg-surface hover:border-accent hover:bg-accent-soft/40  /70'
               }`}
             >
               <Ring done={done} total={scope.written || 1} letter={track.letter} />
               <div className="min-w-0">
                 <h2 className="font-semibold leading-tight">{track.title}</h2>
-                <p className="mt-0.5 text-sm leading-snug text-zinc-500 dark:text-zinc-400">
-                  {track.tagline}
-                </p>
-                <p className="mt-2 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                <p className="mt-0.5 text-sm leading-snug text-ink-soft">{track.tagline}</p>
+                <p className="mt-2 text-xs font-medium text-ink-soft">
                   {empty ? (
                     <span>
                       {modules.length} modules &middot; {scope.planned} lessons planned
