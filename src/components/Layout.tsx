@@ -13,7 +13,7 @@ import type { ReactNode } from 'react'
 const NAV: { to: string; label: string; end?: boolean; icon: ReactNode }[] = [
   {
     to: '/',
-    label: 'Learn',
+    label: 'Seekho',
     end: true,
     icon: (
       <path d="M12 4 2 9l10 5 8-4v6h2V9L12 4zM6 13.5V17c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.5l-6 3-6-3z" />
@@ -21,17 +21,17 @@ const NAV: { to: string; label: string; end?: boolean; icon: ReactNode }[] = [
   },
   {
     to: '/review',
-    label: 'Review',
+    label: 'Dohrao',
     icon: <path d="M12 5V2L7.5 6.5 12 11V8a5 5 0 1 1-5 5H5a7 7 0 1 0 7-8z" />,
   },
   {
     to: '/practice',
-    label: 'Practice',
+    label: 'Banao',
     icon: <path d="M3 5h6l2 2h10v12H3V5zm2 2v10h14V9h-8.8L8.2 7H5z" />,
   },
   {
     to: '/more',
-    label: 'More',
+    label: 'Aur',
     icon: (
       <path d="M5 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
     ),

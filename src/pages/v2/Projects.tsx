@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { PROJECT_STAGES } from '../../curriculum/projectStages'
 import { db, type ProjectRow } from '../../data/db'
-import { useLanguage } from '../../lib/prefs'
 import { Button, EmptyState, ProgressBar } from '../../components/ui'
 
 function itemKey(stageId: string, index: number) {
@@ -24,7 +23,6 @@ function currentStageIndex(project: ProjectRow): number {
 }
 
 function ProjectCard({ project }: { project: ProjectRow }) {
-  const lang = useLanguage()
   const [open, setOpen] = useState(false)
   const current = currentStageIndex(project)
   const done = current
@@ -132,9 +130,7 @@ function ProjectCard({ project }: { project: ProjectRow }) {
                     </span>
                   ) : null}
                 </h3>
-                {lang === 'both' ? (
-                  <p className="mt-0.5 text-sm text-ink-soft">{stage.hinglish}</p>
-                ) : null}
+                <p className="mt-0.5 text-sm text-ink-soft">{stage.hinglish}</p>
 
                 {locked ? (
                   <p className="mt-1.5 text-sm text-ink-soft">

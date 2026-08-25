@@ -9,8 +9,11 @@ import { z } from 'zod'
  * half-written lesson can never reach the app.
  */
 
-/** ≤600 words, enforced. Prose is markdown; taught terms are **bolded**. */
-const BODY_WORD_CAP = 600
+/**
+ * The teaching body is Hinglish and Hinglish runs longer than English for the
+ * same idea, so the cap is higher than the old English-only one.
+ */
+const BODY_WORD_CAP = 800
 
 export const trackIds = [
   'story',
@@ -129,8 +132,19 @@ export const LessonSchema = z.object({
   oneLine: z.string().min(10),
   estMinutes: z.number().int().min(4).max(20),
   prerequisites: z.array(z.string()).default([]),
-  body: z.string().min(200),
-  hinglishGloss: z.string().min(80),
+  /**
+   * The formal definition, in English, stated once. The learner needs the
+   * real industry words — every crew and every prompt uses them — so the
+   * term is introduced properly before anything is explained.
+   */
+  definitionEn: z.string().min(60).max(500),
+  /**
+   * The actual teaching, in Hinglish. Explained the way you would explain it
+   * to someone sitting next to you, with everyday examples they can picture.
+   * Terms stay in **bold** and stay in English, because that is what they are
+   * called on a real job.
+   */
+  body: z.string().min(400),
   visuals: z.array(DiagramRefSchema).min(1),
   filmExamples: z.array(ExampleSchema).length(2),
   commonMistakes: z.tuple([z.string().min(20), z.string().min(20), z.string().min(20)]),

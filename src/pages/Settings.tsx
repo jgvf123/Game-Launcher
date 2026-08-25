@@ -10,10 +10,8 @@ import {
   resetLabProgressStorage,
 } from '../lab/state'
 import { clearAllDexie, exportAll, importAll } from '../data/db'
-import { setLanguage, useLanguage } from '../lib/prefs'
 
-function LanguageAndData() {
-  const lang = useLanguage()
+function DataSection() {
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
@@ -55,30 +53,11 @@ function LanguageAndData() {
   return (
     <>
       <section className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="text-lg font-semibold">Language</h2>
-        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-          Lessons are always written in simple English. This controls whether the Hinglish gloss
-          panels and translations show alongside them.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <Button
-            variant={lang === 'both' ? 'primary' : 'secondary'}
-            onClick={() => setLanguage('both')}
-          >
-            English + Hinglish
-          </Button>
-          <Button variant={lang === 'en' ? 'primary' : 'secondary'} onClick={() => setLanguage('en')}>
-            English only
-          </Button>
-        </div>
-      </section>
-
-      <section className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
         <h2 className="text-lg font-semibold">Your data</h2>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
           Everything lives on this device only. Export before you clear your browser, switch
-          machines, or move the single-file build somewhere new — otherwise progress does not
-          follow you.
+          machines, or move the single-file build somewhere new — otherwise progress does not follow
+          you.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           <Button onClick={() => void doExport()} disabled={busy}>
@@ -99,7 +78,9 @@ function LanguageAndData() {
           />
         </div>
         {message ? (
-          <p className="mt-3 rounded-lg bg-zinc-100 px-3 py-2 text-sm dark:bg-zinc-800">{message}</p>
+          <p className="mt-3 rounded-lg bg-zinc-100 px-3 py-2 text-sm dark:bg-zinc-800">
+            {message}
+          </p>
         ) : null}
       </section>
     </>
@@ -159,8 +140,8 @@ export function Settings() {
       <section className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
         <h2 className="text-lg font-semibold">Reset a module</h2>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-          Clears review history, scheduling, and test results for that module only. Card content
-          is never affected.
+          Clears review history, scheduling, and test results for that module only. Card content is
+          never affected.
         </p>
         <ul className="mt-4 divide-y divide-zinc-100 dark:divide-zinc-800">
           {MODULES.map((m) => {
@@ -210,7 +191,10 @@ export function Settings() {
                 {lab.savedPrompts.length} saved in your Builder library.
               </p>
             </div>
-            <Button onClick={() => setConfirmLab('prompts')} disabled={lab.savedPrompts.length === 0}>
+            <Button
+              onClick={() => setConfirmLab('prompts')}
+              disabled={lab.savedPrompts.length === 0}
+            >
               Clear
             </Button>
           </li>
@@ -228,14 +212,14 @@ export function Settings() {
         </ul>
       </section>
 
-      <LanguageAndData />
+      <DataSection />
 
       <section className="rounded-2xl border border-red-200 bg-white p-6 dark:border-red-950 dark:bg-zinc-900">
         <h2 className="text-lg font-semibold text-red-700 dark:text-red-400">Full reset</h2>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
           Erases everything: all review history, spaced-repetition scheduling, test results,
-          storyboard progress, streaks, and everything in the v2 stores — lesson progress, the
-          ship log, projects, shot lists and saved prompts.
+          storyboard progress, streaks, and everything in the v2 stores — lesson progress, the ship
+          log, projects, shot lists and saved prompts.
         </p>
         <Button variant="danger" className="mt-4" onClick={() => setConfirmAll(true)}>
           Reset all progress

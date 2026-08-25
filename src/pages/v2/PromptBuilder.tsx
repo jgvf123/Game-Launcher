@@ -9,7 +9,6 @@ import {
   type PromptField,
 } from '../../curriculum/promptFields'
 import { db, type PromptPresetRow } from '../../data/db'
-import { useLanguage } from '../../lib/prefs'
 import { Button } from '../../components/ui'
 
 /** Where a slot's explanation should link — the written lesson, else the track. */
@@ -22,7 +21,6 @@ function slotLink(field: PromptField): { to: string; label: string } | null {
 }
 
 export function PromptBuilder() {
-  const lang = useLanguage()
   const [values, setValues] = useState<Record<string, string>>({})
   const [negatives, setNegatives] = useState(DEFAULT_NEGATIVES)
   const [useNegatives, setUseNegatives] = useState(true)
@@ -95,9 +93,7 @@ export function PromptBuilder() {
                     </span>
                   ) : null}
                 </span>
-                {lang === 'both' ? (
-                  <span className="mt-0.5 block text-sm text-ink-soft">{field.hinglish}</span>
-                ) : null}
+                <span className="mt-0.5 block text-sm text-ink-soft">{field.hinglish}</span>
                 <input
                   type="text"
                   value={value}

@@ -33,7 +33,7 @@ export function Home() {
           <LessonPath lesson={lesson} shipped={shipped} />
 
           <p className="mt-8 text-sm font-medium text-accent-strong dark:text-accent">
-            {started ? 'Carry on where you stopped' : firstTime ? 'Start here' : 'Next lesson'}
+            {started ? 'Jahan chhoda tha' : firstTime ? 'Yahan se shuru karo' : 'Agla lesson'}
           </p>
           <h1 className="mt-1.5 text-[1.7rem] font-bold leading-[1.2] tracking-tight sm:text-[2rem]">
             {lesson.title}
@@ -47,24 +47,24 @@ export function Home() {
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
               <path d="M8 5v14l11-7z" />
             </svg>
-            {started ? 'Continue this lesson' : 'Start this lesson'}
+            {started ? 'Ye lesson jaari rakho' : 'Ye lesson shuru karo'}
           </Link>
 
           <p className="mt-3 text-sm text-ink-faint">
-            {lesson.estMinutes} min to read &middot; {lesson.assignment.timeboxMinutes} min to make
+            {lesson.estMinutes} min padhna &middot; {lesson.assignment.timeboxMinutes} min banana
           </p>
         </section>
       ) : (
         <section className="pt-2 sm:pt-8">
           <h1 className="text-[1.7rem] font-bold leading-tight tracking-tight">
-            Everything written is shipped.
+            Jo likha tha, sab ship ho gaya.
           </h1>
           <p className="reading mt-3 max-w-[34rem] text-ink-soft">
-            Nothing left in the queue right now. Review what you know, or go make something.
+            Abhi queue me kuch nahi bacha. Jo aata hai use dohrao, ya jaake kuch banao.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <PillLink to="/review">Review</PillLink>
-            <PillLink to="/practice">Practice</PillLink>
+            <PillLink to="/review">Dohrao</PillLink>
+            <PillLink to="/practice">Banao</PillLink>
           </div>
         </section>
       )}
@@ -95,15 +95,15 @@ export function Home() {
       <div className="mt-10 flex flex-wrap gap-3 border-t border-line pt-6">
         {dueCount > 0 ? (
           <PillLink to="/review" count={dueCount}>
-            due for review
+            review ke liye baaki
           </PillLink>
         ) : null}
         {owed > 0 ? (
           <PillLink to="/practice" count={owed}>
-            assignment{owed === 1 ? '' : 's'} to make
+            kaam banana baaki
           </PillLink>
         ) : null}
-        <PillLink to="/tracks">See the whole curriculum</PillLink>
+        <PillLink to="/tracks">Poora curriculum dekho</PillLink>
       </div>
     </div>
   )
