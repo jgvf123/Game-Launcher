@@ -44,21 +44,22 @@ model. That second half is the `⚡ AI Translation` block on every lesson.
 
 - **Tracks** (`/tracks`, `/track/:trackId`) — the full map, with written-vs-planned counts.
   A module whose lessons are not written yet shows as an empty shelf, never as a stub.
-- **Lesson** (`/lesson/:lessonId`) — fixed layout every time: concept (≤600 words, taught terms
-  bolded and tappable for a definition + Hinglish gloss), an interactive code-drawn diagram,
-  a collapsible Hinglish gloss, two real examples, three common mistakes, the AI Translation
-  block, three checks that seed the review queue, and one timeboxed assignment with three
-  self-grading criteria and a **Mark as shipped** button.
+- **Lesson** (`/lesson/:lessonId`) — walked one step per screen, never one long scroll. The
+  concept states its definition **once in English**, because those are the words used on a set
+  and inside a prompt, and then teaches the whole thing **in Hinglish** with examples the
+  learner can picture. Then: an interactive code-drawn diagram, two real examples, three
+  common mistakes, the AI Translation block, three checks one question at a time, and one
+  timeboxed assignment with three self-grading criteria and a **Mark as shipped** button.
 - **Review** (`/review`) — one SM-2 queue across everything: lesson checks, glossary terms and
   the v1 concept cards, so there is a single schedule rather than three.
-- **Glossary** (`/glossary`) — every bolded term, in English and Hinglish, linked to the lesson
-  that teaches it.
+- **Glossary** (`/glossary`) — every bolded term keeps its English name and English definition,
+  with a full Hinglish explanation underneath, linked to the lesson that teaches it.
 - **Ship Log** (`/ship-log`) — the only page that counts finished work rather than pages read.
 
 ### Content rules, enforced by the build
 
 `npm run lint:content` fails the build if a lesson has no assignment, a **bolded** term is
-missing from the glossary, a body exceeds 600 words, a diagram reference does not resolve, a
+missing from the glossary, a body exceeds 800 words, a lesson has no English definition, a diagram reference does not resolve, a
 prerequisite or module id is wrong, or a check has an unanswerable index. The `Example` type
 is a discriminated union: naming a film requires a year and a specific shot, and the only
 alternative is a `generic` variant that cannot carry a title — so inventing a source is a

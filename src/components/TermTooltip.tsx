@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TERM_LOOKUP } from '../curriculum'
-import { useLanguage } from '../lib/prefs'
 
 /**
  * A **bolded** term in lesson prose. Tap or click to see the definition and
@@ -13,7 +12,6 @@ import { useLanguage } from '../lib/prefs'
  */
 export function TermTooltip({ text }: { text: string }) {
   const term = TERM_LOOKUP.get(text.trim().toLowerCase())
-  const lang = useLanguage()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
 
@@ -49,11 +47,9 @@ export function TermTooltip({ text }: { text: string }) {
         <span className="absolute bottom-full left-0 z-30 mb-2 block w-72 max-w-[80vw] rounded-lg border border-line bg-surface p-3 text-left text-sm font-normal shadow-lg">
           <span className="block font-semibold">{term.term}</span>
           <span className="mt-1 block leading-snug text-ink-soft">{term.definition}</span>
-          {lang === 'both' ? (
-            <span className="mt-2 block rounded bg-accent-soft px-2.5 py-2 leading-snug text-ink">
+          <span className="mt-2 block rounded bg-accent-soft px-2.5 py-2 leading-snug text-ink">
               {term.hinglish}
             </span>
-          ) : null}
           <Link
             to={`/glossary?term=${term.id}`}
             className="mt-2 block text-xs font-medium text-accent-strong hover:underline dark:text-accent"

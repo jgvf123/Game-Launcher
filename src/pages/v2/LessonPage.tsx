@@ -14,7 +14,6 @@ import { DIAGRAMS } from '../../diagrams/registry'
 import { markChecksDone, shipAssignment, touchLesson, unshipLesson } from '../../data/db'
 import { useShipLog } from '../../data/hooks'
 import { useAppState } from '../../lib/state'
-import { useLanguage } from '../../lib/prefs'
 import { TermTooltip } from '../../components/TermTooltip'
 
 /**
@@ -51,19 +50,19 @@ function buildSteps(lesson: Lesson): Step[] {
 function stepName(step: Step): string {
   switch (step.kind) {
     case 'idea':
-      return 'The idea'
+      return 'Idea'
     case 'diagram':
-      return 'Try it'
+      return 'Khud try karo'
     case 'examples':
       return 'Examples'
     case 'mistakes':
-      return 'Mistakes'
+      return 'Galtiyan'
     case 'ai':
-      return 'In AI'
+      return 'AI me'
     case 'check':
-      return `Question ${step.index + 1}`
+      return `Sawaal ${step.index + 1}`
     case 'assignment':
-      return 'Your task'
+      return 'Tumhara kaam'
   }
 }
 
@@ -102,7 +101,6 @@ function Primary({
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>()
   const lesson = lessonId ? LESSON_BY_ID.get(lessonId) : undefined
-  const lang = useLanguage()
   const navigate = useNavigate()
   const { rateCard } = useAppState()
   const shipLog = useShipLog()
@@ -127,12 +125,12 @@ export function LessonPage() {
   if (!lesson) {
     return (
       <div className="pt-10 text-center">
-        <p className="reading text-ink-soft">That lesson does not exist.</p>
+        <p className="reading text-ink-soft">Ye lesson maujood nahi hai.</p>
         <Link
           to="/tracks"
           className="mt-4 inline-block font-medium text-accent-strong dark:text-accent"
         >
-          Browse the tracks
+          Tracks dekho
         </Link>
       </div>
     )
@@ -182,7 +180,7 @@ export function LessonPage() {
         </Link>
 
         <p className="mt-3 text-sm text-ink-faint">
-          {MODULE_BY_ID.get(lesson.moduleId)?.title} &middot; Lesson {lessonPosition} of{' '}
+          {MODULE_BY_ID.get(lesson.moduleId)?.title} &middot; Lesson {lessonPosition} /{' '}
           {moduleSize}
         </p>
 
@@ -194,7 +192,7 @@ export function LessonPage() {
             />
           </div>
           <span className="shrink-0 text-sm font-medium text-ink-soft">
-            Step {index + 1} of {steps.length}
+            Step {index + 1} / {steps.length}
           </span>
         </div>
         <p className="mt-1.5 text-sm font-semibold text-accent-strong dark:text-accent">
@@ -206,11 +204,23 @@ export function LessonPage() {
         {/* ── the idea ── */}
         {step.kind === 'idea' ? (
           <>
-            <StepLabel>{lesson.estMinutes} min read</StepLabel>
+            <StepLabel>{lesson.estMinutes} min padhne me</StepLabel>
             <h1 className="mt-2 text-[1.6rem] font-bold leading-[1.25] tracking-tight sm:text-[1.9rem]">
               {lesson.title}
             </h1>
             <p className="mt-2 text-[1.0625rem] text-ink-soft">{lesson.oneLine}</p>
+
+            {/*
+             * The definition is stated once, in English, because those are the
+             * words used on a set and inside a prompt. Everything after it is
+             * Hinglish.
+             */}
+            <div className="mt-7 max-w-[34rem] rounded-2xl border border-line bg-surface p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-ink-faint">
+                Definition &middot; English
+              </p>
+              <p className="mt-2 text-[1.0625rem] leading-relaxed">{lesson.definitionEn}</p>
+            </div>
 
             <div className="reading mt-7 max-w-[34rem]">
               <ReactMarkdown
@@ -222,17 +232,6 @@ export function LessonPage() {
                 {lesson.body}
               </ReactMarkdown>
             </div>
-
-            {lang === 'both' ? (
-              <div className="mt-9 max-w-[34rem] rounded-2xl bg-surface p-5">
-                <p className="text-sm font-semibold text-ink-faint">
-                  Yehi baat, simple Hinglish me
-                </p>
-                <p className="reading mt-2 whitespace-pre-line text-ink-soft">
-                  {lesson.hinglishGloss}
-                </p>
-              </div>
-            ) : null}
           </>
         ) : null}
 
@@ -244,7 +243,7 @@ export function LessonPage() {
               return (
                 <>
                   <h2 className="text-[1.35rem] font-bold leading-tight tracking-tight">
-                    {visual.interactive ? 'Move the control and watch' : 'The diagram'}
+                    {visual.interactive ? 'Control ghumao aur dekho' : 'Diagram dekho'}
                   </h2>
                   <p className="reading mt-2 max-w-[34rem] text-ink-soft">{visual.caption}</p>
                   <div className="mt-6 max-w-[34rem]">{Diagram ? <Diagram /> : null}</div>
@@ -256,9 +255,7 @@ export function LessonPage() {
         {/* ── examples ── */}
         {step.kind === 'examples' ? (
           <>
-            <h2 className="text-[1.35rem] font-bold leading-tight tracking-tight">
-              Two examples
-            </h2>
+            <h2 className="text-[1.35rem] font-bold leading-tight tracking-tight">Do examples</h2>
             <div className="mt-6 max-w-[34rem] space-y-7">
               {lesson.filmExamples.map((ex, i) => (
                 <div key={i}>
@@ -268,7 +265,7 @@ export function LessonPage() {
                         {ex.title} <span className="font-normal text-ink-faint">({ex.year})</span>
                       </>
                     ) : (
-                      <span className="text-ink-faint">A shot you have seen a hundred times</span>
+                      <span className="text-ink-faint">Ek shot jo tumne sau baar dekha hai</span>
                     )}
                   </p>
                   <p className="reading mt-1.5">{ex.shot}</p>
@@ -283,7 +280,7 @@ export function LessonPage() {
         {step.kind === 'mistakes' ? (
           <>
             <h2 className="text-[1.35rem] font-bold leading-tight tracking-tight">
-              Three common mistakes
+              Teen aam galtiyan
             </h2>
             <ol className="mt-6 max-w-[34rem] space-y-6">
               {lesson.commonMistakes.map((m, i) => (
@@ -300,7 +297,7 @@ export function LessonPage() {
         {step.kind === 'ai' ? (
           <>
             <h2 className="text-[1.35rem] font-bold leading-tight tracking-tight">
-              The same idea, when your camera is a model
+              Wahi baat, jab tumhara camera ek model ho
             </h2>
             <div className="reading mt-6 max-w-[34rem]">
               <ReactMarkdown
@@ -366,30 +363,30 @@ export function LessonPage() {
               {lesson.assignment.usesTools.join(', ')}
             </StepLabel>
             <h2 className="mt-2 text-[1.35rem] font-bold leading-tight tracking-tight">
-              The assignment
+              Tumhara kaam
             </h2>
             <p className="reading mt-5 max-w-[34rem]">{lesson.assignment.brief}</p>
             <p className="reading mt-3 max-w-[34rem] text-ink-soft">
-              <span className="font-semibold text-ink">Deliver: </span>
+              <span className="font-semibold text-ink">Dena kya hai: </span>
               {lesson.assignment.deliverable}
             </p>
 
             {shipped ? (
               <div className="mt-8 max-w-[34rem] rounded-2xl bg-surface p-5">
                 <p className="font-semibold">
-                  Shipped on {new Date(shipped.shippedAt).toLocaleDateString()}
+                  {new Date(shipped.shippedAt).toLocaleDateString()} ko ship kiya
                 </p>
                 <button
                   type="button"
                   onClick={() => void unshipLesson(lesson.id)}
                   className="mt-2 text-sm text-ink-faint hover:text-ink"
                 >
-                  Un-ship this
+                  Ise wapas un-ship karo
                 </button>
               </div>
             ) : (
               <div className="mt-8 max-w-[34rem]">
-                <p className="text-sm text-ink-faint">Tick these only when they are true.</p>
+                <p className="text-sm text-ink-faint">Ye tabhi tick karo jab sach me ho.</p>
                 <ul className="mt-3 space-y-3.5">
                   {lesson.assignment.successCriteria.map((c, i) => (
                     <li key={i}>
@@ -422,7 +419,7 @@ export function LessonPage() {
                   }
                   className="mt-6 rounded-xl border border-accent-strong px-5 py-2.5 font-semibold text-accent-strong transition-colors hover:bg-accent-soft/60 disabled:opacity-40 dark:text-accent"
                 >
-                  Mark as shipped
+                  Shipped mark karo
                 </button>
               </div>
             )}
@@ -434,7 +431,7 @@ export function LessonPage() {
           onClick={advance}
           disabled={step.kind === 'check' && answers[lesson.checks[step.index].id] === undefined}
         >
-          {isLast ? (upNext ? 'Finish · go to next lesson' : 'Finish lesson') : 'Continue'}
+          {isLast ? (upNext ? 'Khatam · agla lesson kholo' : 'Lesson khatam') : 'Aage badho'}
         </Primary>
 
         {index > 0 ? (
@@ -444,7 +441,7 @@ export function LessonPage() {
               onClick={() => setIndex((i) => i - 1)}
               className="mt-5 text-sm text-ink-faint transition-colors hover:text-ink"
             >
-              Back
+              Peeche
             </button>
           </div>
         ) : null}

@@ -4,13 +4,11 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { LESSON_BY_ID, TRACK_BY_ID } from '../../curriculum'
 import { ANALYZER_ATTRIBUTES } from '../../curriculum/analyzerRubric'
 import { db, type AnalyzerAttemptRow } from '../../data/db'
-import { useLanguage } from '../../lib/prefs'
 import { Button, ProgressBar } from '../../components/ui'
 
 type Phase = 'tag' | 'grade' | 'done'
 
 export function ShotAnalyzer() {
-  const lang = useLanguage()
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [phase, setPhase] = useState<Phase>('tag')
   const [tags, setTags] = useState<Record<string, string>>({})
@@ -141,9 +139,7 @@ export function ShotAnalyzer() {
                 {ANALYZER_ATTRIBUTES.map((attr) => (
                   <div key={attr.id} className="rounded-xl bg-surface p-3">
                     <p className="font-semibold">{attr.label}</p>
-                    {lang === 'both' ? (
-                      <p className="text-sm text-ink-soft">{attr.hinglish}</p>
-                    ) : null}
+                    <p className="text-sm text-ink-soft">{attr.hinglish}</p>
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {attr.options.map((opt) => (
                         <button

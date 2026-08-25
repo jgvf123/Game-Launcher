@@ -1,10 +1,11 @@
 import type { Lesson } from '../schema'
 
 /**
- * Track C, Module 1 — Lens & Perspective.
- * The module that fixes the single most common misunderstanding in camera
- * work: that focal length is a zoom knob rather than a decision about where
- * you are standing.
+ * Track A, Module 1 — Lens & Perspective.
+ *
+ * Each lesson states the definition once in English, because those are the
+ * words used on a real set and inside a real prompt, and then does all of the
+ * actual teaching in Hinglish with examples the learner can picture.
  */
 export const LENS_AND_PERSPECTIVE: Lesson[] = [
   // ─────────────────────────────────── 1 ───────────────────────────────────
@@ -13,41 +14,48 @@ export const LENS_AND_PERSPECTIVE: Lesson[] = [
     trackId: 'camera',
     moduleId: 'lens-and-perspective',
     order: 1,
-    title: 'Focal length — the lens is a feeling, not a zoom',
-    oneLine: 'Why 24mm and 85mm are two completely different emotions.',
+    title: 'Focal length — lens ek feeling hai, zoom nahi',
+    oneLine: '24mm aur 85mm do bilkul alag emotions kyun hain.',
     estMinutes: 9,
     prerequisites: [],
-    body: `**Focal length** is the distance in millimetres from a lens’s optical centre to the sensor. It decides two things: how much world fits in the frame (**field of view**), and how the space *inside* the frame feels.
+    definitionEn:
+      'Focal length is the distance in millimetres from a lens’s optical centre to the sensor. It sets the field of view — how much of the world the frame includes — and, because any given framing forces you to stand at a particular distance, it shapes how the space inside the frame feels.',
+    body: `Lens par jo number likha hota hai — 24mm, 50mm, 85mm — usko **focal length** kehte hain. Zyadatar log samajhte hain ki ye "kitna zoom" ka number hai. Nahi hai.
 
-Three families. A **wide lens** (12–35mm) takes in more world and stretches space. A **normal lens** (40–58mm) reports roughly what your eye reports. A **telephoto lens** (85mm and up) sees a narrow slice and squashes space.
+Ye do cheezein decide karta hai. Pehli: frame me kitna aayega, jise **field of view** kehte hain. Doosri, aur yehi asli hai: frame ke andar cheezein ek dusre se kitni paas ya door lagengi.
 
-But field of view is the boring half — you can fix framing by walking. The important half is **perspective**, and perspective is not controlled by the lens at all. It is controlled by **camera-to-subject distance**.
+*Teen family hain:*
 
-Here is the whole idea in one experiment. Shoot a face at 24mm and fill the frame: you must stand about 40cm away. The nose is meaningfully closer to the lens than the ears, so the nose renders big. That is **wide-angle distortion**. Now shoot the same face at 85mm and fill the frame: you stand about two metres back. Nose and ears are now nearly the same distance from the lens, so the face renders flat and flattering.
+- **wide lens** (12–35mm) — bahut kuch frame me aa jaata hai, aur jagah khinchi hui lagti hai.
+- **normal lens** (40–58mm) — jo tumhari aankh dekhti hai lagbhag wahi. Na drama, na exaggeration.
+- **telephoto lens** (85mm se upar) — patli si slice dikhti hai, aur sab kuch chipka hua lagta hai.
 
-Same face. Same framing. Different feeling — because *you moved*.
+Ab asli baat. Field of view toh aasan hissa hai — wo tum chal ke bhi theek kar sakte ho. Asli cheez hai **perspective**, aur dhyaan se suno: perspective lens se banta hi nahi. Wo banta hai **camera-to-subject distance** se — yaani tum kitni door khade ho.
 
-That is also why **perspective compression** happens on long lenses. From far away everything is roughly equally far, so foreground and background stack like cards. A street at 200mm looks crowded and inescapable. The same street at 24mm looks empty and long.
+*Ek experiment socho.* Apne dost ka chehra frame me poora bharna hai.
 
-So the emotional job of each family:
+Pehle 24mm lagao. Chehra bharne ke liye tumhe bilkul paas jaana padega — lagbhag 40cm. Ab socho: uski naak tumse 40cm door hai, lekin kaan lagbhag 48cm. Matlab naak kaano se kaafi zyada paas hai. Jo paas hota hai wo bada dikhta hai — toh naak phool ke aayegi. Isko **wide-angle distortion** kehte hain.
 
-- Wide — you are *in* this. Involved, unstable, exposed, sometimes grotesque.
-- Normal — you are *watching* this. Neutral, honest, unshowy.
-- Telephoto — you are *observing from outside*. Surveillance, isolation, longing. Or claustrophobia, because the background is pressed against them.
+Ab 85mm lagao. Wahi chehra bharne ke liye tumhe 2 meter peeche jaana padega. Ab naak 2m par hai aur kaan 2.08m par — farak lagbhag zero. Isliye chehra flat aur achha aayega.
 
-And the line that matters most: **zoom** and walking are not the same move. A zoom changes framing only, because the camera never left its spot. A **push-in** changes perspective, because the world reshapes as you approach. A zoom says *look closer*. A push says *get closer*. Those are different sentences.
+Wahi chehra. Wahi framing. Lekin feeling bilkul alag — kyunki *tum hile*.
 
-Choose the lens for the relationship you want between subject and background. Then choose your distance to get the framing. Never the reverse.`,
-    hinglishGloss: `Lens ka number (mm) sirf "kitna zoom" nahi hai — wo decide karta hai ki frame ke andar space kaisa lagega.
-Wide lens = tum paas khade ho, isliye naak bada aur background door — sab phaila hua.
-Telephoto = tum door khade ho, isliye chehra flat aur background bilkul chipka hua peeche.
-Yaad rakhna: perspective lens se nahi banta, tumhari doori se banta hai. Lens toh sirf crop deta hai.
-Isliye zoom karna aur chal ke paas jaana — do alag emotions hain. Zoom = "dekho". Paas jaana = "ghus jao".`,
+Yehi wajah hai ki lambe lens par **perspective compression** hota hai. Door se dekho toh saari cheezein lagbhag barabar door hain, isliye aage-peeche wali cheezein taash ke patton ki tarah ek dusre par chipak jaati hain. Ek sadak 200mm par bheed-bhaad aur ghutan bhari lagegi. Wahi sadak 24mm par khaali aur lambi.
+
+*Toh feeling kya banti hai:*
+
+- Wide — tum *andar* ho. Ghuse hue, exposed, kabhi-kabhi bhadda.
+- Normal — tum *dekh rahe ho*. Seedha, imaandaar, bina natak.
+- Telephoto — tum *bahar se nazar rakh rahe ho*. Chupke se dekhna, akelapan. Ya ghutan, kyunki background unke peeche chipka hua hai.
+
+Aur sabse zaroori line: **zoom** karna aur chal ke paas jaana do alag cheezein hain. Zoom sirf crop badalta hai — camera toh wahin khada hai. **Push-in** me tum sach me paas jaate ho, isliye poori duniya ka rishta badal jaata hai. Zoom kehta hai "dekho". Paas jaana kehta hai "andar aa jao".
+
+*Kaam ka tareeka:* pehle socho background subject par dabaav daale ya door hat jaaye. Usse tumhari khadi hone ki jagah tay hogi. Lens uske baad.`,
     visuals: [
       {
         component: 'FocalLengthDial',
         caption:
-          'Drag the focal length. The subject is locked to the same size at every setting, so the only thing changing is perspective — watch the background swell and the side objects leave the frame.',
+          'Slider ghumao. Subject har setting par bilkul same size ka rehta hai, isliye jo badal raha hai wo sirf perspective hai — dekho background kaise phoolta hai aur kinare wali cheezein frame se bahar ho jaati hain.',
         interactive: true,
       },
     ],
@@ -56,33 +64,33 @@ Isliye zoom karna aur chal ke paas jaana — do alag emotions hain. Zoom = "dekh
         kind: 'work',
         title: 'The Graduate',
         year: 1967,
-        shot: 'Benjamin sprinting down the street toward the church, shot on a long lens so he runs flat out and appears to gain no ground.',
-        why: 'Compression strips out the visual cue of approach. The audience feels enormous effort with no progress — the anxiety of the scene rendered as geometry rather than acting.',
+        shot: 'Benjamin church ki taraf poori taaqat se bhaagta hai, lekin shot lambe lens par liya gaya hai — lagta hai wo bhaag toh raha hai par aage badh hi nahi raha.',
+        why: 'Compression aage badhne ka signal hi mita deta hai. Audience ko mehnat dikhti hai par progress nahi. Scene ki ghabrahat acting se nahi, geometry se aa rahi hai.',
       },
       {
         kind: 'work',
         title: 'The Shining',
         year: 1980,
-        shot: 'Danny riding his tricycle through the Overlook corridors, wide lens mounted low on a Steadicam, hallways stretching away ahead of him.',
-        why: 'The wide lens exaggerates depth, so each corridor reads as longer than it can possibly be. The hotel becomes bigger than architecture allows, which is exactly the feeling the film needs.',
+        shot: 'Danny apni tricycle par hotel ke corridors me ghoomta hai — camera neeche, wide lens, aur corridor aage ki taraf khinchta chala jaata hai.',
+        why: 'Wide lens gehrai ko badha deta hai, isliye har corridor asli se lamba lagta hai. Hotel building ke hisaab se jitna bada ho sakta hai, usse bada mehsoos hota hai — film ko yahi chahiye tha.',
       },
     ],
     commonMistakes: [
-      'Treating millimetres as a zoom knob — picking a focal length to get the framing, then never moving the camera. Framing should be your last decision, not your first.',
-      'Shooting faces at 24–35mm because it fits more in, then wondering why everyone looks subtly wrong in a way you cannot name.',
-      'Believing telephoto automatically means a blurry background. Blur comes from aperture and distance; stacking comes from distance. Two separate controls, constantly collapsed into one.',
+      'mm ko zoom ka knob samajhna — framing ke liye lens badal dena aur camera kabhi na hilana. Framing tumhara aakhri faisla hona chahiye, pehla nahi.',
+      'Chehre ko 24–35mm par shoot karna kyunki "zyada frame me aa jaata hai" — phir sochna ki sab log halke se ajeeb kyun lag rahe hain.',
+      'Ye maan lena ki telephoto matlab background blur. Blur aperture aur doori se aata hai; chipakna sirf doori se. Do alag control hain, log inhe ek samajh lete hain.',
     ],
-    aiTranslation: `A diffusion model does not simulate a lens. Writing "85mm" is a **style token** — it pulls the image toward the look of photographs captioned 85mm (portraits, shallow focus, flattering skin), not toward a geometry.
+    aiTranslation: `Diffusion model ke andar koi lens hai hi nahi. Jab tum "85mm" likhte ho toh wo optics nahi samajhta — wo un photos ki taraf jaata hai jinke caption me 85mm likha tha (portrait, blur background, achhi skin). Matlab wo ek *look* hai, geometry nahi. Isiliye prompt me mm number bharosemand nahi lagta — wo sach me nahi hai.
 
-So prompt the *consequence*, not just the number. "Shot from across the street on a long lens, background buildings stacked flat behind her, subject cleanly separated" beats "85mm" every time. For the opposite: "camera close to her face, wide lens, background falling away fast toward a deep horizon."
+*Toh number ki jagah nateeja likho.* "Shot from across the street on a long lens, background buildings stacked flat behind her, subject cleanly separated" — ye "85mm" se bahut behtar kaam karega. Ulta chahiye toh: "camera close to her face, wide lens, background falling away fast toward a deep horizon."
 
-**What breaks:** the model hands you an impossible combination — a wide field of view with telephoto background stacking, or a wide-angle face with heavy shallow focus. It reads as fake instantly and most people cannot say why. Now you can.
+*Kya toot-ta hai:* model aksar aisi cheez de deta hai jo ho hi nahi sakti — wide field of view lekin background telephoto ki tarah chipka hua, ya wide-angle chehra lekin bhaari blur. Dekhte hi nakli lagta hai aur log bata nahi paate kyun. Ab tum bata sakte ho.
 
-**The hidden cause of AI face drift:** a character generated at 24mm in shot 3 and 85mm in shot 4 is literally a differently shaped face — different nose-to-ear proportion. Lock focal-length language per character across your shot list, exactly like you lock wardrobe.
+*AI face drift ki chhupi hui wajah:* shot 3 me character 24mm par bana aur shot 4 me 85mm par — toh wo sach me *alag shakal* ka chehra hai, naak aur kaan ka anupaat badal gaya. Isliye har character ke liye lens ki bhasha waise hi lock karo jaise kapde lock karte ho.
 
-**For image to video:** telephoto plates animate more safely. Less parallax means less background for the model to reconstruct, which means less morphing and warping. If a shot has to move, generate it long.
+*Image se video banate waqt:* telephoto plate zyada safe hota hai. Parallax kam hota hai, matlab model ko background kam banana padta hai, matlab morphing aur warping kam. Agar shot me movement chahiye hi, toh use long lens par generate karo.
 
-**In Nuke or After Effects:** perspective is baked at generation. You can re-crop and fake a small push with a 2D scale, but you cannot turn a 24mm face into an 85mm face without real 3D work. This one gets fixed upstream — comp cannot save it.`,
+*Nuke ya After Effects me:* perspective generate hote waqt hi pakka ho jaata hai. Tum crop kar sakte ho, halka sa push 2D scale se fake kar sakte ho — lekin 24mm chehre ko 85mm chehra nahi bana sakte bina asli 3D kaam ke. Ye galti comp me nahi sudharti. Isliye pehle hi sahi karo.`,
     terms: [
       'focal-length',
       'field-of-view',
@@ -95,31 +103,31 @@ So prompt the *consequence*, not just the number. "Shot from across the street o
     checks: [
       {
         id: 'c1',
-        prompt: 'You need to fill the frame with a face and you only have an 85mm lens. What do you change?',
+        prompt: 'Chehra frame me poora bharna hai aur tumhare paas sirf 85mm hai. Kya badloge?',
         options: [
-          'Your camera-to-subject distance — walk backwards',
-          'The aperture, to widen the field of view',
-          'The sensor, to a smaller one',
-          'Nothing — 85mm cannot fill a frame with a face',
+          'Apni doori — peeche chal ke jao',
+          'Aperture, taaki zyada frame me aaye',
+          'Sensor, chhote wale par switch karo',
+          'Kuch nahi — 85mm se chehra bhara hi nahi ja sakta',
         ],
         answerIndex: 0,
-        why: 'Focal length and distance are a pair. Fix the framing by moving; the lens decides the perspective you get while doing it.',
+        why: 'Lens aur doori jodi me chalte hain. Framing chal ke theek karo; lens sirf ye decide karta hai ki chalte waqt perspective kaisa milega.',
       },
       {
         id: 'c2',
-        prompt: 'A background looks stacked and pressed right up against the subject. What is actually responsible?',
+        prompt: 'Background subject ke bilkul peeche chipka hua lag raha hai. Iske peeche asli wajah kya hai?',
         options: [
-          'Camera distance — the long lens is only the crop that lets you see it',
-          'The long lens itself, which bends light inward',
-          'A wide aperture',
-          'The aspect ratio of the frame',
+          'Camera ki doori — lamba lens sirf wo crop hai jisse ye dikhta hai',
+          'Khud lamba lens, jo roshni ko andar mod deta hai',
+          'Khula hua aperture',
+          'Frame ka aspect ratio',
         ],
         answerIndex: 0,
-        why: 'Shooting from far away makes everything roughly equidistant, so depths render at similar sizes. The telephoto just crops into that effect.',
+        why: 'Door se shoot karne par sab cheezein lagbhag barabar door hoti hain, isliye alag-alag gehrai ek jaisi size me aati hai. Telephoto sirf usme crop karta hai.',
       },
       {
         id: 'c3',
-        prompt: 'Zooming changes ____ only; moving the camera changes ____.',
+        prompt: 'Zoom karne se sirf ____ badalta hai; camera ko chala ke le jaane se ____ badalta hai.',
         options: [
           'framing / perspective',
           'perspective / framing',
@@ -127,20 +135,20 @@ So prompt the *consequence*, not just the number. "Shot from across the street o
           'focus / depth of field',
         ],
         answerIndex: 0,
-        why: 'The camera never moved during a zoom, so the subject-to-background relationship is untouched. Walking changes where you see from.',
+        why: 'Zoom ke dauraan camera hila hi nahi, isliye subject aur background ka rishta waisa ka waisa hai. Chal ke jaane se dekhne ki jagah badal jaati hai.',
       },
     ],
     assignment: {
       brief:
-        'Pick one subject — a face, or a bottle on a table. Generate it twice in FLUX: once described as camera-close on a wide lens, once as far back on a long lens. Match the framing between them, so the subject occupies the same amount of frame in both. The only thing allowed to change is perspective.',
-      deliverable: 'Two stills, side by side in one labelled image.',
+        'Ek subject chuno — chehra, ya table par rakhi bottle. FLUX me use do baar banao: ek baar "camera bilkul paas, wide lens" likh ke, doosri baar "kaafi door se, long lens" likh ke. Dono me framing barabar rakhna — subject frame me utni hi jagah le. Sirf perspective badalna chahiye.',
+      deliverable: 'Do stills, ek hi image me saath-saath, label ke saath.',
       timeboxMinutes: 30,
       successCriteria: [
-        'The subject occupies roughly the same frame area in both images. If one is bigger, you changed framing instead of perspective and the test is invalid.',
-        'In the wide version the background is visibly further away and wider; in the long version background elements are larger and stacked closer behind the subject.',
-        'You can state in one sentence which you would use for this subject and why, and the reason is about emotion rather than sharpness.',
+        'Dono images me subject lagbhag utni hi jagah le raha hai. Agar ek bada hai toh tumne perspective nahi, framing badli — test bekaar ho gaya.',
+        'Wide wali me background saaf taur par door aur chauda hai; long wali me background ki cheezein badi hain aur subject ke peeche chipki hui.',
+        'Tum ek line me bata sakte ho ki is subject ke liye kaun sa chunoge aur kyun — aur wajah emotion ki honi chahiye, sharpness ki nahi.',
       ],
-      usesTools: ['FLUX Schnell', 'Any image viewer'],
+      usesTools: ['FLUX Schnell', 'Koi bhi image viewer'],
     },
   },
 
@@ -150,36 +158,37 @@ So prompt the *consequence*, not just the number. "Shot from across the street o
     trackId: 'camera',
     moduleId: 'lens-and-perspective',
     order: 2,
-    title: 'Compression — how distance stacks the world',
-    oneLine: 'Why crowds, traffic and mountains look packed on a long lens.',
+    title: 'Compression — doori duniya ko chipka deti hai',
+    oneLine: 'Bheed, traffic aur pahaad long lens par thuse hue kyun lagte hain.',
     estMinutes: 8,
     prerequisites: ['camera-focal-length'],
-    body: `**Perspective compression** is the flattening of depth that happens when you shoot from far away. It is the most useful optical effect in commercial work, and almost everybody explains it wrong.
+    definitionEn:
+      'Perspective compression is the flattening of apparent depth that happens when you shoot from far away: because everything is roughly equally distant, objects at different depths render at similar sizes and stack together. It is usually credited to long lenses, but camera distance is the actual cause.',
+    body: `**Perspective compression** ka matlab hai — door se shoot karo toh gehrai chapti ho jaati hai. Commercial kaam me ye sabse kaam aane wala effect hai, aur lagbhag har jagah galat samjhaya jaata hai.
 
-The wrong explanation is that long lenses compress. They do not. Distance compresses; the long lens is only the crop that lets you see it from far enough away to notice.
+Galat samajh ye hai ki "long lens compress karta hai". Nahi. *Doori* compress karti hai. Lamba lens sirf wo crop hai jisse tum itni door se dekh paate ho ki farak nazar aaye.
 
-The maths is simple and worth holding in your head. How big something renders depends on one over its distance from the camera. Stand two metres from a person, with a second person six metres behind them. The first is at 2m, the second at 8m — four times further, so it renders a quarter of the size. Now walk back to thirty metres. The first is at 30m, the second at 36m — only 1.2 times further, so it renders at 83% of the size. The two people never moved. Their apparent relationship changed entirely because you did.
+*Ganit bahut simple hai, aur ye dimag me rakhne layak hai.* Koi cheez kitni badi dikhegi, ye uski doori par depend karta hai — jitna door, utna chhota.
 
-That collapse is what you are buying. It gives you:
+Ek insaan se 2 meter door khade ho. Uske 6 meter peeche doosra insaan hai. Pehla 2m par, doosra 8m par — chaar guna door, toh wo chauthai size ka dikhega. Bada farak.
 
-- **Layering** that stacks instead of spreading. Ranks of people, rows of traffic, ridge behind ridge of hills — all pressed into one crowded plane.
-- Backgrounds that read as walls rather than as space. A subject on a long lens is trapped in front of their background, not standing in a room.
-- Big backgrounds. A distant building rendered large behind a subject only happens on a long lens, because you must stand far enough back for the building to gain relative size.
-- Almost no **parallax**. If the camera moves laterally, near and far shift by nearly the same amount, so the world reads as a painted flat rather than a space.
+Ab tum peeche hat ke 30 meter par chale jao. Pehla ab 30m par, doosra 36m par — sirf 1.2 guna door. Ab doosra pehle ka 83% dikhega. Dono log apni jagah se hile tak nahi. Unka rishta badla kyunki *tum* hile.
 
-The reverse is equally useful. Shooting close on a wide lens spreads depths apart: a room becomes cavernous, a corridor becomes endless, a hand held toward the lens becomes enormous against a tiny face. That is **compression** run backwards, and it is how you make small sets feel big.
+Yehi collapse tum khareed rahe ho. Isse milta kya hai:
 
-The practical rule for a director: decide first whether the background should press on the subject or fall away from them. That decision sets your camera position. The lens follows.`,
-    hinglishGloss: `Compression matlab: door se shoot karo toh saari cheezein ek dusre par chipki hui lagti hain.
-Reason simple hai — 2m aur 8m me 4x ka farak hai, lekin 30m aur 36m me sirf 1.2x ka. Log wahi khade hain, tum hile ho.
-Isliye bheed, traffic, pahaad — sab long lens par thuse hue dikhte hain.
-Ulta bhi sach hai: paas se wide lens par kamra bada, corridor lamba lagta hai. Chhote set ko bada dikhane ka yehi tareeka hai.
-Pehle socho background subject par dabaav daale ya door hat jaaye — phir camera ki jagah decide hogi. Lens baad me.`,
+- **layering** jo phailne ke bajaye chipak jaati hai. Logon ki katarein, gaadiyon ki line, pahaad ke peeche pahaad — sab ek bheed bhare talé me dab jaate hain.
+- Background jo kamre ki tarah nahi, deewar ki tarah lagta hai. Long lens par subject apne background ke saamne *phansa hua* hota hai, kamre me khada nahi.
+- Bada background. Door ki building subject ke peeche tabhi badi aayegi jab tum kaafi peeche khade ho, warna nahi.
+- **parallax** lagbhag khatam. Camera bagal me hile toh paas aur door dono utna hi khisakte hain, isliye duniya flat painting jaisi lagti hai.
+
+Ulta bhi utna hi kaam ka hai. Paas se wide lens par gehrai phail jaati hai: kamra bada lagta hai, corridor lamba, lens ki taraf badhaya hua haath chhote chehre ke saamne bahut bada. Yehi tareeka hai chhote set ko bada dikhane ka.
+
+*Director ka rule:* pehle ye decide karo ki background subject par dabaav daalega ya unse door hat jaayega. Wahi tumhari khadi hone ki jagah tay karega. Lens uske peeche aayega.`,
     visuals: [
       {
         component: 'CompressionStack',
         caption:
-          'Three people standing 6m and 16m apart, permanently. Drag the camera back and watch the gaps between them collapse — nobody moved except you.',
+          'Teen log hamesha 6m aur 16m ki doori par khade hain — hilte nahi. Camera ko peeche khinchо aur dekho unke beech ka gap kaise gayab hota jaata hai. Sirf tum hile ho.',
         interactive: true,
       },
     ],
@@ -188,77 +197,77 @@ Pehle socho background subject par dabaav daale ya door hat jaaye — phir camer
         kind: 'work',
         title: 'Ran',
         year: 1985,
-        shot: 'The battle sequences, covered from a distance on long lenses, where advancing ranks of soldiers stack into a single crowded wall of colour.',
-        why: 'Compression removes the gaps between ranks, so an army reads as an unbroken mass rather than as individuals with space to escape into. The formality of the image is doing the storytelling.',
+        shot: 'Ladai ke sequences door se lambe lens par shoot kiye gaye hain, jisme aage badhti sena ki katarein ek hi rang ki thos deewar ban jaati hain.',
+        why: 'Compression kataron ke beech ki khaali jagah hata deta hai, isliye sena alag-alag logon ki jagah ek na tootne wali bheed lagti hai — bhaagne ki koi jagah hi nahi bachti. Kahani frame ki shakal se keh di gayi.',
       },
       {
         kind: 'generic',
-        shot: 'The standard city-traffic insert: a long lens down a straight road, cars apparently bumper to bumper and heat-shimmering into one another.',
-        why: 'In reality the cars have normal gaps. Shot from several hundred metres away the gaps compress to nothing, which is how a mildly busy road is sold as gridlock — a routine trick in commercials and news cutaways alike.',
+        shot: 'Sheher ke traffic ka wo aam sa shot: seedhi sadak par bahut door se lamba lens, aur gaadiyan ek dusre se sati hui.',
+        why: 'Asal me gaadiyon ke beech normal gap hai. Kai sau meter door se wo gap khatam ho jaata hai — isi tarah thodi si busy sadak ko jam dikhaya jaata hai. Ads aur news dono me ye roz hota hai.',
       },
     ],
     commonMistakes: [
-      'Saying "the long lens compressed it" and stopping there. If you believe the lens did it, you will reach for a longer lens when what you actually needed was to stand further back.',
-      'Using a long lens for a small set to make it look bigger. Compression does the opposite: it flattens the room into a wall. Small spaces want a wide lens and depth.',
-      'Forgetting that compression kills parallax. A compressed shot with a camera move looks strangely flat and fake, because the depth cue you expect from movement never arrives.',
+      '"Long lens ne compress kar diya" bol ke ruk jaana. Agar tum lens ko wajah maanoge toh agli baar aur lamba lens uthaoge, jabki zaroorat peeche hatne ki thi.',
+      'Chhote set ko bada dikhane ke liye long lens use karna. Compression ulta karta hai — kamre ko deewar bana deta hai. Chhoti jagah ko wide lens aur gehrai chahiye.',
+      'Ye bhool jaana ki compression parallax maar deta hai. Compressed shot me camera hilao toh ajeeb sa flat aur nakli lagega, kyunki jo depth ka signal aankh chahti hai wo aata hi nahi.',
     ],
-    aiTranslation: `Compression is the single most valuable thing you can prompt for on a small GPU, and almost nobody uses it deliberately.
+    aiTranslation: `Chhote GPU par compression sabse kaam ki cheez hai jo tum prompt kar sakte ho, aur lagbhag koi jaan-boojh ke use nahi karta.
 
-**Prompt the distance, not just the lens.** "Long lens, shot from far across the road, background buildings stacked directly behind her with no visible gap, flattened depth" gives you compression. The bare token "telephoto" often just gives you shallow focus, because that is what the caption usually accompanied in training data.
+*Lens ke saath doori bhi likho.* "Long lens, shot from far across the road, background buildings stacked directly behind her with no visible gap, flattened depth" — isse compression milega. Sirf "telephoto" likhoge toh aksar bas blur background mil jaata hai, kyunki training data me wahi caption saath aata tha.
 
-**Why it matters on 8GB:** compressed shots have almost no parallax. When you feed that still into Wan 2.2 or LTX for image-to-video, the model has very little background geometry to invent as things move — so you get dramatically fewer morphing artifacts, less texture crawl, and far less background drift. A compressed plate is a *forgiving* plate. If a shot must survive motion, compose it long.
+*8GB par ye kyun matter karta hai:* compressed shot me parallax lagbhag nahi hota. Jab tum wo still Wan 2.2 ya LTX me daalte ho, model ko background ki geometry bahut kam banani padti hai — toh morphing artifacts kam, texture crawl kam, background drift kam. Compressed plate *maaf karne wala* plate hota hai. Agar shot ko movement jhelni hai, toh use long compose karo.
 
-**What breaks:** models routinely produce an incoherent hybrid — a wide field of view showing a whole street, but with the far buildings rendered at telephoto scale. It reads as a matte painting behind a subject. The fix is to say what the frame excludes: "narrow field of view, only the subject and the wall behind, nothing of the street visible."
+*Kya toot-ta hai:* model aksar bemel cheez deta hai — wide field of view jisme poori sadak dikh rahi hai, lekin door ki buildings telephoto scale me. Ye subject ke peeche lagi painting jaisa lagta hai. Ilaaj: batao ki frame me kya *nahi* aana chahiye — "narrow field of view, only the subject and the wall behind, nothing of the street visible."
 
-**In Nuke:** if you generate your subject and background as separate elements, you can build compression by hand — put them on cards, push the camera back and lengthen the focal length in the same move. That is a real 2.5D multi-plane setup and it is how you buy back a lens choice the model refused to give you. It is also the only way to get a convincing **dolly zoom** out of AI footage.`,
+*Nuke me:* agar subject aur background alag-alag generate kiye hain, toh compression tum khud bana sakte ho — dono ko cards par rakho, camera peeche le jao aur usi move me focal length badhao. Ye asli 2.5D multi-plane setup hai, aur yehi tareeka hai wo lens choice wapas paane ka jo model ne diya hi nahi. AI footage me dhang ka **dolly zoom** paane ka bhi yehi ek raasta hai.`,
     terms: ['perspective-compression', 'parallax', 'layering'],
     checks: [
       {
         id: 'c1',
-        prompt: 'You want a distant mountain to loom huge behind your subject. What do you do?',
+        prompt: 'Subject ke peeche door wala pahaad bahut bada dikhana hai. Kya karoge?',
         options: [
-          'Move far back from the subject and use a long lens to reframe',
-          'Move close to the subject with a wide lens',
-          'Keep your position and open the aperture',
-          'Raise the camera height',
+          'Subject se kaafi door hat jao aur long lens se reframe karo',
+          'Subject ke paas jao aur wide lens lagao',
+          'Apni jagah par rehke aperture khol do',
+          'Camera ki height badha do',
         ],
         answerIndex: 0,
-        why: 'The mountain only gains relative size when your distance to the subject becomes a large fraction of your distance to the mountain. That means standing far back.',
+        why: 'Pahaad tabhi bada aayega jab subject tak ki doori pahaad tak ki doori ka bada hissa ban jaaye. Uske liye peeche hatna padta hai.',
       },
       {
         id: 'c2',
-        prompt: 'Two people stand 6m apart. Which camera position makes them look most similar in size?',
+        prompt: 'Do log 6 meter ki doori par khade hain. Kis jagah se dono lagbhag ek jaise size ke lagenge?',
         options: [
-          'Thirty metres away',
-          'Two metres away',
-          'Six metres away',
-          'Distance makes no difference to their relative size',
+          'Tees meter door se',
+          'Do meter door se',
+          'Chhe meter door se',
+          'Doori se unke size ka koi lena-dena nahi',
         ],
         answerIndex: 0,
-        why: 'At 30m the two are 30m and 36m away — barely different. Up close the same 6m gap is a fourfold difference in distance.',
+        why: '30m par dono 30m aur 36m par hain — mamuli farak. Paas se wahi 6m ka gap chaar guna ka farak ban jaata hai.',
       },
       {
         id: 'c3',
-        prompt: 'Why does a compressed shot look flat and strange when the camera moves sideways?',
+        prompt: 'Compressed shot me camera bagal me chale toh flat aur ajeeb kyun lagta hai?',
         options: [
-          'There is almost no parallax, so the depth cue you expect never arrives',
-          'Long lenses cannot be moved smoothly',
-          'The shutter angle changes with focal length',
-          'Compression reduces the frame rate',
+          'Parallax lagbhag zero hota hai, isliye depth ka signal aata hi nahi',
+          'Long lens ko smooth chalaya nahi ja sakta',
+          'Focal length ke saath shutter angle badal jaata hai',
+          'Compression frame rate kam kar deta hai',
         ],
         answerIndex: 0,
-        why: 'Near and far objects are at similar distances, so they shift by similar amounts. Your eye reads matching shift as a flat surface.',
+        why: 'Paas aur door dono lagbhag barabar doori par hain, toh dono utna hi khisakte hain. Barabar khisakna aankh ko flat surface lagta hai.',
       },
     ],
     assignment: {
       brief:
-        'Find a real place with clear depth — a corridor, a row of parked bikes, a street with poles. Photograph it twice with your phone: once standing very close to the nearest object, once from as far back as the space allows, zoomed in so the nearest object is the same size in frame. Do not crop afterwards.',
-      deliverable: 'Two phone photographs, same nearest-object size, side by side.',
+        'Koi asli jagah dhundo jisme saaf gehrai ho — corridor, khadi bikes ki line, khambon wali sadak. Phone se do photo lo: ek bilkul paas se (sabse najdeek wali cheez ke paas khade ho ke), doosri jitna peeche ja sakte ho utna door se, zoom karke — taaki sabse najdeek wali cheez dono me utni hi badi rahe. Baad me crop mat karna.',
+      deliverable: 'Do phone photos, najdeek wali cheez dono me same size, saath-saath.',
       timeboxMinutes: 25,
       successCriteria: [
-        'The nearest object is close to the same size in both frames, so the comparison is honest.',
-        'In the far version, objects further down the line are noticeably larger relative to the nearest one, and the gaps between them look smaller.',
-        'You can point at one specific pair of objects and say how much the gap between them appeared to shrink.',
+        'Sabse najdeek wali cheez dono frames me lagbhag ek jaisi badi hai, warna comparison imaandaar nahi rahega.',
+        'Door wali photo me line ke peeche wali cheezein najdeek wali ke mukable saaf taur par badi hain, aur unke beech ka gap chhota lagta hai.',
+        'Tum kisi ek jodi ki taraf ungli karke bata sakte ho ki unke beech ka gap kitna kam dikhne laga.',
       ],
       usesTools: ['Phone camera'],
     },
@@ -270,38 +279,37 @@ Pehle socho background subject par dabaav daale ya door hat jaaye — phir camer
     trackId: 'camera',
     moduleId: 'lens-and-perspective',
     order: 3,
-    title: 'Wide-angle distortion — and using it on purpose',
-    oneLine: 'Why close faces bulge, and when you should let them.',
+    title: 'Wide-angle distortion — aur jaan-boojh ke iska istemaal',
+    oneLine: 'Paas se chehra kyun phoolta hai, aur kab ise phoolne dena chahiye.',
     estMinutes: 8,
     prerequisites: ['camera-focal-length'],
-    body: `**Wide-angle distortion** is the stretching you get when the camera is very close to a subject. A nose 10cm nearer the lens than the ears is, at 40cm range, a quarter of the total distance closer — so it renders about a third larger than it should. At two metres that same 10cm is a rounding error and the face looks normal.
+    definitionEn:
+      'Wide-angle distortion is the stretching of features that occurs when the camera is very close to a subject: parts nearer the lens render disproportionately large. It is a consequence of camera distance, not a defect of the lens, which is why stepping back cures it.',
+    body: `**Wide-angle distortion** wo khinchav hai jo tab hota hai jab camera subject ke bahut paas ho.
 
-Note what that means. It is not the lens misbehaving. It is honest projection of a real spatial fact. The reason we blame the **wide lens** is that a wide lens is the only way to fill the frame from 40cm, so the two always arrive together.
+Socho naak kaano se lagbhag 10cm aage hai. Agar tum 40cm door ho, toh 10cm poori doori ka chauthai hissa hai — bahut bada farak. Isliye naak apni asli size se lagbhag ek tihai bada render hota hai. Ab 2 meter door se wahi 10cm mamuli baat hai, aur chehra normal aata hai.
 
-There is a genuine lens fault that gets confused with this, and you should keep them separate. **Barrel distortion** bows straight lines outward near the frame edges. That one *is* a property of the glass, it has nothing to do with distance, and it can be corrected with a lens profile in post. Perspective stretching cannot be corrected — it is baked into where you stood.
+Dhyaan do iska matlab kya hai. Lens kuch galat nahi kar raha. Wo bilkul imaandaari se wahi dikha raha hai jo sach me space me ho raha hai. Hum **wide lens** ko doshi isliye maante hain kyunki 40cm se frame bharne ka ek hi tareeka hai — wide lens. Dono hamesha saath aate hain, isliye ilzaam lens par chala jaata hai.
 
-This is why **portrait length** exists. An 85–135mm lens forces you to stand two metres or more away, and at that range facial features are effectively equidistant from the lens. Photographers did not choose those focal lengths for sharpness. They chose them for the standing distance they impose.
+*Ek asli lens ki kharabi bhi hoti hai jo isme mila di jaati hai, aur inhe alag rakhna zaroori hai.* **Barrel distortion** me seedhi lines frame ke kinaron par bahar ki taraf mud jaati hain. *Wo* sach me kaanch ki property hai, doori se uska koi lena-dena nahi, aur post me lens profile se theek ho jaati hai. Perspective wala khinchav theek nahi hota — wo tumhari khadi hone ki jagah me pak chuka hai.
 
-So when do you *want* the distortion?
+Isiliye **portrait length** naam ki cheez hai. 85–135mm ka lens tumhe do meter ya usse zyada door khade hone par majboor karta hai, aur us doori par chehre ke saare hisse lagbhag barabar door hote hain. Photographers ne ye focal lengths sharpness ke liye nahi chuni thi. Unhone wo *doori* ke liye chuni thi jo ye lens thop dete hain.
 
-- *Aggression and threat.* A face leaning into a wide lens becomes a caricature of itself. Comedy and horror both live here.
-- *Subjectivity.* Distortion signals that we are inside somebody’s head rather than watching neutrally.
-- *Scale on objects.* A car shot low and close on a wide lens gets a heroic, muscular front end. Almost all car advertising uses this.
-- *Hands, tools, food reaching toward camera.* Anything you want to feel offered to the viewer.
+*Toh distortion kab chahiye hota hai?*
 
-And when do you not? Beauty, fashion, most product hero shots, any interview, and any face a client has approved from a still. In those, distortion reads as a mistake even to people who cannot name it.
+- *Gussa aur khatra.* Wide lens ki taraf jhukta hua chehra apna hi cartoon ban jaata hai. Comedy aur horror dono yahin rehte hain.
+- *Kisi ke dimag ke andar.* Distortion batata hai ki hum neutral dekh nahi rahe, hum kisi ke andar se dekh rahe hain.
+- *Cheezon ko bada dikhana.* Car ko neeche se, paas se, wide lens par shoot karo toh uska aage ka hissa taqatwar aur mota lagta hai. Lagbhag saari car advertising yehi karti hai.
+- *Haath, tools, khaana jo camera ki taraf badhe.* Jo bhi cheez darshak ko "pesh" karni ho.
 
-The rule is short. Get close for energy. Stand back for dignity.`,
-    hinglishGloss: `Bahut paas se shoot karoge toh naak bada aur kaan chhote lagenge — chehra phool jaayega.
-Reason: 40cm se shoot kar rahe ho toh naak poori doori ka ek chauthaai paas hai. 2m se wahi 10cm kuch bhi nahi.
-Lens ki galti nahi hai — doori ki hai. Isliye 85–135mm ko "portrait lens" kehte hain: wo tumhe door khada hone par majboor karta hai.
-Jaan-boojh ke use karo jab aggression, comedy, horror, ya car/product ko powerful dikhana ho.
-Mat karo jab beauty, fashion, interview, ya client ka approved face ho. Wahan ye galti lagti hai.`,
+*Aur kab bilkul nahi?* Beauty, fashion, zyadatar product hero shots, koi bhi interview, aur koi bhi chehra jo client ne still dekh ke approve kiya ho. Wahan distortion galti lagti hai — un logon ko bhi jo naam nahi bata paate.
+
+*Rule chhota hai:* energy chahiye toh paas jao. Izzat chahiye toh peeche hato.`,
     visuals: [
       {
         component: 'FaceDistortion',
         caption:
-          'Head width is locked. Drag the camera distance and watch the nose grow and the ears narrow — the entire effect is distance, nothing else.',
+          'Sir ki chaudai lock hai. Camera ki doori ghumao aur dekho naak kaise badhta hai aur kaan kaise sikudte hain — poora khel sirf doori ka hai, aur kuch nahi.',
         interactive: true,
       },
     ],
@@ -310,79 +318,79 @@ Mat karo jab beauty, fashion, interview, ya client ka approved face ho. Wahan ye
         kind: 'work',
         title: 'Brazil',
         year: 1985,
-        shot: 'Bureaucrats and officials shot in close-up on very wide lenses, faces bulging toward the camera while the room warps away behind them.',
-        why: 'The distortion makes ordinary functionaries grotesque without any makeup or performance change. The lens choice is the characterisation.',
+        shot: 'Sarkari babu aur officers ke close-ups bahut wide lens par liye gaye hain — chehre camera ki taraf phoole hue, aur peeche kamra mudta hua.',
+        why: 'Distortion aam clerks ko bina makeup aur bina acting badle bhadda bana deta hai. Yahan lens ka chunav hi character banana ka kaam kar raha hai.',
       },
       {
         kind: 'generic',
-        shot: 'The standard car commercial hero angle: camera dropped almost to the tarmac, very close to the front wheel arch, wide lens.',
-        why: 'The near corner of the car stretches toward the viewer and the far end tapers away, exaggerating length and stance. The car looks physically bigger and more planted than it is when you walk up to it.',
+        shot: 'Car ad ka wo standard hero angle: camera lagbhag sadak se chipka hua, aage ke pahiye ke bilkul paas, wide lens.',
+        why: 'Car ka najdeek wala kona darshak ki taraf khinch jaata hai aur door wala sira patla ho jaata hai, jisse lambai aur jamaav badh ke dikhta hai. Car showroom me jaake dekhne se badi aur zyada jami hui lagti hai.',
       },
     ],
     commonMistakes: [
-      'Calling it lens distortion and then trying to fix it with a lens-profile correction. A profile fixes bowed lines, not stretched noses — the two are different problems.',
-      'Using a wide lens for a close-up because the room is small. You will get an unflattering face; back out to a wider shot or find a way to gain distance instead.',
-      'Warping a distorted face in After Effects to fix it. Warping drags the ears and hairline with it and creates a subtler, weirder wrongness than the original.',
+      'Ise "lens distortion" kehke lens-profile correction se theek karne ki koshish karna. Profile mudi hui lines theek karta hai, phooli hui naak nahi — do alag problem hain.',
+      'Kamra chhota hai isliye close-up wide lens par le lena. Chehra kharab aayega; usse behtar hai wider shot lo ya doori paane ka koi jugaad karo.',
+      'Distorted chehre ko After Effects me warp karke theek karna. Warp kaan aur hairline ko bhi kheench leta hai, aur original se zyada ajeeb cheez ban jaati hai.',
     ],
-    aiTranslation: `Diffusion models learned distortion from captions like "wide angle", "fisheye", "GoPro" and "selfie". So they apply it as a *style*, which means they apply it inconsistently — you will regularly get a barrel-distorted background behind a face rendered at flattering portrait proportions, or the reverse.
+    aiTranslation: `Model ne distortion "wide angle", "fisheye", "GoPro" aur "selfie" jaise captions se seekha hai. Matlab wo use ek *style* ki tarah lagata hai — aur isiliye adhoora lagata hai. Tumhe aksar milega: background me barrel distortion, lekin chehra portrait wale flattering proportion me. Ya ulta.
 
-Name that failure, because it is everywhere and almost nobody diagnoses it: **perspective mismatch**. It is a major reason AI faces read as uncanny even when the skin, hair and lighting are excellent. The viewer is reading two contradictory camera positions in one image.
+*Is failure ka naam yaad rakho: perspective mismatch.* Ye har jagah hai aur lagbhag koi diagnose nahi karta. Yehi badi wajah hai ki achhi skin, achhe baal aur achhi lighting ke bawajood AI chehre "uncanny" lagte hain — darshak ek hi image me do alag camera positions padh raha hota hai.
 
-**To get distortion deliberately:** "shot from 30 centimetres away on a 20mm lens, nose closest to camera, face filling the frame, edges of the frame stretching." Naming the distance does far more than naming the lens.
+*Jaan-boojh ke distortion chahiye:* "shot from 30 centimetres away on a 20mm lens, nose closest to camera, face filling the frame, edges of the frame stretching." Doori likhna mm likhne se kahin zyada kaam karta hai.
 
-**To avoid it — which is most product and beauty work:** "shot from two metres away on an 85mm portrait lens, natural facial proportions, no wide-angle stretching." Add wide-angle terms to your negatives. Left alone, several models drift toward a mildly wide, mildly bulged face that looks subtly off in a way clients reject without being able to explain.
+*Nahi chahiye — jo ki zyadatar product aur beauty kaam hai:* "shot from two metres away on an 85mm portrait lens, natural facial proportions, no wide-angle stretching." Negatives me wide-angle wale words daal do. Chhod doge toh kai models halka sa wide, halka sa phoola chehra bana dete hain — client usse reject kar deta hai bina bataye ki kyun.
 
-**Fix it upstream, not in comp.** Regenerate. Warping in After Effects drags the ears and hairline and produces a worse artefact than the one you started with.
+*Ilaaj upar hai, comp me nahi.* Dobara generate karo. After Effects me warp karoge toh kaan aur hairline kheench jaayenge aur pehle se buri cheez banegi.
 
-**The one that will earn you money:** when you composite a real product photograph over an AI-generated plate, you must match the plate’s implied distortion. If the plate reads as a 20mm shot and your product was photographed on a 50mm, the edges will never sit — the product will look pasted no matter how good your roto and grade are. In Nuke, estimate the plate’s distortion from straight lines in the background, apply a matching LensDistortion to your product element, then grade. This is the exact skill most AI operators do not have.`,
+*Aur ye wala tumhe paise dilayega:* jab asli product photo ko AI plate par comp karte ho, tumhe plate ki distortion match karni padegi. Agar plate 20mm jaisa lagta hai aur tumne product 50mm par shoot kiya, toh kinare kabhi baithenge nahi — chahe roto aur grade kitna bhi perfect ho, product chipkaya hua lagega. Nuke me background ki seedhi lines dekh ke plate ki distortion ka andaaza lagao, product element par matching LensDistortion lagao, phir grade karo. Ye wahi skill hai jo zyadatar AI operators ke paas nahi hai.`,
     terms: ['wide-angle-distortion', 'barrel-distortion', 'portrait-length'],
     checks: [
       {
         id: 'c1',
-        prompt: 'A face shot from 40cm looks bulged. What actually caused it?',
+        prompt: '40cm se liya hua chehra phoola hua lag raha hai. Asli wajah kya hai?',
         options: [
-          'The camera being that close — features at different depths render at very different sizes',
-          'The wide lens bending light at the edges',
-          'A low shutter speed',
-          'The sensor being too small',
+          'Camera ka itna paas hona — alag gehrai wale hisse bahut alag size me aate hain',
+          'Wide lens ka kinaron par roshni ko modna',
+          'Shutter speed kam hona',
+          'Sensor chhota hona',
         ],
         answerIndex: 0,
-        why: 'At 40cm a 10cm nose-to-ear offset is a large fraction of the total distance. The lens only made that framing possible.',
+        why: '40cm par naak aur kaan ka 10cm ka farak poori doori ka bada hissa hai. Lens ne bas wo framing mumkin banayi.',
       },
       {
         id: 'c2',
-        prompt: 'Which of these can be corrected in post with a lens profile?',
+        prompt: 'Inme se kaun si cheez post me lens profile se theek ho sakti hai?',
         options: [
-          'Barrel distortion — bowed straight lines near the frame edge',
-          'A nose that renders too large from close range',
-          'Perspective compression from a long lens',
-          'Both barrel distortion and stretched facial features',
+          'Barrel distortion — kinaron par mudi hui seedhi lines',
+          'Paas se liya hua bada naak',
+          'Long lens se aayi perspective compression',
+          'Barrel distortion aur khinche hue chehre, dono',
         ],
         answerIndex: 0,
-        why: 'Barrel distortion is an optical property of the glass. Perspective stretching is a fact about where the camera stood, and no profile can undo it.',
+        why: 'Barrel distortion kaanch ki property hai. Perspective ka khinchav sirf ye batata hai ki camera kahan khada tha, aur koi profile use nahi mita sakta.',
       },
       {
         id: 'c3',
-        prompt: 'Why are 85–135mm lenses traditionally used for portraits?',
+        prompt: 'Portrait ke liye 85–135mm lens kyun use hote hain?',
         options: [
-          'They force a camera distance of two metres or more, at which facial features are nearly equidistant',
-          'They are optically sharper than shorter lenses',
-          'They produce more background blur than any other lenses',
-          'They have less barrel distortion by design',
+          'Ye tumhe do meter ya zyada door khade hone par majboor karte hain, jahan chehre ke hisse lagbhag barabar door hote hain',
+          'Ye baaki lenses se zyada sharp hote hain',
+          'Ye sabse zyada background blur dete hain',
+          'Inme design se kam barrel distortion hoti hai',
         ],
         answerIndex: 0,
-        why: 'The focal length is chosen for the standing distance it imposes. The flattering rendering is a consequence of that distance.',
+        why: 'Focal length us doori ke liye chuni jaati hai jo wo thopta hai. Achha dikhna us doori ka nateeja hai.',
       },
     ],
     assignment: {
       brief:
-        'Use your phone. Photograph your own face — or any willing face — filling the frame from roughly 30cm, then again filling the frame from roughly 2 metres by walking back and zooming in. Then generate the same two treatments in FLUX by describing the camera distance rather than the millimetres, and compare which pair separates more cleanly.',
-      deliverable: 'Four images: two photographed, two generated, arranged as a two-by-two grid.',
+        'Phone use karo. Apna — ya kisi bhi raazi chehre ka — photo lo jo lagbhag 30cm se frame bhar de, phir dobara 2 meter peeche ja ke zoom karke frame bharo. Uske baad FLUX me wahi do treatment banao, lekin mm likhne ke bajaye camera ki doori describe karke — aur dekho kaun si jodi zyada saaf farak dikhati hai.',
+      deliverable: 'Chaar images: do photo khinchi hui, do generate ki hui, do-by-do grid me.',
       timeboxMinutes: 40,
       successCriteria: [
-        'In your close photograph the nose is visibly larger relative to the ears than in the far photograph, and you can point to the difference.',
-        'Your two generated images differ in the same direction as your two photographs, which proves the prompt language actually worked.',
-        'You can state whether the model responded more to the distance description or to the millimetre number, based on what you saw.',
+        'Tumhari paas wali photo me naak kaano ke mukable saaf taur par bada hai, aur tum us farak par ungli rakh sakte ho.',
+        'Tumhari do generated images usi direction me alag hain jis direction me tumhari photos hain — isse pata chalta hai prompt ki bhasha sach me kaam kar gayi.',
+        'Tum bata sakte ho ki model ne doori wale description par zyada reaction diya ya mm number par, jo tumne khud dekha uske hisaab se.',
       ],
       usesTools: ['Phone camera', 'FLUX Schnell'],
     },
@@ -394,35 +402,32 @@ Name that failure, because it is everywhere and almost nobody diagnoses it: **pe
     trackId: 'camera',
     moduleId: 'lens-and-perspective',
     order: 4,
-    title: 'Zoom vs push-in — two different sentences',
-    oneLine: 'One magnifies the picture. The other moves the audience.',
+    title: 'Zoom bनाam push-in — do alag baatein',
+    oneLine: 'Ek tasveer ko bada karta hai. Doosra darshak ko utha ke le jaata hai.',
     estMinutes: 7,
     prerequisites: ['camera-focal-length'],
-    body: `A **zoom** and a **push-in** can end on identical framing, and they mean completely different things.
+    definitionEn:
+      'A zoom changes focal length while the camera stays put, so framing changes but perspective does not. A push-in physically moves the camera toward the subject, changing camera-to-subject distance and therefore perspective, which produces parallax.',
+    body: `**Zoom** aur **push-in** dono bilkul ek jaisi framing par khatam ho sakte hain, aur phir bhi unka matlab bilkul alag hota hai.
 
-A zoom changes focal length while the camera stays put. Because **camera-to-subject distance** never changed, the relationship between subject and background is frozen: everything magnifies together, uniformly. It is a crop performed live. The viewer’s position in the world does not move — their *attention* is directed. The sentence is *look closer*.
+Zoom me focal length badalti hai lekin camera apni jagah par khada rehta hai. **camera-to-subject distance** badla hi nahi, isliye subject aur background ka rishta jama hua hai — sab kuch ek saath, barabar bada hota hai. Ye live crop hai. Darshak duniya me apni jagah se hila nahi; uska *dhyaan* mod diya gaya. Baat ye hai: "dekho".
 
-A push-in physically moves the camera toward the subject, usually on a **dolly**, a slider or a gimbal. Distance changes, so perspective changes with it: the subject grows faster than the background, the background falls away and less of it stays in frame. The viewer is transported. The sentence is *get closer*.
+Push-in me camera sach me subject ki taraf chalta hai — **dolly** par, slider par, ya gimbal par. Doori badalti hai, isliye perspective bhi badalta hai: subject background se tez badhta hai, background peeche chhoot jaata hai aur uska kam hissa frame me bachta hai. Darshak ko utha ke le jaaya gaya. Baat ye hai: "paas aa jao".
 
-Three consequences worth memorising.
+*Teen nateeje yaad rakhne layak hain.*
 
-*Parallax.* A push generates it — foreground shifts more than background as you travel, which is the strongest depth cue we have. A zoom generates none. This is the real reason a zoom feels cheap and a push feels expensive: one of them contains information about the shape of the space, and the other does not.
+*Pehla — parallax.* Push me **parallax** banta hai: chalte waqt aage ki cheez peeche ki cheez se zyada khisakti hai, aur yehi hamara sabse strong depth signal hai. Zoom me bilkul nahi banta. Yehi asli wajah hai ki zoom sasta lagta hai aur push mehnga — ek me space ki shakal ki jaankari hai, doosre me nahi.
 
-*Emotional register.* A slow push-in on a face is the standard grammar for a realisation landing. A zoom on a face reads as observation, surveillance, or comedy — which is why documentary and 1970s television are full of zooms and modern drama mostly is not.
+*Doosra — feeling.* Chehre par dheema push-in wo standard grammar hai jab kisi ko koi baat samajh aati hai. Chehre par zoom nazar rakhne jaisa, ya comedy jaisa lagta hai — isiliye documentary aur 1970s ke TV me zoom bhare pade hain, aur aaj ke drama me lagbhag nahi hain.
 
-*Combining them.* Move the camera one way while zooming the other at a matched rate and you get a **dolly zoom**: the subject stays the same size while the background expands or collapses behind them. Because it is physically impossible for a viewer to experience, it reads as the ground shifting under a character. Use it roughly once per project, if that.
+*Teesra — dono ko mila do.* Camera ek taraf chalao aur lens doosri taraf zoom karo, barabar speed par, toh **dolly zoom** banta hai: subject ka size wahi rehta hai lekin background peeche phailta ya sikudta hai. Insaan ki aankh ye kabhi dekh hi nahi sakti, isliye ye aisa lagta hai jaise character ke paron ke neeche se zameen khisak rahi ho. Ek project me zyada se zyada ek baar.
 
-A zoom is not forbidden. It is a specific tool with a specific voice — snap zooms punctuate, slow zooms in observational work signal that the camera is a watcher rather than a participant. Just never reach for one because moving the camera was inconvenient. That is the version an audience can feel.`,
-    hinglishGloss: `Zoom aur push-in dono same framing par khatam ho sakte hain, lekin matlab bilkul alag hai.
-Zoom = camera wahin khada, sirf lens badla. Background ka rishta same rehta hai. Matlab: "dekho, dhyaan do."
-Push-in = camera sach me chal ke paas gaya. Background peeche chhoot jaata hai. Matlab: "andar aa jao."
-Push me parallax milta hai — paas ki cheez zyada hilti hai, door ki kam. Yehi depth ka ehsaas deta hai, aur yehi mehnga lagta hai.
-Zoom galat nahi hai. Bas usse tab mat use karo jab camera hilana mushkil lag raha ho — wo audience ko feel ho jaata hai.`,
+Zoom mana nahi hai. Wo apni ek khaas awaaz wala tool hai — snap zoom baat par zor daalta hai, dheema zoom batata hai ki camera hissedaar nahi, dekhne wala hai. Bas use tab mat uthao jab camera hilana mushkil lag raha ho. Wo wala version audience ko mehsoos ho jaata hai.`,
     visuals: [
       {
         component: 'ZoomVsPush',
         caption:
-          'Both panels keep the subject exactly the same size at every point of the move. The only difference is what happens to the background — which is the entire difference between the two moves.',
+          'Dono panels me subject har point par bilkul same size ka hai. Farak sirf background me hai — aur yehi dono moves ka poora farak hai.',
         interactive: true,
       },
     ],
@@ -431,81 +436,81 @@ Zoom galat nahi hai. Bas usse tab mat use karo jab camera hilana mushkil lag rah
         kind: 'work',
         title: 'Vertigo',
         year: 1958,
-        shot: 'The view down the bell-tower stairwell, dollying back while zooming in, so the stairwell stretches away while its framing holds.',
-        why: 'The shot was devised for this film to externalise vertigo. It works because the brain cannot reconcile stable framing with shifting perspective, which is exactly what the character is experiencing.',
+        shot: 'Bell tower ki seedhiyon me neeche ka view — camera peeche jaata hai aur lens andar zoom karta hai, isliye seedhiyan khinchti chali jaati hain par framing wahi rehti hai.',
+        why: 'Ye shot isi film ke liye ijaad hua tha, chakkar aane ki feeling bahar laane ke liye. Dimag stable framing aur badalte perspective ko jod nahi paata — aur character ke saath bilkul yahi ho raha hai.',
       },
       {
         kind: 'work',
         title: 'Jaws',
         year: 1975,
-        shot: 'Brody on the beach as he registers the attack, the camera dollying in while the lens zooms out, the background beach stretching behind him.',
-        why: 'The framing on his face barely changes, so the performance stays readable, while the world behind him becomes unstable. The technique carries the realisation instead of a reaction shot doing it.',
+        shot: 'Beach par Brody ko hamla samajh aata hai — camera andar dolly karta hai aur lens bahar zoom, aur uske peeche ka beach khinch jaata hai.',
+        why: 'Uske chehre ki framing lagbhag nahi badalti, isliye acting saaf padhi jaati hai, jabki peeche ki duniya hil jaati hai. Reaction shot ki jagah technique khud wo realisation utha leti hai.',
       },
     ],
     commonMistakes: [
-      'Using a zoom because moving the camera was inconvenient. The audience cannot name what is wrong, but the shot reads as television rather than film.',
-      'Calling a scale-up in After Effects a push-in. Scaling a finished frame is a zoom by definition — no new perspective information exists in the pixels.',
-      'Using a dolly zoom because it looks impressive. It is a statement about a character losing their footing; deployed casually it just announces that somebody learned a trick.',
+      'Zoom isliye karna kyunki camera hilana mushkil tha. Audience naam nahi bata paayegi, lekin shot film ke bajaye television jaisa lagega.',
+      'After Effects me scale-up ko push-in kehna. Bane hue frame ko bada karna definition ke hisaab se zoom hai — un pixels me nayi perspective ki koi jaankari hai hi nahi.',
+      'Dolly zoom isliye lagana kyunki impressive lagta hai. Wo character ke paon ukhadne ke baare me ek statement hai; aise hi laga do toh bas ye announce hota hai ki kisi ne ek trick seekh li.',
     ],
-    aiTranslation: `Video models treat these as genuinely different requests, and knowing which one you are asking for is the difference between a usable shot and a morphing mess.
+    aiTranslation: `Video models in dono ko sach me alag request maante hain, aur tum kaun sa maang rahe ho — usi se kaam ka shot ya morphing wala kachra milta hai.
 
-**"Zoom in" is the cheap, safe prompt.** Most image-to-video models implement it close to a scale of the existing frame. Little new information is required, so artifacts are rare — but you often get softness as the model upscales into the crop.
+*"Zoom in" sasta aur safe prompt hai.* Zyadatar image-to-video models ise maujuda frame ke scale ki tarah karte hain. Nayi jaankari kam chahiye, isliye artifacts kam aate hain — lekin crop me jaate hue softness aksar aa jaati hai.
 
-**"Dolly in" or "push in, camera moves toward the subject" is the expensive prompt.** The model now has to invent parallax: new background must appear at the edges, occluded areas must be filled, and relative sizes must change correctly. This is precisely where Wan, LTX and Kling break — you get warping edges, background drift, and objects that swim past each other at the wrong rates.
+*"Dolly in" ya "push in, camera moves toward the subject" mehnga prompt hai.* Ab model ko parallax banana padega: kinaron par naya background aana chahiye, chhupi hui jagah bharni chahiye, aur relative sizes sahi tareeke se badalni chahiye. Yahin Wan, LTX aur Kling toot-te hain — kinare warp karte hain, background drift karta hai, cheezein galat speed se ek dusre ke paas se nikalti hain.
 
-**Practical rule for 8GB:** if the shot only needs emphasis, prompt a slow zoom and accept it. If the shot genuinely needs the audience moved, prompt the push, generate several takes, and budget for throwing most of them away. Keep the move short — one to two seconds of travel — and keep the background simple, because every extra object is another thing to reconstruct wrong.
+*8GB par practical rule:* agar shot ko sirf zor dena hai, dheema zoom prompt karo aur maan lo. Agar shot ko sach me audience ko utha ke le jaana hai, push prompt karo, kai takes banao, aur maan ke chalo ki zyadatar phenkne padenge. Move chhota rakho — ek se do second ka safar — aur background simple rakho, kyunki har extra cheez ek aur cheez hai jo galat ban sakti hai.
 
-**Faking a push properly in comp — and this is your skill already.** Roto the subject, patch the plate behind them, put subject and background on separate cards at different depths, and animate a real 3D camera forward. You now have genuine parallax that the model could not produce, and you controlled it frame-perfectly. A 2D scale is a zoom; a multi-plane setup is a push. That distinction is worth money.
+*Comp me push sahi tareeke se banana — aur ye skill tumhare paas pehle se hai.* Subject ko roto karo, uske peeche plate patch karo, subject aur background ko alag-alag depth par cards par rakho, aur asli 3D camera aage animate karo. Ab tumhare paas wahi parallax hai jo model bana hi nahi paata, aur wo bhi frame-perfect control ke saath. 2D scale zoom hai; multi-plane setup push hai. Is farak ki keemat hai.
 
-**Dolly zoom in an AI pipeline:** do not prompt for it. No current model holds subject scale steady while altering background perspective. Build it in Nuke — scale the background card up while pulling the camera back so the subject holds size. It is a twenty-minute setup and it looks correct because it *is* correct.`,
+*AI pipeline me dolly zoom:* iske liye prompt mat likho. Abhi koi model subject ka size sthir rakhte hue background ka perspective nahi badal paata. Ise Nuke me banao — background card ko bada karte jao aur camera peeche khinchte jao taaki subject ka size na badle. Bees minute ka setup hai aur sahi lagta hai, kyunki wo sach me sahi *hai*.`,
     terms: ['zoom', 'push-in', 'dolly', 'dolly-zoom'],
     checks: [
       {
         id: 'c1',
-        prompt: 'A shot ends on the same framing whether you zoomed or pushed. What tells the audience which one happened?',
+        prompt: 'Shot ek hi framing par khatam hota hai, chahe zoom kiya ho ya push. Audience ko kaise pata chalega kaun sa hua?',
         options: [
-          'The background — it changes size and coverage during a push, but not during a zoom',
-          'The exposure shifting during the move',
-          'The frame rate of the shot',
-          'Nothing — the two are visually identical',
+          'Background se — push me uska size aur coverage badalta hai, zoom me nahi',
+          'Move ke dauraan exposure badalne se',
+          'Shot ke frame rate se',
+          'Kuch nahi — dono bilkul ek jaise dikhte hain',
         ],
         answerIndex: 0,
-        why: 'A push changes camera distance, so subject and background scale at different rates and the field of view narrows. A zoom magnifies everything uniformly.',
+        why: 'Push me camera ki doori badalti hai, isliye subject aur background alag-alag rate se bade hote hain aur field of view sikudta hai. Zoom sab kuch barabar bada karta hai.',
       },
       {
         id: 'c2',
-        prompt: 'Why does a push-in feel more expensive than a zoom?',
+        prompt: 'Push-in zoom se zyada mehnga kyun lagta hai?',
         options: [
-          'It produces parallax, which carries real information about the shape of the space',
-          'It requires more expensive lenses',
-          'It always uses a slower shutter',
-          'It records at a higher resolution',
+          'Usme parallax banta hai, jo space ki shakal ki asli jaankari deta hai',
+          'Usme mehnge lens lagte hain',
+          'Usme hamesha slow shutter use hota hai',
+          'Wo zyada resolution par record hota hai',
         ],
         answerIndex: 0,
-        why: 'Parallax is our strongest depth cue. A zoom contains none, so the viewer receives no new information about the space.',
+        why: 'Parallax hamara sabse strong depth signal hai. Zoom me wo hota hi nahi, isliye darshak ko space ke baare me koi nayi jaankari milti nahi.',
       },
       {
         id: 'c3',
-        prompt: 'You scale a finished AI frame up over time in After Effects. What have you made?',
+        prompt: 'Tumne After Effects me ek bane hue AI frame ko dheere-dheere scale up kiya. Tumne kya banaya?',
         options: [
-          'A zoom — no new perspective information exists in those pixels',
-          'A push-in, because the subject gets closer',
-          'A dolly zoom',
-          'A rack focus',
+          'Zoom — un pixels me nayi perspective ki jaankari hai hi nahi',
+          'Push-in, kyunki subject paas aa raha hai',
+          'Dolly zoom',
+          'Rack focus',
         ],
         answerIndex: 0,
-        why: 'Scaling a flat image magnifies everything uniformly. Perspective can only change if the viewpoint changes, which needs either a real move or a multi-plane rebuild.',
+        why: 'Flat image ko bada karne se sab kuch barabar bada hota hai. Perspective tabhi badal sakta hai jab dekhne ki jagah badle — uske liye ya asli move chahiye ya multi-plane rebuild.',
       },
     ],
     assignment: {
       brief:
-        'Take one still — generated or photographed — with a clear subject and a readable background. Produce two five-second moves from it: a plain 2D scale-up, and a genuine push built by rotoscoping the subject, patching the background, and animating a camera across two cards at different depths. Same start and end framing on both.',
-      deliverable: 'Two five-second clips, exported side by side or back to back.',
+        'Ek still lo — generate ki hui ya khinchi hui — jisme saaf subject ho aur padha ja sakne wala background ho. Usse do paanch-second ke move banao: ek simple 2D scale-up, aur doosra asli push — subject ko roto karke, background patch karke, aur do alag depth wale cards par camera animate karke. Dono ka start aur end framing same rakhna.',
+      deliverable: 'Do paanch-second clips, saath-saath ya ek ke baad ek.',
       timeboxMinutes: 90,
       successCriteria: [
-        'Both clips start and end on visibly the same framing, so the comparison is fair.',
-        'In the multi-plane version the background moves at a measurably different rate to the subject, and the edges of the subject hold up without haloing.',
-        'You can describe, in one sentence, which of the two you would deliver to a client and what specifically gives the other one away.',
+        'Dono clips saaf taur par ek hi framing par shuru aur khatam hote hain, taaki comparison imaandaar rahe.',
+        'Multi-plane wale version me background subject se naap ke alag rate par chalta hai, aur subject ke kinare bina halo ke tikte hain.',
+        'Tum ek line me bata sakte ho ki client ko kaun sa dete aur doosre ki pol kis cheez se khulti hai.',
       ],
       usesTools: ['Nuke', 'FLUX Schnell'],
     },
@@ -517,39 +522,36 @@ Zoom galat nahi hai. Bas usse tab mat use karo jab camera hilana mushkil lag rah
     trackId: 'camera',
     moduleId: 'lens-and-perspective',
     order: 5,
-    title: 'Sensor size, crop factor, and what "35mm" actually means',
-    oneLine: 'A millimetre number means nothing until you say which camera.',
+    title: 'Sensor, crop factor, aur "35mm" ka asli matlab',
+    oneLine: 'mm ka number tab tak adhoora hai jab tak camera na batao.',
     estMinutes: 8,
     prerequisites: ['camera-focal-length'],
-    body: `A lens projects a circle of light — its **image circle**. The **sensor** sits inside that circle and takes a rectangular bite out of it. Change the size of the bite and you change the framing, without touching the lens at all.
+    definitionEn:
+      'A lens projects a circular image; the sensor sits inside that circle and captures a rectangle of it. Crop factor is the ratio of the full-frame sensor diagonal to another sensor’s diagonal, and multiplying focal length by it gives the equivalent focal length that would frame the same way on full frame.',
+    body: `Lens roshni ka ek gol daayra banata hai — usko **image circle** kehte hain. **sensor** us daayre ke andar baithta hai aur usme se ek chaukor tukda kaat leta hai. Tukde ki size badlo, framing badal jaayegi — lens ko haath lagaye bina.
 
-That is the whole idea, and everything else is bookkeeping.
+Bas yehi poora idea hai. Baaki sirf hisaab-kitaab hai.
 
-**Full frame** is 36 x 24mm, the size of a 35mm stills negative, and it is the reference everybody quotes against. **Super 35** is roughly 24.9 x 18.7mm and has been the workhorse of cinema for a century. Below that sit Micro Four Thirds, one-inch sensors in most drones, and the tiny sensors in phones.
+**full frame** 36 x 24mm hota hai, 35mm still negative jitna, aur sab log isi ke hisaab se number bolte hain. **super 35** lagbhag 24.9 x 18.7mm hai aur ek sadi se cinema ka main format raha hai. Uske neeche Micro Four Thirds, zyadatar drones ka one-inch sensor, aur phone ke chhote sensors aate hain.
 
-**Crop factor** is the ratio of the full-frame diagonal to your sensor’s diagonal. Super 35 is about 1.4x, Micro Four Thirds is 2x, a one-inch drone sensor is about 2.7x, a phone can be 4x or more. Multiply your lens by that number and you get the **equivalent focal length** — the full-frame lens that would frame the same way.
+**crop factor** matlab full frame ke diagonal aur tumhare sensor ke diagonal ka ratio. Super 35 lagbhag 1.4x, Micro Four Thirds 2x, drone ka one-inch lagbhag 2.7x, phone 4x ya usse zyada. Apne lens ko us number se guna karo aur **equivalent focal length** mil jaata hai — yaani full frame ka wo lens jo isi tarah frame karta.
 
-So a 25mm on Super 35 frames like a 35mm on full frame. A 12mm on Micro Four Thirds frames like a 24mm. And your phone’s main camera, whose actual lens is around 5.5mm, frames like a 26mm — which is why phone footage always looks slightly wide and slightly close.
+Toh Super 35 par 25mm, full frame ke 35mm jaisa frame karega. Micro Four Thirds par 12mm, 24mm jaisa. Aur tumhare phone ka main camera, jiska asli lens lagbhag 5.5mm hai, 26mm jaisa frame karta hai — isiliye phone ki footage hamesha thodi wide aur thodi paas lagti hai.
 
-Now the three things people get wrong.
+*Ab teen cheezein jo log galat samajhte hain.*
 
-*Equivalence is about framing only.* It tells you what fits in the frame. It says nothing about perspective — that is still purely where you stand — and it does not directly transfer to depth of field, which follows the physical aperture diameter rather than the equivalent number.
+*Pehli — equivalence sirf framing ke baare me hai.* Wo batata hai frame me kya aayega. Perspective ke baare me kuch nahi kehta — wo abhi bhi sirf tumhari khadi hone ki jagah se banta hai — aur depth of field bhi seedhe seedhe convert nahi hoti, wo aperture ke asli diameter se chalti hai.
 
-*Crop does not magnify.* A smaller sensor does not bring you closer. It throws away the outside of the picture. If you crop a full-frame image in post by the same factor, you get the identical framing.
+*Doosri — crop se cheez paas nahi aati.* Chhota sensor tumhe najdeek nahi le jaata. Wo bas tasveer ke bahar wale hisse phenk deta hai. Full frame image ko post me utna hi crop kar do, bilkul wahi framing milegi.
 
-*A sensor bigger than the image circle gives you dark corners.* That is what happens when you put lenses designed for a small format onto a large-format camera, and it is a real constraint when renting.
+*Teesri — image circle se bada sensar lagaoge toh kone kaale aayenge.* Yehi hota hai jab chhote format ke liye bane lens bade camera par lagte hain, aur rent karte waqt ye asli dikkat hai.
 
-The working habit: never say a focal length without a format. "35mm" is not information. "35mm on Super 35" is.`,
-    hinglishGloss: `Lens ek gol image banata hai. Sensor us gole me se ek chaukor tukda kaat leta hai. Tukda chhota = kam frame me aayega.
-Full frame = 36 x 24mm, yehi standard hai. Super 35 usse chhota, phone bahut chhota.
-Crop factor = kitna chhota. Usse multiply karo toh pata chalega frame kaisa aayega. 25mm on Super 35 = 35mm jaisa.
-Dhyaan do: crop se cheez paas nahi aati — bas kinaare kat jaate hain. Aur perspective abhi bhi sirf tumhari doori se banta hai.
-Isliye kabhi sirf "35mm" mat bolo. Hamesha bolo "35mm on Super 35". Warna baat adhoori hai.`,
+*Aadat ye banao:* format bataye bina focal length kabhi mat bolo. "35mm" jaankari nahi hai. "35mm on Super 35" jaankari hai.`,
     visuals: [
       {
         component: 'SensorCrop',
         caption:
-          'Pick a sensor and a lens. The image circle never changes — only how much of it the sensor keeps, and what that does to your framing and field of view.',
+          'Sensor aur lens chuno. Image circle kabhi nahi badalta — sirf ye badalta hai ki sensor usme se kitna rakhta hai, aur usse tumhari framing aur field of view par kya asar padta hai.',
         interactive: true,
       },
     ],
@@ -558,72 +560,72 @@ Isliye kabhi sirf "35mm" mat bolo. Hamesha bolo "35mm on Super 35". Warna baat a
         kind: 'work',
         title: 'The Hateful Eight',
         year: 2015,
-        shot: 'The interior scenes in the stagecoach lodge, captured on 65mm negative through Ultra Panavision anamorphic optics for a 2.76:1 frame.',
-        why: 'A very large capture area with wide optics fits an entire room and a spread of characters into one frame with no close coverage. The format choice is what allows the film to stage long scenes as ensembles rather than as cutting patterns.',
+        shot: 'Lodge ke andar ke scenes 65mm negative par Ultra Panavision anamorphic optics ke saath liye gaye hain, 2.76:1 frame me.',
+        why: 'Itna bada capture area aur wide optics ek hi frame me poora kamra aur kai characters samet lete hain, bina close coverage ke. Format ka chunav hi film ko lambe scenes ensemble ki tarah stage karne deta hai, cutting pattern ki tarah nahi.',
       },
       {
         kind: 'generic',
-        shot: 'The same 25mm lens moved from a Super 35 cinema camera onto a Micro Four Thirds body between setups, with nobody adjusting the camera position.',
-        why: 'The framing tightens from a comfortable medium to a close shot. Nothing about the lens or the subject changed — only how much of the projected image the sensor kept, which is exactly the trap that crop factor exists to warn you about.',
+        shot: 'Wahi 25mm lens ek setup me Super 35 cinema camera se hata ke Micro Four Thirds body par lag jaata hai, aur kisi ne camera ki jagah nahi badli.',
+        why: 'Framing aaram wale medium se close shot me sikud jaati hai. Lens ya subject me kuch nahi badla — sirf sensor ne projected image ka kam hissa rakha. Crop factor isi jaal se bachane ke liye hi hota hai.',
       },
     ],
     commonMistakes: [
-      'Quoting a focal length without a format and expecting anyone to know what you mean. On a shoot that ambiguity costs a lens swap; in a prompt it costs a regeneration.',
-      'Believing a crop sensor gives you extra reach for free. It gives you a tighter crop of the same image, with fewer pixels behind it.',
-      'Assuming equivalent focal length also converts depth of field. Framing converts by crop factor; depth of field follows the physical aperture diameter and behaves differently.',
+      'Format bataye bina focal length bolna aur ummeed karna ki saamne wale ko samajh aa jaayega. Shoot par is confusion ki keemat ek lens change hai; prompt me ek regeneration.',
+      'Ye maan lena ki crop sensor muft me extra reach de raha hai. Wo usi image ka tighter crop deta hai, aur uske peeche pixels bhi kam hote hain.',
+      'Ye samajhna ki equivalent focal length depth of field bhi convert kar deta hai. Framing crop factor se convert hoti hai; depth of field aperture ke asli diameter se chalti hai aur alag behave karti hai.',
     ],
-    aiTranslation: `A diffusion model has no sensor. When you write "35mm" it is matching against captions from every format at once — phone snaps, Super 35 stills, medium format — so the token is a loose style prior, not a geometry instruction. This is why lens numbers in prompts feel unreliable: they genuinely are.
+    aiTranslation: `Diffusion model ke paas sensor hai hi nahi. Jab tum "35mm" likhte ho toh wo ek saath har format ke captions se match kar raha hai — phone snaps, Super 35 stills, medium format. Isliye wo token ek dheela sa style hint hai, geometry ka order nahi. Prompt me lens numbers unreliable *lagte* hain kyunki wo sach me hain.
 
-**Prompt framing and distance instead.** "Medium shot from three metres, moderately wide field of view showing the room behind him" is unambiguous in a way "35mm" never is. Keep the millimetre token if you like the look it pulls, but never rely on it alone to control the frame.
+*Iski jagah framing aur doori likho.* "Medium shot from three metres, moderately wide field of view showing the room behind him" — ye utna hi saaf hai jitna "35mm" kabhi nahi tha. mm token rakhna hai toh rakho, lekin frame control karne ke liye akela us par mat jao.
 
-**Where this becomes a real production problem: the hybrid pipeline.** The moment you shoot a plate on your phone and place it in an AI-generated environment, you have two cameras with two different geometries. Your phone is roughly a 26mm equivalent — wide, with visible perspective stretch on anything close. If the AI environment reads as an 85mm compressed background, the composite will never sit, and no amount of grading and grain matching will rescue it. Viewers will call it fake without knowing why.
+*Ye asli production problem kahan banti hai: hybrid pipeline.* Jis pal tum phone se plate shoot karke use AI environment me daalte ho, tumhare paas do camera ho gaye jinki geometry alag hai. Tumhara phone lagbhag 26mm equivalent hai — wide, aur paas ki cheezon par saaf khinchav ke saath. Agar AI environment 85mm jaisa compressed background lagta hai, toh composite kabhi baithega nahi, aur koi bhi grading ya grain matching use bacha nahi payegi. Log use nakli kahenge bina jaane ki kyun.
 
-**So work in this order.** Shoot the plate first. Note its equivalent focal length and its camera height. Then prompt the environment to match that geometry explicitly — "wide angle view, deep space receding, camera at chest height" — rather than generating something beautiful and hoping the plate drops into it.
+*Isliye is order me kaam karo.* Pehle plate shoot karo. Uska equivalent focal length aur camera ki height note karo. Phir environment ko wahi geometry match karne ke liye prompt karo — "wide angle view, deep space receding, camera at chest height" — na ki kuch sundar bana ke ummeed karo ki plate usme fit ho jaayega.
 
-**In Nuke:** a 3D camera needs a focal length and a filmback before it can do anything useful. For an AI plate you have to estimate both. Use straight lines that should be parallel — building edges, floor tiles, table sides — and read their vanishing points, or measure a known object such as a bottle or a door. Getting this approximately right is what makes a tracked element sit in the plate; getting it wrong is what makes it float.`,
+*Nuke me:* 3D camera ko kaam karne se pehle focal length aur filmback chahiye. AI plate ke liye dono ka andaaza tumhe lagana hoga. Wo lines dekho jo parallel honi chahiye — building ke kinare, floor tiles, table ke side — aur unke vanishing points padho; ya koi jaani-pehchani cheez naapo jaise bottle ya darwaza. Isse lagbhag sahi karna hi wo cheez hai jo tracked element ko plate me baithati hai; galat karna wo cheez hai jo use tairta hua dikhati hai.`,
     terms: ['sensor', 'full-frame', 'super-35', 'crop-factor', 'equivalent-focal-length', 'image-circle'],
     checks: [
       {
         id: 'c1',
-        prompt: 'You put a 25mm lens on a Super 35 camera, crop factor roughly 1.4x. What full-frame lens frames the same way?',
-        options: ['About 35mm', 'About 18mm', 'About 50mm', 'Still 25mm — focal length does not change'],
+        prompt: 'Tumne Super 35 camera par 25mm lens lagaya, crop factor lagbhag 1.4x. Full frame par kaun sa lens waisi hi framing dega?',
+        options: ['Lagbhag 35mm', 'Lagbhag 18mm', 'Lagbhag 50mm', 'Abhi bhi 25mm — focal length badalti nahi'],
         answerIndex: 0,
-        why: 'Multiply the focal length by the crop factor: 25 x 1.4 is about 35. The lens itself is unchanged; only the framing is being described in full-frame terms.',
+        why: 'Focal length ko crop factor se guna karo: 25 x 1.4 lagbhag 35. Lens khud nahi badla; sirf framing ko full frame ki bhasha me bola ja raha hai.',
       },
       {
         id: 'c2',
-        prompt: 'Does a smaller sensor bring the subject closer?',
+        prompt: 'Kya chhota sensor subject ko paas le aata hai?',
         options: [
-          'No — it discards the outside of the image, which is identical to cropping in post',
-          'Yes, it magnifies the centre of the image',
-          'Yes, but only with telephoto lenses',
-          'No, it changes perspective instead',
+          'Nahi — wo image ke bahar ke hisse phenk deta hai, jo post me crop karne jaisa hi hai',
+          'Haan, wo image ke beech ko bada kar deta hai',
+          'Haan, lekin sirf telephoto lens ke saath',
+          'Nahi, wo iski jagah perspective badal deta hai',
         ],
         answerIndex: 0,
-        why: 'The lens projects the same image circle regardless. A smaller sensor simply keeps less of it, exactly as a crop in post would.',
+        why: 'Lens wahi image circle banata hai chahe kuch bhi ho. Chhota sensor bas usme se kam rakhta hai — bilkul waise hi jaise post me crop karna.',
       },
       {
         id: 'c3',
-        prompt: 'You shoot a plate on your phone and generate a compressed, long-lens-looking AI background for it. What goes wrong?',
+        prompt: 'Tumne phone se plate shoot ki aur uske liye compressed, long-lens jaisa AI background banaya. Kya galat hoga?',
         options: [
-          'The two have contradictory geometry, so the composite never sits no matter how well you grade it',
-          'The colours will not match',
-          'The frame rates will conflict',
-          'Nothing — perspective does not matter in compositing',
+          'Dono ki geometry ek dusre ke khilaaf hai, isliye composite kabhi baithega nahi chahe grade kitni bhi achhi ho',
+          'Rang match nahi karenge',
+          'Frame rates takra jaayenge',
+          'Kuch nahi — compositing me perspective matter nahi karta',
         ],
         answerIndex: 0,
-        why: 'A phone is roughly a 26mm equivalent with visible perspective stretch. Dropping it into an 85mm-looking background is two cameras in one shot, and viewers read it as fake immediately.',
+        why: 'Phone lagbhag 26mm equivalent hai, jisme saaf perspective khinchav hota hai. Use 85mm jaise background me daalna ek hi shot me do camera hain, aur darshak turant nakli padh lete hain.',
       },
     ],
     assignment: {
       brief:
-        'Shoot one plate on your phone of a simple object on a table, noting roughly how far you stood. Then generate two AI backgrounds for it in FLUX: one prompted as a wide, deep space matching your phone geometry, and one prompted as a compressed long-lens background. Composite the object into both.',
-      deliverable: 'Two composites from the same plate, plus one line of notes on each.',
+        'Phone se ek plate shoot karo — table par rakhi koi simple cheez — aur lagbhag kitni door khade the wo note kar lo. Phir FLUX me uske liye do background banao: ek "wide, deep space" jo tumhare phone ki geometry se mile, aur doosra compressed long-lens wala. Dono me object ko composite karo.',
+      deliverable: 'Ek hi plate se do composites, aur dono par ek-ek line notes.',
       timeboxMinutes: 60,
       successCriteria: [
-        'The matched-geometry composite has the object sitting in the space, with background lines converging consistently with the object edges.',
-        'The mismatched composite visibly fails, and you can point at the specific cue that gives it away rather than just saying it feels wrong.',
-        'You wrote down the approximate equivalent focal length of your phone plate before generating anything.',
+        'Matching wale composite me object space ke andar baitha lagta hai, aur background ki lines object ke kinaron se mel khaati hain.',
+        'Mismatch wala composite saaf taur par fail hota hai, aur tum us khaas cue par ungli rakh sakte ho jo pol kholta hai — sirf "ajeeb lag raha hai" nahi.',
+        'Kuch bhi generate karne se pehle tumne apni phone plate ka lagbhag equivalent focal length likh liya tha.',
       ],
       usesTools: ['Phone camera', 'FLUX Schnell', 'Nuke'],
     },
@@ -635,38 +637,35 @@ Isliye kabhi sirf "35mm" mat bolo. Hamesha bolo "35mm on Super 35". Warna baat a
     trackId: 'camera',
     moduleId: 'lens-and-perspective',
     order: 6,
-    title: 'Aspect ratio and safe areas — the shape is a decision',
-    oneLine: 'Frame shape changes staging, and platforms will crop what you ignore.',
+    title: 'Aspect ratio aur safe areas — shape ek faisla hai',
+    oneLine: 'Frame ki shakal staging badal deti hai, aur platform baaki crop kar dega.',
     estMinutes: 8,
     prerequisites: ['camera-focal-length'],
-    body: `**Aspect ratio** is the proportion of frame width to height. It is a creative decision that changes how you stage a scene, not a technical setting you inherit from your camera.
+    definitionEn:
+      'Aspect ratio is the proportion of frame width to height. Safe areas are the inset regions guaranteed to survive cropping, overscan and platform interface elements — action safe protects important motion, and title safe, tighter still, protects text and logos.',
+    body: `**aspect ratio** matlab frame ki chaudai aur unchai ka anupaat. Ye creative faisla hai jo scene stage karne ka tareeka badal deta hai — camera ka default setting nahi jo tumhe bas mil gaya.
 
-The ratios you will actually use:
+*Jo ratios tum sach me use karoge:*
 
-- *1.33 (4:3)* — tall and boxy. Archive, academy, and any time you want intimacy or a deliberate period feel.
-- *1.78 (16:9)* — YouTube, broadcast, the default of the internet.
-- *1.85* — the quieter theatrical standard, barely wider than 16:9.
-- *2.39 (scope)* — very wide. Landscape, spectacle, and huge lateral negative space between two people.
-- *9:16* — vertical. Reels, Shorts, TikTok. Where most paid short-form work now lands.
-- *1:1* — square, for feeds that will crop both ways.
+- *1.33 (4:3)* — lamba aur dabba jaisa. Archive, academy, aur jab intimacy ya purane daur ka ehsaas chahiye.
+- *1.78 (16:9)* — YouTube, TV, internet ka default.
+- *1.85* — theatre ka shaant wala standard, 16:9 se bas thoda chauda.
+- *2.39 (scope)* — bahut chauda. Landscape, tamasha, aur do logon ke beech bahut saari khaali jagah.
+- *9:16* — vertical. Reels, Shorts, TikTok. Aajkal ka zyadatar paid short-form kaam yahin girta hai.
+- *1:1* — square, un feeds ke liye jo dono taraf crop karengi.
 
-Ratio changes staging, which is the part people miss. A 2.39 frame makes it natural to place two characters at opposite edges with emptiness between them, and makes headroom precious. A 9:16 frame cannot do that at all — it forces you to stack information vertically, to shoot tighter, and to put your subject dead centre. Wide frames are about relationships across space. Tall frames are about one thing at a time.
+Ratio staging badal deta hai — yahi hissa log miss karte hain. 2.39 frame me do characters ko dono kinaron par khada karna natural lagta hai, beech me khaali jagah ke saath, aur headroom keemti ho jaata hai. 9:16 frame me ye ho hi nahi sakta — wahan tumhe jaankari upar-neeche stack karni padegi, tighter shoot karna padega, aur subject beech me rakhna padega. Chaude frames rishton ke baare me hain. Lambe frames ek waqt me ek cheez ke baare me.
 
-Then there are **safe areas**, which exist because your frame will be cropped by things you do not control. Action safe, an inset of a few percent, protects important movement. Title safe, tighter still, protects text and logos. On social platforms the real hazard is the interface: captions, usernames, buttons and progress bars cover roughly the bottom fifth and part of one side of a vertical video. Treat that as a dead zone from the first storyboard.
+Phir aata hai **safe area**, jo isliye hai kyunki tumhara frame un cheezon se crop hoga jo tumhare control me nahi hain. Action safe, kuch percent andar, zaroori movement bachata hai. Title safe, usse bhi tight, text aur logo bachata hai. Social platforms par asli khatra interface hai: captions, username, buttons aur progress bar vertical video ke neeche ke lagbhag paanchve hisse aur ek side ko dhak lete hain. Use pehle storyboard se hi dead zone maan lo.
 
-Two mechanical points. **Letterbox** means fitting a wide image inside a taller frame with black bars. Bars baked into a delivery file cost you pixels and stop the platform cropping intelligently, so bake them only when the client asks. And **anamorphic** optics achieve a wide ratio by squeezing the image onto a normal sensor and unsqueezing later — which also brings oval bokeh and horizontal streak flares, so it is a look, not just a shape.
+*Do technical baatein.* **letterbox** matlab chaude image ko lambe frame me kaali pattiyon ke saath fit karna. Delivery file me pattiyan bake kar doge toh pixels ka nuksaan hota hai aur platform samajhdari se crop nahi kar paata — isliye tabhi bake karo jab client kahe. Aur **anamorphic** optics chaude ratio isliye deti hain kyunki wo image ko squeeze karke normal sensor par record karti hain aur baad me stretch hota hai — saath me oval bokeh aur horizontal streak flares bhi aate hain, toh wo ek look hai, sirf shape nahi.
 
-The rule that saves the most work: decide the delivery ratio before you shoot or generate anything, and compose for it. Reframing later always costs you something.`,
-    hinglishGloss: `Aspect ratio = frame ka shape. Ye creative decision hai, camera ka default setting nahi.
-2.39 wide frame me do log dono kinaare par khade ho sakte hain, beech me khaali jagah — rishta dikhta hai.
-9:16 vertical me ye possible hi nahi. Wahan sab kuch upar-neeche stack hota hai aur subject beech me aata hai.
-Safe area yaad rakho: Reels me neeche ka lagbhag 20% caption aur buttons kha jaate hain. Wahan kuch important mat rakho.
-Sabse bada rule: delivery ratio pehle decide karo, phir shoot ya generate karo. Baad me crop karne me hamesha nuksaan hota hai.`,
+*Sabse zyada mehnat bachane wala rule:* kuch bhi shoot ya generate karne se pehle delivery ratio decide karo, aur usi ke liye compose karo. Baad me reframe karne me hamesha kuch na kuch jaata hai.`,
     visuals: [
       {
         component: 'AspectRatioFrames',
         caption:
-          'Switch ratios and watch the staging options change. Turn on the 9:16 overlay to see how little of a wide frame survives a vertical crop.',
+          'Ratio badalte jao aur dekho staging ke options kaise badalte hain. 9:16 overlay chalu karo aur dekho chaude frame ka kitna kam hissa vertical crop me bachta hai.',
         interactive: true,
       },
     ],
@@ -675,83 +674,83 @@ Sabse bada rule: delivery ratio pehle decide karo, phir shoot ya generate karo. 
         kind: 'work',
         title: 'The Grand Budapest Hotel',
         year: 2014,
-        shot: 'The film changes aspect ratio by era — a boxy 1.37 frame for the 1930s sections, widescreen for the later timelines.',
-        why: 'The frame shape itself tells you which decade you are in before any other cue arrives, and the tall 1930s frame naturally produces the centred, formal, doll-house staging that period requires.',
+        shot: 'Film daur ke hisaab se aspect ratio badalti hai — 1930s ke hisson ke liye dabba jaisa 1.37 frame, baad ke timelines ke liye widescreen.',
+        why: 'Frame ki shakal hi bata deti hai tum kis dashak me ho, kisi aur cue se pehle. Aur lamba 1930s frame apne aap wo centred, formal, doll-house jaisi staging deta hai jo us daur ko chahiye.',
       },
       {
         kind: 'work',
         title: 'Mommy',
         year: 2014,
-        shot: 'The film is staged in a 1:1 square frame, which the character physically pushes open into widescreen during a moment of freedom.',
-        why: 'The square frame keeps the characters boxed and close for the whole film, so when the ratio widens the release is felt physically rather than understood intellectually. Frame shape is used as a story beat.',
+        shot: 'Poori film 1:1 square frame me stage ki gayi hai, jise character azaadi ke ek pal me sach me haathon se khol ke widescreen kar deta hai.',
+        why: 'Square frame poori film characters ko dabba band aur paas rakhta hai, isliye jab ratio khulta hai toh raahat dimag se nahi, badan se mehsoos hoti hai. Frame ki shakal ko story beat ki tarah use kiya gaya hai.',
       },
     ],
     commonMistakes: [
-      'Shooting or generating in 16:9 and cropping to 9:16 for delivery. You throw away most of the width and the subject is almost never where the vertical frame needs it.',
-      'Placing captions or a logo near the bottom of a vertical frame, where the platform interface will sit directly on top of them.',
-      'Treating 2.39 as automatically more cinematic. A wide frame with nothing staged across it is just a 16:9 image with less picture in it.',
+      '16:9 me shoot ya generate karke delivery ke liye 9:16 crop karna. Chaudai ka zyadatar hissa phenk dete ho aur subject lagbhag kabhi wahan nahi hota jahan vertical frame ko chahiye.',
+      'Vertical frame ke neeche ki taraf captions ya logo rakhna, jahan platform ka interface unke bilkul upar baith jaayega.',
+      '2.39 ko apne aap cinematic maan lena. Chauda frame jisme kuch stage hi nahi kiya gaya, wo bas kam tasveer wala 16:9 hai.',
     ],
-    aiTranslation: `Aspect ratio is one of the few prompt parameters that is genuinely mechanical rather than suggestive — and it changes more than the shape.
+    aiTranslation: `Aspect ratio un giney-chuney prompt parameters me se hai jo sach me mechanical hai, suggestion nahi — aur wo shape se zyada badalta hai.
 
-**Generate at your delivery ratio, always.** Models were trained on differently framed images per aspect, so a vertical generation does not merely crop a horizontal one — it composes differently, usually tighter and more centred, which is what you want for vertical anyway. Generating 16:9 and cropping to 9:16 discards about two-thirds of the width and puts your subject in the wrong place.
+*Hamesha apni delivery ratio par hi generate karo.* Models har aspect ke liye alag tarah se framed images par train hue hain, isliye vertical generation horizontal ka crop nahi hai — wo alag compose karta hai, aksar tighter aur zyada centred, jo vertical ke liye chahiye bhi wahi. 16:9 bana ke 9:16 crop karne me lagbhag do-tihai chaudai chali jaati hai aur subject galat jagah aa jaata hai.
 
-**On 8GB of VRAM, ratio is a budget decision.** What costs you memory is total pixel count, not shape. A 1024 x 1024 square and a 1344 x 768 wide frame cost roughly the same. Pick the ratio you need, then set the resolution ladder to fit the card — generate small, check composition, upscale the keeper.
+*8GB VRAM par ratio ek budget ka faisla hai.* Memory total pixel count se khatam hoti hai, shape se nahi. 1024 x 1024 square aur 1344 x 768 wide lagbhag barabar padte hain. Jo ratio chahiye wo chuno, phir resolution ladder card ke hisaab se set karo — chhota generate karo, composition check karo, jo pasand aaye use upscale karo.
 
-**Delivering both wide and vertical.** Do not generate twice and hope for continuity, because the character will drift. Generate the vertical master, then extend outward with generative expand or outpainting to build the wide version. The subject stays identical and only the edges are invented, which is the cheap half.
+*Wide aur vertical dono deni hai?* Do baar generate karke continuity ki ummeed mat karo, character drift ho jaayega. Vertical master banao, phir generative expand ya outpainting se bahar ki taraf badha ke wide version banao. Subject bilkul wahi rehta hai aur sirf kinare invent hote hain — yaani sasta wala hissa.
 
-**Design for the dead zone from the storyboard stage.** In a vertical ad the bottom fifth belongs to the platform. If your product lands there in the generated still, you will be re-generating rather than nudging, because moving a subject in a finished frame means repainting the background behind it.
+*Dead zone ko storyboard stage se hi design karo.* Vertical ad me neeche ka paanchwa hissa platform ka hai. Agar generated still me tumhara product wahan aa gaya, toh tumhe dobara generate karna padega, khiskana kaam nahi karega — kyunki bane hue frame me subject hilane ka matlab hai uske peeche background dobara paint karna.
 
-**In After Effects or Nuke:** keep an overlay of both the title-safe box and the 9:16 crop on the comp from the first day of a project. Every reframe you catch during comp is one you did not catch after a client approved the wide version — and that is the version they will ask you to also deliver vertically, always at the end.`,
+*After Effects ya Nuke me:* project ke pehle din se comp par title-safe box aur 9:16 crop dono ka overlay rakho. Comp me pakda gaya har reframe wo hai jo tumne client ke wide version approve karne ke *baad* nahi pakda — aur wahi version hai jiska vertical bhi maanga jaayega, hamesha aakhir me.`,
     terms: ['aspect-ratio', 'letterbox', 'safe-area', 'anamorphic'],
     checks: [
       {
         id: 'c1',
-        prompt: 'Why does a 2.39 frame change how you stage two characters?',
+        prompt: '2.39 frame do characters ko stage karne ka tareeka kyun badal deta hai?',
         options: [
-          'It makes lateral negative space between them natural, and headroom scarce',
-          'It gives you more vertical room for gesture',
-          'It forces the subject to be centred',
-          'It has no effect on staging, only on the look',
+          'Usme unke beech chaudai me khaali jagah natural lagti hai, aur headroom kam pad jaata hai',
+          'Usme gesture ke liye zyada vertical jagah milti hai',
+          'Wo subject ko beech me rehne par majboor karta hai',
+          'Staging par koi asar nahi, sirf look badalta hai',
         ],
         answerIndex: 0,
-        why: 'A wide frame is about relationships across space. Vertical frames force stacking and centring instead.',
+        why: 'Chauda frame chaudai me rishton ke baare me hai. Vertical frames stacking aur centring par majboor karte hain.',
       },
       {
         id: 'c2',
-        prompt: 'You must deliver both a 16:9 and a 9:16 version of an AI-generated ad. What is the right order?',
+        prompt: 'Ek AI ad ka 16:9 aur 9:16 dono version dena hai. Sahi order kya hai?',
         options: [
-          'Generate the vertical master, then extend outward to build the wide version',
-          'Generate 16:9 and crop the middle for vertical',
-          'Generate both independently at the same seed',
-          'Generate square and letterbox both ways',
+          'Vertical master generate karo, phir bahar ki taraf badha ke wide banao',
+          '16:9 generate karo aur beech ka hissa vertical ke liye crop karo',
+          'Dono alag-alag generate karo, same seed par',
+          'Square generate karke dono taraf letterbox kar do',
         ],
         answerIndex: 0,
-        why: 'Extending outward keeps the subject identical and only invents edges. Cropping inward throws away most of the width and misplaces the subject.',
+        why: 'Bahar badhane se subject bilkul wahi rehta hai aur sirf kinare bante hain. Andar crop karne se zyadatar chaudai chali jaati hai aur subject galat jagah aa jaata hai.',
       },
       {
         id: 'c3',
-        prompt: 'What sits in the bottom fifth of a vertical social video?',
+        prompt: 'Vertical social video ke neeche ke paanchve hisse me kya baithta hai?',
         options: [
-          'Platform interface — captions, usernames, buttons — so treat it as a dead zone',
-          'The title-safe area, which is the safest part of the frame',
-          'Nothing, provided you deliver at full resolution',
-          'The letterbox bars',
+          'Platform ka interface — captions, username, buttons — isliye use dead zone maano',
+          'Title-safe area, jo frame ka sabse safe hissa hai',
+          'Kuch nahi, agar tum full resolution par deliver karo',
+          'Letterbox ki kaali pattiyan',
         ],
         answerIndex: 0,
-        why: 'That band is covered by the app. Anything important placed there is invisible to the viewer regardless of how the file was mastered.',
+        why: 'Us patti ko app dhak leta hai. Wahan rakhi koi bhi zaroori cheez darshak ko dikhti hi nahi, chahe file kaise bhi master ki gayi ho.',
       },
     ],
     assignment: {
       brief:
-        'Take one advertising idea — any product you own will do. Generate the same hero still three times in FLUX at three ratios: 9:16, 1:1 and 16:9, each generated natively rather than cropped. Then overlay a title-safe box and the platform dead zone on the vertical one.',
-      deliverable: 'Three stills at three ratios, plus the vertical one with safe-area overlays drawn on.',
+        'Ek advertising idea lo — koi bhi product jo tumhare paas hai. Wahi hero still FLUX me teen baar banao, teen ratios par: 9:16, 1:1 aur 16:9, har ek natively generate karke, crop karke nahi. Phir vertical wale par title-safe box aur platform dead zone ka overlay banao.',
+      deliverable: 'Teen ratios par teen stills, aur vertical wala safe-area overlays ke saath.',
       timeboxMinutes: 45,
       successCriteria: [
-        'All three were generated at their own ratio, not cropped from one another, and the composition genuinely differs between them.',
-        'On the vertical version, nothing important falls inside the bottom fifth or outside the title-safe box.',
-        'You can say which of the three ratios suits this particular product best, and give a staging reason rather than a taste reason.',
+        'Teeno apne apne ratio par generate hue hain, ek dusre se crop karke nahi, aur composition sach me alag hai.',
+        'Vertical version me koi zaroori cheez neeche ke paanchve hisse me ya title-safe box ke bahar nahi hai.',
+        'Tum bata sakte ho ki is product ke liye teeno me se kaun sa ratio sabse sahi hai, aur wajah staging ki honi chahiye, pasand ki nahi.',
       ],
-      usesTools: ['FLUX Schnell', 'Any image editor'],
+      usesTools: ['FLUX Schnell', 'Koi bhi image editor'],
     },
   },
 ]

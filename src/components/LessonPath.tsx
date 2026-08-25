@@ -36,7 +36,7 @@ export function LessonPath({
         ) : null}
       </p>
       <p className="mt-0.5 text-sm text-ink-faint">
-        {module?.title} &middot; Lesson {position} of {lessons.length}
+        {module?.title} &middot; Lesson {position} / {lessons.length}
       </p>
 
       <ol className="mt-3 flex flex-wrap items-center gap-1.5">
