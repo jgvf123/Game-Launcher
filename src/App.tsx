@@ -17,6 +17,12 @@ import { LabQuiz } from './pages/lab/LabQuiz'
 import { LabLog } from './pages/lab/LabLog'
 import { Progress } from './pages/Progress'
 import { Settings } from './pages/Settings'
+import { Tracks } from './pages/v2/Tracks'
+import { TrackDetail } from './pages/v2/TrackDetail'
+import { LessonPage } from './pages/v2/LessonPage'
+import { Review } from './pages/v2/Review'
+import { Glossary } from './pages/v2/Glossary'
+import { ShipLog } from './pages/v2/ShipLog'
 
 export default function App() {
   return (
@@ -26,6 +32,13 @@ export default function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
+            {/* v2 curriculum: real, URL-addressable pages per track and lesson. */}
+            <Route path="/tracks" element={<Tracks />} />
+            <Route path="/track/:trackId" element={<TrackDetail />} />
+            <Route path="/lesson/:lessonId" element={<LessonPage />} />
+            <Route path="/review" element={<Review />} />
+            <Route path="/glossary" element={<Glossary />} />
+            <Route path="/ship-log" element={<ShipLog />} />
             <Route path="/library" element={<Library />} />
             <Route path="/library/:cardId" element={<CardDetail />} />
             <Route path="/study" element={<Study />} />

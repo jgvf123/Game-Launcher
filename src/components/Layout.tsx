@@ -7,18 +7,54 @@ const NAV_ITEMS: {
   longLabel?: string
   icon: ReactNode
   end?: boolean
+  /** Shown in the mobile bottom bar. Everything else is sidebar-only. */
+  mobile?: boolean
 }[] = [
   {
     to: '/',
     label: 'Home',
     end: true,
+    mobile: true,
     icon: (
       <path d="M3 10.5 12 3l9 7.5V21h-6v-6h-6v6H3v-10.5z" />
     ),
   },
   {
+    to: '/tracks',
+    label: 'Tracks',
+    mobile: true,
+    icon: (
+      <path d="M4 4.5h16v4H4zM4 10h16v4H4zM4 15.5h16v4H4z" />
+    ),
+  },
+  {
+    to: '/review',
+    label: 'Review',
+    mobile: true,
+    icon: (
+      <path d="M12 5V2L7.5 6.5 12 11V8a5 5 0 1 1-5 5H5a7 7 0 1 0 7-8z" />
+    ),
+  },
+  {
+    to: '/ship-log',
+    label: 'Shipped',
+    longLabel: 'Ship Log',
+    icon: (
+      <path d="M9.5 16.2 6.3 13l-1.4 1.4 4.6 4.6L20 8.5 18.6 7 9.5 16.2zM3 5h6v2H3V5zm0 4h4v2H3V9z" />
+    ),
+  },
+  {
+    to: '/glossary',
+    label: 'Terms',
+    longLabel: 'Glossary',
+    icon: (
+      <path d="M6 2h12a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v13h11V4H6zm2 2h7v2H8V6zm0 4h7v2H8v-2z" />
+    ),
+  },
+  {
     to: '/library',
     label: 'Library',
+    mobile: true,
     icon: (
       <path d="M4 4h5v16H4zM10.5 4h5v16h-5zM17.5 5.2l4.4 1.2-3.9 14.4-4.4-1.2z" />
     ),
@@ -49,6 +85,7 @@ const NAV_ITEMS: {
     to: '/lab',
     label: 'Lab',
     longLabel: 'Prompt Lab',
+    mobile: true,
     icon: (
       <path d="M9 2h6v2h-1v5.2l4.8 8.4A2 2 0 0 1 17.1 21H6.9a2 2 0 0 1-1.7-3.4L10 9.2V4H9V2zm3 8.6L8.7 16h6.6L12 10.6z" />
     ),
@@ -63,6 +100,7 @@ const NAV_ITEMS: {
   {
     to: '/settings',
     label: 'Settings',
+    mobile: true,
     icon: (
       <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm9 4a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L16 3H8l-.4 2.6a7 7 0 0 0-2 1.2l-2.5-1-2 3.4 2 1.6A7 7 0 0 0 3 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.2L8 21h8l.4-2.6a7 7 0 0 0 2-1.2l2.5 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z" />
     ),
@@ -70,9 +108,11 @@ const NAV_ITEMS: {
 ]
 
 function NavItems({ orientation }: { orientation: 'side' | 'bottom' }) {
+  // The bottom bar only has room for the six routes used daily.
+  const items = orientation === 'bottom' ? NAV_ITEMS.filter((i) => i.mobile) : NAV_ITEMS
   return (
     <>
-      {NAV_ITEMS.map((item) => (
+      {items.map((item) => (
         <NavLink
           key={item.to}
           to={item.to}
@@ -112,11 +152,11 @@ export function Layout() {
           </svg>
           <span className="text-lg font-bold tracking-tight">Frame School</span>
         </div>
-        <nav className="flex flex-col gap-1" aria-label="Main">
+        <nav className="flex flex-col gap-1 overflow-y-auto" aria-label="Main">
           <NavItems orientation="side" />
         </nav>
         <p className="mt-auto px-2 text-xs text-zinc-400 dark:text-zinc-500">
-          The visual grammar of filmmaking.
+          Filmmaking, and how to direct a machine.
         </p>
       </aside>
 
