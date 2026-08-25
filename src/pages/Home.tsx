@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom'
-import { LESSON_SEQUENCE, REVIEW_ITEMS, TRACK_BY_ID } from '../curriculum'
+import { LESSON_SEQUENCE, REVIEW_ITEMS } from '../curriculum'
 import { useLessonProgress, useShipLog } from '../data/hooks'
 import { useAppState } from '../lib/state'
 import { isDue } from '../lib/srs'
+import { LessonPath } from '../components/LessonPath'
+import { PillLink } from '../components/ui'
 
 /**
- * One question, one answer.
+ * Start here, and know where "here" is.
  *
- * This screen exists to start the next thing and nothing else. Counts, weak
- * areas and the rest of the app are one tap away — they are not competing for
- * attention the moment you open it.
+ * One action, but never without orientation: which track and module you are
+ * inside, which lesson of how many, and what the loop of a lesson actually
+ * is. Every tappable thing on this page is a real button — the previous
+ * version left them as bare text and they read as decoration.
  */
 export function Home() {
   const { reviews } = useAppState()
@@ -21,28 +24,30 @@ export function Home() {
   const started = lesson ? progress.has(lesson.id) : false
   const dueCount = REVIEW_ITEMS.filter((i) => isDue(reviews[i.id])).length
   const owed = LESSON_SEQUENCE.filter((l) => progress.has(l.id) && !shipped.has(l.id)).length
+  const firstTime = progress.size === 0 && shipLog.length === 0
 
   return (
     <div className="animate-fade-up">
       {lesson ? (
-        <section className="pt-6 sm:pt-14">
-          <p className="text-sm text-ink-faint">
-            {started ? 'Where you left off' : 'Next up'}
-            {' · '}
-            {TRACK_BY_ID.get(lesson.trackId)?.title}
-          </p>
+        <section className="pt-2 sm:pt-8">
+          <LessonPath lesson={lesson} shipped={shipped} />
 
-          <h1 className="mt-3 text-[1.75rem] font-bold leading-[1.2] tracking-tight sm:text-[2.1rem]">
+          <p className="mt-8 text-sm font-medium text-accent-strong dark:text-accent">
+            {started ? 'Carry on where you stopped' : firstTime ? 'Start here' : 'Next lesson'}
+          </p>
+          <h1 className="mt-1.5 text-[1.7rem] font-bold leading-[1.2] tracking-tight sm:text-[2rem]">
             {lesson.title}
           </h1>
-
           <p className="reading mt-3 max-w-[34rem] text-ink-soft">{lesson.oneLine}</p>
 
           <Link
             to={`/lesson/${lesson.id}`}
-            className="mt-7 inline-flex items-center rounded-xl bg-accent-strong px-6 py-3.5 text-base font-semibold text-white transition-[filter] hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-strong"
+            className="mt-7 inline-flex items-center gap-2.5 rounded-xl bg-accent-strong px-6 py-4 text-base font-semibold text-white transition-[filter] hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-strong"
           >
-            {started ? 'Continue' : 'Begin'}
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            {started ? 'Continue this lesson' : 'Start this lesson'}
           </Link>
 
           <p className="mt-3 text-sm text-ink-faint">
@@ -50,39 +55,55 @@ export function Home() {
           </p>
         </section>
       ) : (
-        <section className="pt-6 sm:pt-14">
-          <h1 className="text-[1.75rem] font-bold leading-tight tracking-tight">
+        <section className="pt-2 sm:pt-8">
+          <h1 className="text-[1.7rem] font-bold leading-tight tracking-tight">
             Everything written is shipped.
           </h1>
           <p className="reading mt-3 max-w-[34rem] text-ink-soft">
-            Nothing left in the queue. Review what you know, or make something of your own.
+            Nothing left in the queue right now. Review what you know, or go make something.
           </p>
-          <Link
-            to="/review"
-            className="mt-7 inline-flex items-center rounded-xl bg-accent-strong px-6 py-3.5 text-base font-semibold text-white hover:brightness-105"
-          >
-            Review
-          </Link>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <PillLink to="/review">Review</PillLink>
+            <PillLink to="/practice">Practice</PillLink>
+          </div>
         </section>
       )}
 
-      {/* Everything else is a quiet line, never a competing panel. */}
-      <div className="mt-14 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-5 text-sm">
+      {/* What a lesson actually is — shown until the first one is finished. */}
+      {firstTime ? (
+        <section className="mt-10 max-w-[34rem] rounded-2xl bg-surface p-5">
+          <p className="font-semibold">Ye app kaise chalti hai</p>
+          <ol className="reading mt-3 space-y-2 text-ink-soft">
+            <li>
+              <span className="font-semibold text-ink">1.</span> Ek lesson kholo. Wo chhote steps me
+              chalta hai — padho, diagram ghumao, teen sawaal, aur ek cheez banao.
+            </li>
+            <li>
+              <span className="font-semibold text-ink">2.</span> Har step pe neeche ek hi button
+              hota hai: <span className="font-semibold text-ink">Continue</span>. Bas wahi dabate
+              jao.
+            </li>
+            <li>
+              <span className="font-semibold text-ink">3.</span> Lesson khatam hone par agla lesson
+              apne aap khul jaata hai. Upar ke daane batate hain tum kahan ho.
+            </li>
+          </ol>
+        </section>
+      ) : null}
+
+      {/* Real buttons, not text that looks like prose. */}
+      <div className="mt-10 flex flex-wrap gap-3 border-t border-line pt-6">
         {dueCount > 0 ? (
-          <Link to="/review" className="text-ink-soft transition-colors hover:text-ink">
-            <span className="font-semibold text-accent-strong dark:text-accent">{dueCount}</span>{' '}
+          <PillLink to="/review" count={dueCount}>
             due for review
-          </Link>
+          </PillLink>
         ) : null}
         {owed > 0 ? (
-          <Link to="/practice" className="text-ink-soft transition-colors hover:text-ink">
-            <span className="font-semibold text-accent-strong dark:text-accent">{owed}</span>{' '}
-            assignment{owed === 1 ? '' : 's'} waiting
-          </Link>
+          <PillLink to="/practice" count={owed}>
+            assignment{owed === 1 ? '' : 's'} to make
+          </PillLink>
         ) : null}
-        <Link to="/tracks" className="text-ink-soft transition-colors hover:text-ink">
-          All tracks
-        </Link>
+        <PillLink to="/tracks">See the whole curriculum</PillLink>
       </div>
     </div>
   )

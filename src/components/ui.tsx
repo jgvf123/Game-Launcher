@@ -8,7 +8,7 @@ type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger'
 
 const BUTTON_STYLES: Record<ButtonVariant, string> = {
   primary: 'bg-accent-strong text-white hover:brightness-105 active:brightness-95 shadow-sm',
-  secondary: 'bg-surface text-ink border border-line hover:bg-surface   ',
+  secondary: 'bg-surface text-ink border border-line hover:border-accent hover:text-accent-strong',
   ghost: 'text-ink-soft hover:bg-surface',
   danger: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm',
 }
@@ -38,6 +38,34 @@ export function ButtonLink({
 }) {
   return (
     <Link to={to} className={`${BUTTON_BASE} ${BUTTON_STYLES[variant]} ${className}`}>
+      {children}
+    </Link>
+  )
+}
+
+/**
+ * A bordered pill link. Used for secondary actions that used to be bare text
+ * and therefore did not read as tappable at all.
+ */
+export function PillLink({
+  to,
+  children,
+  count,
+}: {
+  to: string
+  children: ReactNode
+  count?: number
+}) {
+  return (
+    <Link
+      to={to}
+      className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2.5 text-[0.95rem] font-medium transition-colors hover:border-accent hover:text-accent-strong dark:hover:text-accent"
+    >
+      {count !== undefined ? (
+        <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-accent-strong px-1.5 text-xs font-bold text-white">
+          {count}
+        </span>
+      ) : null}
       {children}
     </Link>
   )
