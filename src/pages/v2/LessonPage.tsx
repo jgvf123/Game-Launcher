@@ -14,6 +14,7 @@ import { DIAGRAMS } from '../../diagrams/registry'
 import { markChecksDone, shipAssignment, touchLesson, unshipLesson } from '../../data/db'
 import { useShipLog } from '../../data/hooks'
 import { useAppState } from '../../lib/state'
+import { useLanguage } from '../../lib/prefs'
 import { Button, EmptyState } from '../../components/ui'
 import { TermTooltip } from '../../components/TermTooltip'
 
@@ -201,6 +202,7 @@ function AssignmentBlock({ lesson }: { lesson: Lesson }) {
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>()
   const lesson = lessonId ? LESSON_BY_ID.get(lessonId) : undefined
+  const lang = useLanguage()
 
   useEffect(() => {
     if (lesson) void touchLesson(lesson.id)
@@ -285,7 +287,8 @@ export function LessonPage() {
         )
       })}
 
-      {/* 4 · Hinglish gloss */}
+      {/* 4 · Hinglish gloss — hidden entirely when the learner picks English only */}
+      {lang === 'both' ? (
       <details className="mt-7 rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900" open>
         <summary className="cursor-pointer select-none px-4 py-3 font-semibold">
           Yehi baat, simple Hinglish me
@@ -294,6 +297,7 @@ export function LessonPage() {
           {lesson.hinglishGloss}
         </div>
       </details>
+      ) : null}
 
       {/* 5 · two real examples */}
       <SectionTitle kicker="Seen in">Two examples</SectionTitle>

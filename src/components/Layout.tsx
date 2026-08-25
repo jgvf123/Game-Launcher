@@ -36,6 +36,40 @@ const NAV_ITEMS: {
     ),
   },
   {
+    to: '/tools/prompt-builder',
+    label: 'Prompt',
+    longLabel: 'Prompt Builder',
+    mobile: true,
+    icon: (
+      <path d="M4 4h16v2H4V4zm0 5h11v2H4V9zm0 5h16v2H4v-2zm0 5h9v2H4v-2zm14.5-6.6 2.1 2.1-5.3 5.3-2.6.5.5-2.6 5.3-5.3z" />
+    ),
+  },
+  {
+    to: '/tools/shot-list',
+    label: 'Shots',
+    longLabel: 'Shot List',
+    mobile: true,
+    icon: (
+      <path d="M3 4h18v4H3V4zm0 6h18v4H3v-4zm0 6h18v4H3v-4zM6 5.5v1M6 11.5v1M6 17.5v1" />
+    ),
+  },
+  {
+    to: '/tools/shot-analyzer',
+    label: 'Analyze',
+    longLabel: 'Shot Analyzer',
+    icon: (
+      <path d="M10 2a8 8 0 1 0 4.9 14.3l5 5 1.4-1.4-5-5A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm-3 6h6v2H7v-2z" />
+    ),
+  },
+  {
+    to: '/projects',
+    label: 'Projects',
+    mobile: true,
+    icon: (
+      <path d="M3 5h6l2 2h10v12H3V5zm2 2v10h14V9h-8.8L8.2 7H5z" />
+    ),
+  },
+  {
     to: '/ship-log',
     label: 'Shipped',
     longLabel: 'Ship Log',
@@ -108,8 +142,12 @@ const NAV_ITEMS: {
 ]
 
 function NavItems({ orientation }: { orientation: 'side' | 'bottom' }) {
-  // The bottom bar only has room for the six routes used daily.
-  const items = orientation === 'bottom' ? NAV_ITEMS.filter((i) => i.mobile) : NAV_ITEMS
+  // On mobile the daily routes lead and the rest follow, all reachable by
+  // swiping the bar — there is no sidebar on small screens to fall back to.
+  const items =
+    orientation === 'bottom'
+      ? [...NAV_ITEMS].sort((a, b) => Number(Boolean(b.mobile)) - Number(Boolean(a.mobile)))
+      : NAV_ITEMS
   return (
     <>
       {items.map((item) => (
@@ -124,7 +162,7 @@ function NavItems({ orientation }: { orientation: 'side' | 'bottom' }) {
                     ? 'bg-accent-soft text-accent-strong dark:bg-zinc-800 dark:text-accent'
                     : 'text-zinc-600 hover:bg-zinc-200/60 dark:text-zinc-400 dark:hover:bg-zinc-800/70'
                 }`
-              : `flex flex-1 flex-col items-center gap-0.5 rounded-md py-1.5 text-xs font-medium transition-colors duration-150 ${
+              : `flex w-[4.25rem] flex-none flex-col items-center gap-0.5 rounded-md py-1.5 text-xs font-medium transition-colors duration-150 ${
                   isActive
                     ? 'text-accent-strong dark:text-accent'
                     : 'text-zinc-500 dark:text-zinc-400'
@@ -163,7 +201,7 @@ export function Layout() {
       {/* Mobile bottom tabs */}
       <nav
         aria-label="Main"
-        className="fixed inset-x-0 bottom-0 z-20 flex border-t border-zinc-200 bg-white px-2 pb-[env(safe-area-inset-bottom)] pt-1 md:hidden dark:border-zinc-800 dark:bg-zinc-900"
+        className="fixed inset-x-0 bottom-0 z-20 flex overflow-x-auto border-t border-zinc-200 bg-white px-2 pb-[env(safe-area-inset-bottom)] pt-1 md:hidden dark:border-zinc-800 dark:bg-zinc-900"
       >
         <NavItems orientation="bottom" />
       </nav>

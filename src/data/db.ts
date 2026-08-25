@@ -78,6 +78,13 @@ export interface MediaRow {
   blob: Blob
 }
 
+export interface PromptPresetRow {
+  id?: number
+  name: string
+  fields: Record<string, string>
+  updatedAt: string
+}
+
 class FrameSchoolDb extends Dexie {
   lessonProgress!: Table<LessonProgressRow, string>
   shipLog!: Table<ShipLogRow, number>
@@ -86,6 +93,7 @@ class FrameSchoolDb extends Dexie {
   shots!: Table<ShotRow, number>
   analyzerAttempts!: Table<AnalyzerAttemptRow, number>
   media!: Table<MediaRow, string>
+  promptPresets!: Table<PromptPresetRow, number>
 
   constructor() {
     super('frame-school-v2')
@@ -97,6 +105,9 @@ class FrameSchoolDb extends Dexie {
       shots: '++id, projectId, order',
       analyzerAttempts: '++id, at',
       media: 'id',
+    })
+    this.version(2).stores({
+      promptPresets: '++id, name, updatedAt',
     })
   }
 }
@@ -139,14 +150,16 @@ export async function saveNote(lessonId: string, body: string): Promise<void> {
 
 /** Everything on disk, as one JSON blob, for the settings export button. */
 export async function exportAll(): Promise<string> {
-  const [lessonProgress, shipLog, notes, projects, shots, analyzerAttempts] = await Promise.all([
-    db.lessonProgress.toArray(),
-    db.shipLog.toArray(),
-    db.notes.toArray(),
-    db.projects.toArray(),
-    db.shots.toArray(),
-    db.analyzerAttempts.toArray(),
-  ])
+  const [lessonProgress, shipLog, notes, projects, shots, analyzerAttempts, promptPresets] =
+    await Promise.all([
+      db.lessonProgress.toArray(),
+      db.shipLog.toArray(),
+      db.notes.toArray(),
+      db.projects.toArray(),
+      db.shots.toArray(),
+      db.analyzerAttempts.toArray(),
+      db.promptPresets.toArray(),
+    ])
   const local: Record<string, unknown> = {}
   for (const key of Object.keys(localStorage)) {
     if (!key.startsWith('fs.')) continue
@@ -161,9 +174,66 @@ export async function exportAll(): Promise<string> {
       version: 2,
       exportedAt: new Date().toISOString(),
       localStorage: local,
-      dexie: { lessonProgress, shipLog, notes, projects, shots, analyzerAttempts },
+      dexie: { lessonProgress, shipLog, notes, projects, shots, analyzerAttempts, promptPresets },
     },
     null,
     2,
   )
+}
+
+/**
+ * Restores an export produced by `exportAll`. Additive by design: existing
+ * rows with the same key are overwritten, nothing else is touched, and a
+ * malformed file is rejected before anything is written.
+ */
+export async function importAll(json: string): Promise<{ restored: number }> {
+  const parsed = JSON.parse(json) as {
+    version?: number
+    localStorage?: Record<string, unknown>
+    dexie?: Record<string, unknown[]>
+  }
+  if (parsed.version !== 2 || typeof parsed.dexie !== 'object' || parsed.dexie === null) {
+    throw new Error('That does not look like a Frame School export.')
+  }
+
+  let restored = 0
+  for (const [key, value] of Object.entries(parsed.localStorage ?? {})) {
+    if (!key.startsWith('fs.')) continue
+    localStorage.setItem(key, JSON.stringify(value))
+    restored += 1
+  }
+
+  const tables = {
+    lessonProgress: db.lessonProgress,
+    shipLog: db.shipLog,
+    notes: db.notes,
+    projects: db.projects,
+    shots: db.shots,
+    analyzerAttempts: db.analyzerAttempts,
+    promptPresets: db.promptPresets,
+  } as const
+
+  for (const [name, table] of Object.entries(tables)) {
+    const rows = parsed.dexie[name]
+    if (!Array.isArray(rows)) continue
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (table as any).bulkPut(rows)
+    restored += rows.length
+  }
+
+  return { restored }
+}
+
+/** Wipes every Dexie store. localStorage reset stays with the v1 settings page. */
+export async function clearAllDexie(): Promise<void> {
+  await Promise.all([
+    db.lessonProgress.clear(),
+    db.shipLog.clear(),
+    db.notes.clear(),
+    db.projects.clear(),
+    db.shots.clear(),
+    db.analyzerAttempts.clear(),
+    db.promptPresets.clear(),
+    db.media.clear(),
+  ])
 }
