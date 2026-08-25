@@ -156,7 +156,7 @@ export function Layout() {
           <NavItems orientation="side" />
         </nav>
         <p className="mt-auto px-2 text-xs text-zinc-400 dark:text-zinc-500">
-          The visual grammar of filmmaking.
+          Filmmaking, and how to direct a machine.
         </p>
       </aside>
 
