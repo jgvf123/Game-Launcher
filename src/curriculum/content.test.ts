@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { DIAGRAM_KEYS } from '../diagrams/registry'
 import { TERMS, TERM_LOOKUP } from './glossary'
 import { LESSONS } from './lessons'
-import { MODULE_BY_ID } from './tracks'
+import { MODULE_BY_ID, TRACKS } from './tracks'
 import { REVIEW_ITEMS } from './review'
 import { BODY_WORD_CAP, LessonSchema, TermSchema, boldedTerms, wordCount } from './schema'
 
@@ -73,5 +73,19 @@ describe('review items', () => {
   it('covers every lesson check', () => {
     const checks = LESSONS.flatMap((l) => l.checks)
     expect(REVIEW_ITEMS.filter((i) => i.kind === 'check')).toHaveLength(checks.length)
+  })
+})
+
+describe('tracks', () => {
+  it('runs A to J with no gaps, so the first track the learner meets is A', () => {
+    TRACKS.forEach((track, i) => {
+      expect(track.order).toBe(i + 1)
+      expect(track.letter).toBe(String.fromCharCode(65 + i))
+    })
+  })
+
+  it('starts on the track that actually has lessons written', () => {
+    const firstWritten = LESSONS.map((l) => l.trackId)
+    expect(firstWritten).toContain(TRACKS[0].id)
   })
 })
